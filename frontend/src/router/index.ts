@@ -7,18 +7,23 @@ import {
 const routes: Array < RouteRecordRaw > = [{
     path: '/',
     redirect: '/home'
-},{
+}, {
     path: '/home',
-    name: "home",
-    component: () => import("../views/Home.vue"),
-    children:[{
-        path:'/login',
-        name:'login',
-        component: () => import("../views/Login.vue")
+    name: "Home",
+    redirect: '/homepage',
+    component: () => import('../views/Home.vue'),
+    children: [{
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/Login.vue')
+    }, {
+        path: '/homepage',
+        name: 'HomePage',
+        component: () => import('../views/HomePage.vue')
     }]
 }]
 
 export const router = createRouter({
-    history:createWebHistory(),
+    history: createWebHistory(),
     routes,
 })
