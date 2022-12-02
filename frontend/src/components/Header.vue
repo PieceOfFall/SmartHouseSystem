@@ -26,7 +26,7 @@
         letter-spacing: 0.2rem;
         height: 100%;
         padding: 1.5rem 1rem;
-        background-color: #141414;
+        background-color: #171b22;
         span {
             font-family: 'STHeiti';
 

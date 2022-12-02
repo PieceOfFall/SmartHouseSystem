@@ -5,16 +5,16 @@ import {
 const useAsideStore = defineStore('aside', {
     state: () => {
         return {
-            isCollapse: false,
+            isStoreCollapse: false,
             selectItem: ''
         }
     },
     actions:{
         changeCollapse() {
-            this.isCollapse = !this.isCollapse
+            this.isStoreCollapse = !this.isStoreCollapse
         },
         setCollapse(status:boolean){
-            this.isCollapse = status
+            this.isStoreCollapse = status
         }
     }
 })

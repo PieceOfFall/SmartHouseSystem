@@ -1,6 +1,6 @@
 <template>
 
-  <el-menu default-active="2" class="el-menu-vertical" background-color="#141414" :collapse="isCollapse"
+  <el-menu default-active="2" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse"
     @open="handleOpen" @close="handleClose">
     <el-menu-item index="0" @click="changeCollapse">
 
@@ -52,8 +52,9 @@
   </el-menu>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
   import {
+    defineComponent,
     onMounted,
     ref
   } from 'vue'
@@ -66,39 +67,61 @@
     MoreFilled
   } from '@element-plus/icons-vue'
   import useAsideStore from '../store';
+  import {
+    storeToRefs
+  } from 'pinia';
 
-  const store = useAsideStore().aside
+  export default defineComponent({
+    components:{
+      Document,
+      IconMenu,
+      Location,
+      Setting,
+      Minus,
+      MoreFilled
+    },
+    setup() {
+      // pinia
+      const store = useAsideStore().aside
+      let {
+        isStoreCollapse
+      } = storeToRefs(store)
 
-  // 侧边栏开关
-  const isCollapse = ref(true)
-  onMounted(() => {
-    let storageCollapse = window.sessionStorage.getItem('isCollapse')
-    if(storageCollapse === 'true'){
-      isCollapse.value = true
-    } else {
-      isCollapse.value = false;
+      // 侧边栏开关
+      const isCollapse = ref(true)
+      onMounted(() => {
+        let storageCollapse = window.sessionStorage.getItem('isCollapse')
+        if (storageCollapse === 'true') {
+          isCollapse.value = true
+        } else {
+          isCollapse.value = false;
+        }
+        isStoreCollapse.value = isCollapse.value
+
+      })
+
+      async function changeCollapse() {
+        isCollapse.value = !isCollapse.value;
+        isStoreCollapse.value = isCollapse.value
+        window.sessionStorage.setItem('isCollapse', `${isCollapse.value}`)
+      }
+      const handleOpen = (key: string, keyPath: string[]) => {
+        console.log(key, keyPath)
+      }
+      const handleClose = (key: string, keyPath: string[]) => {
+        console.log(key, keyPath)
+      }
+
+
+      return{
+        isCollapse,
+        handleOpen,
+        handleClose,
+        changeCollapse
+      }
+
     }
-    store.setCollapse(isCollapse.value)
-    
   })
-  // onbeforeunload(()=>{
-
-    //   window.sessionStorage.setItem('isCollapse',`${isCollapse.value}`)
-  // })
-  async function changeCollapse(){
-      isCollapse.value = !isCollapse.value;
-      store.changeCollapse()
-      window.sessionStorage.setItem('isCollapse',`${isCollapse.value}`)
-  }
-  const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-  const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-
-
-
 </script>
 
 
@@ -113,5 +136,4 @@
     border: 0;
     height: 100%;
   }
-
 </style>

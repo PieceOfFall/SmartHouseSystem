@@ -8,7 +8,7 @@
 
             <el-container>
                 <!-- 侧边栏 -->
-                <el-aside width="198px">
+                <el-aside :width='hasCollapse?"64px":"198px"'>
                     <Aside />
                 </el-aside>
                 <!-- 主体 -->
@@ -24,8 +24,15 @@
     import Aside from '../components/Aside.vue';
     import Header from '../components/Header.vue';
     import {
-        defineComponent
+        defineComponent,
+        onMounted,
+        ref,
+        watch
     } from 'vue'
+    import useAsideStore from '../store';
+    import {
+        storeToRefs
+    } from 'pinia';
 
     export default defineComponent({
         components: {
@@ -33,8 +40,30 @@
             Header
         },
         setup() {
+            // pinia
+            const store = useAsideStore().aside
+            const {
+                isStoreCollapse
+            } = storeToRefs(store)
 
-            return {}
+            // 等待侧边栏收起，主体再向左靠拢
+            const hasCollapse = ref(false)
+            onMounted(()=>{
+                hasCollapse.value = isStoreCollapse.value
+            })
+            watch(isStoreCollapse,()=>{
+                if(isStoreCollapse.value) {
+                    setTimeout(()=>{
+                        hasCollapse.value = true
+                    },300)
+                } else{
+                    hasCollapse.value = false
+                }
+            })
+
+            return {
+                hasCollapse
+            }
         }
     })
 </script>
@@ -47,11 +76,17 @@
 
         .el-container {
             height: 100%;
+
             :deep(.el-header) {
                 padding: 0;
             }
+
             :deep(.el-aside) {
                 overflow-x: hidden;
+            }
+
+            :deep(.el-main) {
+                padding: 0;
             }
         }
     }
