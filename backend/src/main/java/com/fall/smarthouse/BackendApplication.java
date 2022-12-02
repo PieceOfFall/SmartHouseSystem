@@ -1,4 +1,4 @@
-package com.fall.smarthouse.controller;
+package com.fall.smarthouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
