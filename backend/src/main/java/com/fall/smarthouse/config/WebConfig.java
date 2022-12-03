@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .groupName("")
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.fall.robok.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.fall.smarthouse.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
