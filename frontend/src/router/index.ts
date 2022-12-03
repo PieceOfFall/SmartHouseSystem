@@ -20,6 +20,10 @@ const routes: Array < RouteRecordRaw > = [{
         path: '/homepage',
         name: 'HomePage',
         component: () => import('../views/HomePage.vue')
+    }, {
+        path: '/light_ctrl',
+        name: 'LightCtrl',
+        component: ()=> import('../views/LightCtrl.vue')
     }]
 }]
 

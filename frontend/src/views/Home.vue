@@ -79,10 +79,12 @@
 
             :deep(.el-header) {
                 padding: 0;
+                user-select: none;
             }
 
             :deep(.el-aside) {
                 overflow-x: hidden;
+                user-select: none;
             }
 
             :deep(.el-main) {
