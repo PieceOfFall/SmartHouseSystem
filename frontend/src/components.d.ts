@@ -6,11 +6,16 @@ import '@vue/runtime-core'
 export {}
 
 declare module '@vue/runtime-core' {
-  export interface GlobalComponents {
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElRow: typeof import('element-plus/es')['ElRow']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-  }
+export interface GlobalComponents {
+ElButton: typeof import('element-plus/es')['ElButton']
+ElRow: typeof import('element-plus/es')['ElRow']
+HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+RouterLink: typeof import('vue-router')['RouterLink']
+RouterView: typeof import('vue-router')['RouterView']
+
+}
+
+export interface ComponentCustomProperties {
+$axios: typeof import('../src/utils/axiosInstance')['default']
+}
 }

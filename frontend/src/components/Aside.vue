@@ -1,54 +1,19 @@
 <template>
 
   <el-menu default-active="2" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse"
-    @open="handleOpen" @close="handleClose">
-    <el-menu-item index="0" @click="changeCollapse">
+    @open="handleOpen" @close="handleClose" unique-opened>
 
+    <!-- 收起侧边栏 -->
+    <el-menu-item index="0" @click="changeCollapse">
       <el-icon>
         <Minus v-if="!isCollapse" />
         <MoreFilled v-else />
       </el-icon>
-      <span>switch</span>
+      <span>收起</span>
+    </el-menu-item>
 
-    </el-menu-item>
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon>
-          <location />
-        </el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon>
-        <icon-menu />
-      </el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon>
-        <document />
-      </el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon>
-        <setting />
-      </el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
+    <!-- 电控系统 -->
+
   </el-menu>
 </template>
 
@@ -70,9 +35,13 @@
   import {
     storeToRefs
   } from 'pinia';
+  import axios from 'axios';
+  import {
+    getCurrentInstance
+  } from 'vue'
 
   export default defineComponent({
-    components:{
+    components: {
       Document,
       IconMenu,
       Location,
@@ -100,6 +69,7 @@
 
       })
 
+      // 改变侧边栏开关状态
       async function changeCollapse() {
         isCollapse.value = !isCollapse.value;
         isStoreCollapse.value = isCollapse.value
@@ -112,8 +82,26 @@
         console.log(key, keyPath)
       }
 
+      // 获取侧边栏信息
+      let menuList = ref([])
+      async function getMenuList() {
+        const proxy = getCurrentInstance() ?.proxy
+        let ret;
+        ret = await proxy ?.$axios({
+          method: 'get',
+          url: '/smart_house/get_menu'
+        })
+        return ret ?.data.data
 
-      return{
+      }
+      onMounted(async () => {
+        menuList.value = await getMenuList()
+        console.log(menuList.value);
+
+      })
+
+
+      return {
         isCollapse,
         handleOpen,
         handleClose,
