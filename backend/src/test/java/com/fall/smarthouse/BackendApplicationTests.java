@@ -4,6 +4,7 @@ import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
+import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,14 @@ class BackendApplicationTests {
 
     @Autowired
     ElectricMapper electricMapper;
+
+    @Autowired
+    ElectricApplianceServiceImpl electricApplianceService;
+
+    @Test
+    void testElectric(){
+        System.out.println(electricApplianceService.getWarnLight());
+    }
 
     @Test
     void testInsert() {
@@ -37,5 +46,6 @@ class BackendApplicationTests {
         ElectricAppliance appliance = electricMapper.getAppliance();
         System.out.println(appliance);
     }
+
 
 }
