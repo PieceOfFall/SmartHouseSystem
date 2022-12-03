@@ -1,19 +1,32 @@
 <template>
 
-  <el-menu default-active="2" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse"
-    @open="handleOpen" @close="handleClose" unique-opened>
+  <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
+    unique-opened @select="changeItem">
 
     <!-- 收起侧边栏 -->
-    <el-menu-item index="0" @click="changeCollapse">
+    <div class="switch" @click="changeCollapse">
+      <span v-if="!isCollapse">| | |</span>
       <el-icon>
-        <Minus v-if="!isCollapse" />
-        <MoreFilled v-else />
+        <MoreFilled v-if="isCollapse" />
       </el-icon>
-      <span>收起</span>
-    </el-menu-item>
+    </div>
+    <!-- 功能模块 -->
+    <el-sub-menu v-for="(item,index) in menuList" :index="item.path">
+      
+      <template #title>
+        <el-icon><IconMenu /></el-icon>
+        <span>{{item.authName}}</span>
+      </template>
+      <el-menu-item-group>
 
-    <!-- 电控系统 -->
+        <!-- 具体功能 -->
+        <el-menu-item v-for="(innerItem,ineerIndex) in item.children" :index="innerItem.path">
+          {{innerItem.authName}}
+        </el-menu-item>
 
+      </el-menu-item-group>
+
+    </el-sub-menu>
   </el-menu>
 </template>
 
@@ -21,7 +34,7 @@
   import {
     defineComponent,
     onMounted,
-    ref
+    ref,
   } from 'vue'
   import {
     Document,
@@ -35,10 +48,19 @@
   import {
     storeToRefs
   } from 'pinia';
-  import axios from 'axios';
   import {
     getCurrentInstance
   } from 'vue'
+  import {
+    useRouter
+  } from "vue-router";
+
+  interface MenuItem {
+    id: number,
+      path: string,
+      authName: string,
+      children: Array < MenuItem >
+  }
 
   export default defineComponent({
     components: {
@@ -53,7 +75,8 @@
       // pinia
       const store = useAsideStore().aside
       let {
-        isStoreCollapse
+        isStoreCollapse,
+        selectItem
       } = storeToRefs(store)
 
       // 侧边栏开关
@@ -71,19 +94,16 @@
 
       // 改变侧边栏开关状态
       async function changeCollapse() {
-        isCollapse.value = !isCollapse.value;
+        isCollapse.value = !isCollapse.value
         isStoreCollapse.value = isCollapse.value
         window.sessionStorage.setItem('isCollapse', `${isCollapse.value}`)
       }
-      const handleOpen = (key: string, keyPath: string[]) => {
-        console.log(key, keyPath)
-      }
-      const handleClose = (key: string, keyPath: string[]) => {
-        console.log(key, keyPath)
-      }
 
       // 获取侧边栏信息
-      let menuList = ref([])
+      let menuList = ref < MenuItem[] > ()
+      onMounted(async () => {
+        menuList.value = await getMenuList()
+      })
       async function getMenuList() {
         const proxy = getCurrentInstance() ?.proxy
         let ret;
@@ -92,20 +112,30 @@
           url: '/smart_house/get_menu'
         })
         return ret ?.data.data
-
       }
-      onMounted(async () => {
-        menuList.value = await getMenuList()
-        console.log(menuList.value);
 
+      // 选中菜单选项
+      const router = ref(useRouter().currentRoute);
+      onMounted(() => {
+        if (window.sessionStorage.getItem('selectItem')) {
+          selectItem.value = window.sessionStorage.getItem('selectItem') as string
+        } else {
+          selectItem.value = '/homepage'
+        }
       })
+      async function changeItem(path: string) {
+        selectItem.value = path
+        window.sessionStorage.setItem('selectItem', selectItem.value)
+      }
 
 
       return {
         isCollapse,
-        handleOpen,
-        handleClose,
-        changeCollapse
+        changeCollapse,
+        menuList,
+        router,
+        changeItem,
+        selectItem
       }
 
     }
@@ -114,7 +144,24 @@
 
 
 
-<style>
+<style lang="less">
+  .switch {
+    text-align: center;
+    color: rgba(211, 211, 211, 0.603);
+
+    .el-icon {
+      padding-top: 10px;
+    }
+  }
+
+  .el-menu-item {
+    color: grey;
+  }
+
+  .el-sub-menu__title {
+    color: lightgray;
+  }
+
   .el-menu-vertical:not(.el-menu--collapse) {
     width: 200px;
     height: 100%;
