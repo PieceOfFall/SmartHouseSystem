@@ -5,3 +5,4 @@ logs
 # IDEA
 *.iml
 .idea/*
+/target/*

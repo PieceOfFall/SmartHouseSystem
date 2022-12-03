@@ -35,6 +35,10 @@
   import {
     storeToRefs
   } from 'pinia';
+  import axios from 'axios';
+  import {
+    getCurrentInstance
+  } from 'vue'
 
   export default defineComponent({
     components: {
@@ -65,6 +69,7 @@
 
       })
 
+      // 改变侧边栏开关状态
       async function changeCollapse() {
         isCollapse.value = !isCollapse.value;
         isStoreCollapse.value = isCollapse.value
@@ -76,6 +81,24 @@
       const handleClose = (key: string, keyPath: string[]) => {
         console.log(key, keyPath)
       }
+
+      // 获取侧边栏信息
+      let menuList = ref([])
+      async function getMenuList() {
+        const proxy = getCurrentInstance() ?.proxy
+        let ret;
+        ret = await proxy ?.$axios({
+          method: 'get',
+          url: '/smart_house/get_menu'
+        })
+        return ret ?.data.data
+
+      }
+      onMounted(async () => {
+        menuList.value = await getMenuList()
+        console.log(menuList.value);
+
+      })
 
 
       return {
