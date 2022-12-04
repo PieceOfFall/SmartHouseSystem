@@ -28,7 +28,7 @@ class BackendApplicationTests {
 
     @Test
     void testUpdateElectricAppliance(){
-        System.out.println(electricApplianceService.setLightBathroom(6));
+        System.out.println(electricApplianceService.setWarnLight(0));
     }
 
     @Test

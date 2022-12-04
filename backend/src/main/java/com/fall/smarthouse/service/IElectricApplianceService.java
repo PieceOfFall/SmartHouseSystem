@@ -70,4 +70,52 @@ public interface IElectricApplianceService {
      * @version 1.0
      */
     public boolean setLightBathroom(Integer lightLivingRoom);
+
+    /**
+     * @description: 开关A控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchA(Integer switchA);
+
+    /**
+     * @description: 开关B控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchB(Integer switchB);
+
+    /**
+     * @description: 开关C控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchC(Integer switchC);
+
+    /**
+     * @description: 窗帘A控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setCurtainA(Integer curtainA);
+
+    /**
+     * @description: 窗帘B控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setCurtainB(Integer curtainB);
+
+    /**
+     * @description: 警鸣灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setWarnLight(Integer warnLight);
 }

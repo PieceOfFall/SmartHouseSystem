@@ -1,6 +1,7 @@
 package com.fall.smarthouse.service.impl;
 
 import com.fall.smarthouse.constant.LightState;
+import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
@@ -91,6 +92,78 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return true;
     }
 
+    @Override
+    public boolean setSwitchA(Integer switchA) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer switchAState = checkSwitchIntegerLegal(switchA);
+        electricAppliance.setSwitchA(switchAState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setSwitchB(Integer switchB) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer switchBState = checkSwitchIntegerLegal(switchB);
+        electricAppliance.setSwitchB(switchBState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setSwitchC(Integer switchC) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer switchCState = checkSwitchIntegerLegal(switchC);
+        electricAppliance.setSwitchC(switchCState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setCurtainA(Integer curtainA) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer curtainAState = checkSwitchIntegerLegal(curtainA);
+        electricAppliance.setCurtainA(curtainAState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setCurtainB(Integer curtainB) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer curtainBState = checkSwitchIntegerLegal(curtainB);
+        electricAppliance.setCurtainB(curtainBState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setWarnLight(Integer warnLight) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer warnLightState = checkSwitchIntegerLegal(warnLight);
+        electricAppliance.setWarnLight(warnLightState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
     private Integer checkLightIntegerLegal(Integer light){
         if(light > LightState.FULL.getState()){
             light = LightState.FULL.getState();
@@ -100,6 +173,14 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return light;
     }
 
+    private Integer checkSwitchIntegerLegal(Integer switchState){
+        if(switchState > SwitchState.ON.getState()){
+            switchState = SwitchState.ON.getState();
+        }else if(switchState < SwitchState.OFF.getState()){
+            switchState = SwitchState.OFF.getState();
+        }
+        return switchState;
+    }
 
 
 
