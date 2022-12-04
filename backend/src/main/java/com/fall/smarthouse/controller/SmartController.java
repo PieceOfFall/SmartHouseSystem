@@ -95,11 +95,20 @@ public class SmartController {
         return ResBean.ok("ok");
     }
 
-    @ApiOperation("浴室灯光控制")
+    @ApiOperation("客厅灯光控制")
     @PostMapping("set_light_living_room")
     public ResBean setLightLivingRoom(@NotEmpty @RequestParam("lightLivingRoom") Integer LightLivingRoom,
                                 HttpServletResponse response){
         boolean setLightLivingRoom = electricApplianceService.setLightLivingRoom(LightLivingRoom.intValue());
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
+
+    @ApiOperation("浴室灯光控制")
+    @PostMapping("set_light_bathroom")
+    public ResBean setLightBathroom(@NotEmpty @RequestParam("lightBathroom") Integer LightBathroom,
+                                      HttpServletResponse response){
+        boolean setLightLivingRoom = electricApplianceService.setLightBathroom(LightBathroom.intValue());
         response.setStatus(200);
         return ResBean.ok("ok");
     }

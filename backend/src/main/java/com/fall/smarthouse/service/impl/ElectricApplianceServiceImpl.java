@@ -79,6 +79,18 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return true;
     }
 
+    @Override
+    public boolean setLightBathroom(Integer lightBathRoom) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
+        electricAppliance.setLightBathroom(lightBathRoomState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
     private Integer checkLightIntegerLegal(Integer light){
         if(light > LightState.FULL.getState()){
             light = LightState.FULL.getState();

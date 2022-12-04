@@ -56,10 +56,18 @@ public interface IElectricApplianceService {
     public boolean setLightBedB(Integer lightBedB);
 
     /**
-     * @description: 浴室灯光控制
+     * @description: 客厅灯光控制
      * @author xiaoQe
      * @date 2022/12/4 16:46
      * @version 1.0
      */
     public boolean setLightLivingRoom(Integer lightLivingRoom);
+
+    /**
+     * @description: 浴室灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightBathroom(Integer lightLivingRoom);
 }
