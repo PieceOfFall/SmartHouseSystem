@@ -41,8 +41,10 @@ public interface IElectricApplianceService {
     public ElectricAppliance getWarnLight();
 
     /**
-     * 修改light_bed_a的灯光状态
-     * @param lightBedAState
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/4 15:25
+     * @version 1.0
      */
-    public void setLightBedAState(Integer lightBedAState);
+    public boolean setLightBedA(Integer lightBedA);
 }

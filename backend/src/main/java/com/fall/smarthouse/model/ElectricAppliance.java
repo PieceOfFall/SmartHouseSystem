@@ -1,6 +1,7 @@
 package com.fall.smarthouse.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author FAll
@@ -8,6 +9,7 @@ import lombok.Data;
  * @description 家电
  */
 @Data
+@NoArgsConstructor
 public class ElectricAppliance {
 
     // 主卧灯光

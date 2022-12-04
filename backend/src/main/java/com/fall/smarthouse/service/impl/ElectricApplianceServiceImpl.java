@@ -4,6 +4,7 @@ import com.fall.smarthouse.constant.LightState;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,12 +43,29 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return electricMapper.getWarnLight();
     }
 
-    @Override
-    public void setLightBedAState(Integer lightBedAState) {
-        if(lightBedAState < LightState.CLOSED.getState() || lightBedAState > LightState.FULL.getState()){
-
-        }else {
-            electricMapper.updateLightBedA(lightBedAState);
+    private boolean setElectricAppliance(ElectricAppliance electricAppliance) {
+        Integer integer = electricMapper.updateElectricAppliance(electricAppliance);
+        if(integer == 0){
+            return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean setLightBedA(Integer lightBedA){
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer lightBedAState = checkInteger(lightBedA);
+        electricAppliance.setLightBedA(lightBedAState);
+        boolean setElectricAppliance = setElectricAppliance(electricAppliance);
+        return setElectricAppliance;
+    }
+
+    private Integer checkInteger(Integer light){
+        if(light > LightState.FULL.getState()){
+            light = LightState.FULL.getState();
+        }else if (light < LightState.CLOSED.getState()){
+            light = LightState.CLOSED.getState();
+        }
+        return light;
     }
 }
