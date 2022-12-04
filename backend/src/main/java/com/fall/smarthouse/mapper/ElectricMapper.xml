@@ -3,5 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fall.smarthouse.mapper.ElectricMapper">
-
+<!--Integer updateElectricAppliance(Integer lightBedAState);-->
+    <update id="updateElectricAppliance">
+        update electric_appliance
+        <set>
+            <if test="lightBedA != null">
+                light_bed_a = #{lightBedA}
+            </if>
+            <if test="lightBedB != null">
+                light_bed_b = #{lightBedB}
+            </if>
+            <if test="lightLivingRoom != null">
+                light_living_room = #{lightLivingRoom}
+            </if>
+            <if test="lightBathroom != null">
+                light_bathroom = #{lightBathroom}
+            </if>
+            <if test="switchA != null">
+                switch_a = #{switchA}
+            </if>
+            <if test="switchB != null">
+                switch_b = #{switchB}
+            </if>
+            <if test="switchC != null">
+                switch_c = #{switchC}
+            </if>
+            <if test="curtainA != null">
+                curtain_a = #{curtainA}
+            </if>
+            <if test="curtainB != null">
+                curtain_b = #{curtainB}
+            </if>
+            <if test="warnLight != null">
+                warn_light = #{warnLight}
+            </if>
+        </set>
+    </update>
 </mapper>

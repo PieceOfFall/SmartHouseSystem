@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @date 2022/12/2 17:20
  * @description 电器实现接口
  */
-@Service
 public interface IElectricApplianceService {
     /**
      * 获取所有电器状态
@@ -41,8 +40,82 @@ public interface IElectricApplianceService {
     public ElectricAppliance getWarnLight();
 
     /**
-     * 修改light_bed_a的灯光状态
-     * @param lightBedAState
+     * @description: 主卧灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 15:25
+     * @version 1.0
      */
-    public void setLightBedAState(Integer lightBedAState);
+    public boolean setLightBedA(Integer lightBedA);
+
+    /**
+     * @description: 次卧灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightBedB(Integer lightBedB);
+
+    /**
+     * @description: 客厅灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightLivingRoom(Integer lightLivingRoom);
+
+    /**
+     * @description: 浴室灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightBathroom(Integer lightLivingRoom);
+
+    /**
+     * @description: 开关A控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchA(Integer switchA);
+
+    /**
+     * @description: 开关B控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchB(Integer switchB);
+
+    /**
+     * @description: 开关C控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setSwitchC(Integer switchC);
+
+    /**
+     * @description: 窗帘A控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setCurtainA(Integer curtainA);
+
+    /**
+     * @description: 窗帘B控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setCurtainB(Integer curtainB);
+
+    /**
+     * @description: 警鸣灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 18:03
+     * @version 1.0
+     */
+    public boolean setWarnLight(Integer warnLight);
 }
