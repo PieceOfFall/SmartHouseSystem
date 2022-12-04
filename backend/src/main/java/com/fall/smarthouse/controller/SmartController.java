@@ -3,6 +3,8 @@ package com.fall.smarthouse.controller;
 import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.service.impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -22,10 +24,10 @@ import java.util.ArrayList;
 public class SmartController {
 
     @Autowired
-    UserServiceImpl userService;
+    IUserService userService;
 
     @Autowired
-    ElectricApplianceServiceImpl electricApplianceService;
+    IElectricApplianceService electricApplianceService;
 
     @ApiOperation("获取侧边栏")
     @GetMapping("/get_menu")
@@ -93,4 +95,12 @@ public class SmartController {
         return ResBean.ok("ok");
     }
 
+    @ApiOperation("浴室灯光控制")
+    @PostMapping("set_light_living_room")
+    public ResBean setLightLivingRoom(@NotEmpty @RequestParam("lightLivingRoom") Integer LightLivingRoom,
+                                HttpServletResponse response){
+        boolean setLightLivingRoom = electricApplianceService.setLightLivingRoom(LightLivingRoom.intValue());
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
 }

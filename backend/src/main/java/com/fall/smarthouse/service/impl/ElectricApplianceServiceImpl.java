@@ -48,8 +48,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         ElectricAppliance electricAppliance = new ElectricAppliance();
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
-        Integer integer = electricMapper.updateElectricAppliance(electricAppliance);
-        if(integer == 0){
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
             return false;
         }
         return true;
@@ -60,8 +60,20 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         ElectricAppliance electricAppliance = new ElectricAppliance();
         Integer lightBedBState = checkLightIntegerLegal(lightBedB);
         electricAppliance.setLightBedB(lightBedBState);
-        Integer integer = electricMapper.updateElectricAppliance(electricAppliance);
-        if(integer == 0){
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean setLightLivingRoom(Integer lightLivingRoom) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
+        electricAppliance.setLightLivingRoom(lightLivingRoomState);
+        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        if(affectRows == 0){
             return false;
         }
         return true;

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @date 2022/12/2 17:20
  * @description 电器实现接口
  */
-@Service
 public interface IElectricApplianceService {
     /**
      * 获取所有电器状态
@@ -55,4 +54,12 @@ public interface IElectricApplianceService {
      * @version 1.0
      */
     public boolean setLightBedB(Integer lightBedB);
+
+    /**
+     * @description: 浴室灯光控制
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightLivingRoom(Integer lightLivingRoom);
 }
