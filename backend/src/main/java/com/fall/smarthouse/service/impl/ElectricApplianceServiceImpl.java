@@ -50,4 +50,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
             electricMapper.updateLightBedA(lightBedAState);
         }
     }
+
+
+
+
 }

@@ -14,3 +14,9 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+# JWT配置
+jwt:
+  header: "Authorization"
+  tokenPrefix: "Bearer "      # token 前缀
+  secret: "1f101b867a904c2ba01f5ce75df24185" # 私钥
+  expireTime: 1440            # token 的有效时间，单位是分钟

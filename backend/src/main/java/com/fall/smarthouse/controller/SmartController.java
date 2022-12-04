@@ -75,4 +75,5 @@ public class SmartController {
         response.setStatus(200);
         return ResBean.ok("ok",warnLight);
     }
+
 }
