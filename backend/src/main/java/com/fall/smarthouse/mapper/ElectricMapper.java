@@ -29,6 +29,7 @@ public interface ElectricMapper {
     @Select("select warn_light from electric_appliance")
     ElectricAppliance getWarnLight();
 
+    @Update("update aaa set aa ")
     Integer updateElectricAppliance(ElectricAppliance electricAppliance);
 
 }

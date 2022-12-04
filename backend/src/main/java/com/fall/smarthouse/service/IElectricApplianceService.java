@@ -41,10 +41,20 @@ public interface IElectricApplianceService {
     public ElectricAppliance getWarnLight();
 
     /**
+     * 主卧灯光控制
      * @description: TODO
      * @author xiaoQe
      * @date 2022/12/4 15:25
      * @version 1.0
      */
     public boolean setLightBedA(Integer lightBedA);
+
+    /**
+     * 次卧灯光控制
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/4 16:46
+     * @version 1.0
+     */
+    public boolean setLightBedB(Integer lightBedB);
 }

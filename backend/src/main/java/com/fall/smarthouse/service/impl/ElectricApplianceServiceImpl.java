@@ -54,13 +54,22 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     @Override
     public boolean setLightBedA(Integer lightBedA){
         ElectricAppliance electricAppliance = new ElectricAppliance();
-        Integer lightBedAState = checkInteger(lightBedA);
+        Integer lightBedAState = checkLightInteger(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
         boolean setElectricAppliance = setElectricAppliance(electricAppliance);
         return setElectricAppliance;
     }
 
-    private Integer checkInteger(Integer light){
+    @Override
+    public boolean setLightBedB(Integer lightBedB) {
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer lightBedBState = checkLightInteger(lightBedB);
+        electricAppliance.setLightBedB(lightBedBState);
+        boolean setElectricAppliance = setElectricAppliance(electricAppliance);
+        return setElectricAppliance;
+    }
+
+    private Integer checkLightInteger(Integer light){
         if(light > LightState.FULL.getState()){
             light = LightState.FULL.getState();
         }else if (light < LightState.CLOSED.getState()){

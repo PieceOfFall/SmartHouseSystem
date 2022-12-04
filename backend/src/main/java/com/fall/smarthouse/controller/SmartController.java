@@ -83,4 +83,12 @@ public class SmartController {
         response.setStatus(200);
         return ResBean.ok("ok");
     }
+    @ApiOperation("主卧灯光控制")
+    @PostMapping("set_light_bed_b")
+    public ResBean setLightBedB(@NotEmpty @RequestParam("lightBedB") Integer LightBedB,
+                                HttpServletResponse response){
+        boolean setLightBedB = electricApplianceService.setLightBedB(LightBedB.intValue());
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
 }
