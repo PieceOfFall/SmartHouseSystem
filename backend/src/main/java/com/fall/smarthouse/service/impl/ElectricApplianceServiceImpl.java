@@ -43,7 +43,11 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return electricMapper.getWarnLight();
     }
 
-    private boolean setElectricAppliance(ElectricAppliance electricAppliance) {
+    @Override
+    public boolean setLightBedA(Integer lightBedA){
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        Integer lightBedAState = checkLightIntegerLegal(lightBedA);
+        electricAppliance.setLightBedA(lightBedAState);
         Integer integer = electricMapper.updateElectricAppliance(electricAppliance);
         if(integer == 0){
             return false;
@@ -52,24 +56,18 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setLightBedA(Integer lightBedA){
-        ElectricAppliance electricAppliance = new ElectricAppliance();
-        Integer lightBedAState = checkLightInteger(lightBedA);
-        electricAppliance.setLightBedA(lightBedAState);
-        boolean setElectricAppliance = setElectricAppliance(electricAppliance);
-        return setElectricAppliance;
-    }
-
-    @Override
     public boolean setLightBedB(Integer lightBedB) {
         ElectricAppliance electricAppliance = new ElectricAppliance();
-        Integer lightBedBState = checkLightInteger(lightBedB);
+        Integer lightBedBState = checkLightIntegerLegal(lightBedB);
         electricAppliance.setLightBedB(lightBedBState);
-        boolean setElectricAppliance = setElectricAppliance(electricAppliance);
-        return setElectricAppliance;
+        Integer integer = electricMapper.updateElectricAppliance(electricAppliance);
+        if(integer == 0){
+            return false;
+        }
+        return true;
     }
 
-    private Integer checkLightInteger(Integer light){
+    private Integer checkLightIntegerLegal(Integer light){
         if(light > LightState.FULL.getState()){
             light = LightState.FULL.getState();
         }else if (light < LightState.CLOSED.getState()){
