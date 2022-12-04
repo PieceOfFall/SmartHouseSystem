@@ -7,11 +7,10 @@ import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.service.impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 
 /**
@@ -74,6 +73,24 @@ public class SmartController {
         ElectricAppliance warnLight = electricApplianceService.getWarnLight();
         response.setStatus(200);
         return ResBean.ok("ok",warnLight);
+    }
+
+
+    @ApiOperation("主卧灯光控制")
+    @PostMapping("set_light_bed_a")
+    public ResBean setLightBedA(@NotEmpty @RequestParam("lightBedA") Integer LightBedA,
+                                HttpServletResponse response){
+        boolean setLightBedA = electricApplianceService.setLightBedA(LightBedA.intValue());
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
+    @ApiOperation("次卧灯光控制")
+    @PostMapping("set_light_bed_b")
+    public ResBean setLightBedB(@NotEmpty @RequestParam("lightBedB") Integer LightBedB,
+                                HttpServletResponse response){
+        boolean setLightBedB = electricApplianceService.setLightBedB(LightBedB.intValue());
+        response.setStatus(200);
+        return ResBean.ok("ok");
     }
 
 }
