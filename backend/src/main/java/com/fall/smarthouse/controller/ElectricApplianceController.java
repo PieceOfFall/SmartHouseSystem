@@ -1,6 +1,7 @@
 package com.fall.smarthouse.controller;
 
 import com.fall.smarthouse.bean.ResBean;
+import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashMap;
 
 /**
  * @author xiaoQe
@@ -33,32 +35,50 @@ public class ElectricApplianceController {
     @GetMapping("get_light")
     public ResBean getLight(HttpServletResponse response){
         ElectricAppliance light = electricApplianceService.getLight();
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("lightBedA",light.getLightBedA());
+        map.put("lightBedB",light.getLightBedB());
+        map.put("lightLivingRoom",light.getLightLivingRoom());
+        map.put("lightBathroom",light.getLightBathroom());
         response.setStatus(200);
-        return ResBean.ok("ok",light);
+        return ResBean.ok("ok",map);
     }
 
     @ApiOperation("获取所有灯的状态")
     @GetMapping("get_switch")
     public ResBean getSwitch(HttpServletResponse response){
         ElectricAppliance switchAppliance = electricApplianceService.getSwitch();
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("switchA",switchAppliance.getSwitchA());
+        map.put("switchB",switchAppliance.getSwitchB());
+        map.put("switchC",switchAppliance.getSwitchC());
         response.setStatus(200);
-        return ResBean.ok("ok",switchAppliance);
+        return ResBean.ok("ok",map);
     }
 
     @ApiOperation("获取所有窗帘的数据")
     @GetMapping("get_curtain")
     public ResBean getCurtain(HttpServletResponse response){
         ElectricAppliance curtain = electricApplianceService.getCurtain();
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("curtainA",curtain.getCurtainA());
+        map.put("curtainB",curtain.getCurtainB());
         response.setStatus(200);
-        return ResBean.ok("ok",curtain);
+        return ResBean.ok("ok",map);
     }
 
     @ApiOperation("获取警鸣灯光的数据")
     @GetMapping("get_warn_light")
     public ResBean getWarnLight(HttpServletResponse response){
         ElectricAppliance warnLight = electricApplianceService.getWarnLight();
+        Boolean warnLightState;
+        if(warnLight.getWarnLight() == SwitchState.ON.getState()){
+            warnLightState = true;
+        }else {
+            warnLightState = false;
+        }
         response.setStatus(200);
-        return ResBean.ok("ok",warnLight);
+        return ResBean.ok("ok",warnLightState);
     }
 
 

@@ -37,7 +37,7 @@ public class SensorController {
         return ResBean.ok("ok");
     }
 
-    @ApiOperation("查询烟雾传感器数据")
+    @ApiOperation("查询燃气传感器数据")
     @GetMapping("get_gas_datas")
     public ResBean GetGasData(@NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("maxTime") String maxTime,
