@@ -2,7 +2,7 @@ import {
     createRouter,
     createWebHistory,
     RouteRecordRaw
-} from 'vue-router';
+} from 'vue-router'
 
 const routes: Array < RouteRecordRaw > = [{
     path: '/',
@@ -23,7 +23,15 @@ const routes: Array < RouteRecordRaw > = [{
     }, {
         path: '/light_ctrl',
         name: 'LightCtrl',
-        component: ()=> import('../views/LightCtrl.vue')
+        component: () => import('../views/ElectricCtrl/LightCtrl.vue')
+    }, {
+        path: '/switch_ctrl',
+        name: 'SwitchCtrl',
+        component: () => import('../views/ElectricCtrl/SwitchCtrl.vue')
+    }, {
+        path: '/curtain_ctrl',
+        name: 'CurtainCtrl',
+        component: () => import('../views/ElectricCtrl/CurtainCtrl.vue')
     }]
 }]
 

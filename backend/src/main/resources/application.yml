@@ -11,6 +11,7 @@ spring:
     # swagger-ui启动配置
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+# MyBatis配置
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
