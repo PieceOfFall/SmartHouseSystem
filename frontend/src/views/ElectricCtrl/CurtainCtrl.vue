@@ -1,19 +1,11 @@
 <template>
     <div>
-窗帘控制
+        窗帘控制
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 
-export default defineComponent({
-    setup () {
-        
-
-        return {}
-    }
-})
 </script>
 
 <style lang="less" scoped>

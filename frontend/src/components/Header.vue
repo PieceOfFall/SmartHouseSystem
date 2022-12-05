@@ -5,17 +5,16 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
     import {
-        defineComponent, onMounted,
+         onMounted,
     } from 'vue'
     import {useRouter} from 'vue-router';
     import useAsideStore from '../store';
   import {
     storeToRefs
   } from 'pinia';
-    export default defineComponent({
-        setup() {
+
             // pinia
             const store = useAsideStore().aside
             let {
@@ -30,11 +29,6 @@
                 window.sessionStorage.setItem('selectItem','/homepage')
             }
 
-            return {
-                backHome
-            }
-        }
-    })
 </script>
 
 <style lang="less" scoped>

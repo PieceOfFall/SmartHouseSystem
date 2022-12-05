@@ -30,9 +30,8 @@
   </el-menu>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import {
-    defineComponent,
     onMounted,
     ref,
   } from 'vue'
@@ -62,16 +61,6 @@
       children: Array < MenuItem >
   }
 
-  export default defineComponent({
-    components: {
-      Document,
-      IconMenu,
-      Location,
-      Setting,
-      Minus,
-      MoreFilled
-    },
-    setup() {
       // pinia
       const store = useAsideStore().aside
       let {
@@ -129,17 +118,6 @@
       }
 
 
-      return {
-        isCollapse,
-        changeCollapse,
-        menuList,
-        router,
-        changeItem,
-        selectItem
-      }
-
-    }
-  })
 </script>
 
 
