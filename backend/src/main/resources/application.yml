@@ -1,11 +1,6 @@
 server:
   port: 8081
 spring:
-#  spring.jackson.parser.allow-numeric-leading-zeros=true
-  jackson:
-    parser:
-      allow-numeric-leading-zeros: true
-    time-zone: "GMT+8"
   # Druid
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @author FAll
@@ -36,5 +37,13 @@ public class SensorServiceImpl implements ISensorService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Double> getGasSensorData(String minTime, String maxTime) throws ParseException {
+        Date minDate = DateConverter.StringToSqlDate(minTime);
+        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        List<Double> gasDatas = sensorMapper.selectGasSensorData(minDate, maxDate);
+        return gasDatas;
     }
 }

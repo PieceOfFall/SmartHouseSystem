@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author FAll
@@ -35,5 +37,19 @@ public interface SensorMapper {
      */
     Sensor testMapper();
 
+    /**
+     * @description: 添加传感器数据方法
+     * @author xiaoQe
+     * @date 2022/12/5 17:36
+     * @version 1.0
+     */
     Integer insertToSensor(Sensor sensor);
+
+    /**
+     * @description: 查询传感器数据
+     * @author xiaoQe
+     * @date 2022/12/5 17:42
+     * @version 1.0
+     */
+    List<Double> selectGasSensorData(Date minTime,Date maxTime);
 }

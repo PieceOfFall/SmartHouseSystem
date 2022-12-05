@@ -51,4 +51,9 @@
             </if>
         </trim>
     </insert>
+
+<!--    List<Double> selectGasSensorData(Date minTime,Date maxTime);-->
+<select id="selectGasSensorData" resultType="double">
+    select  gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc
+</select>
 </mapper>

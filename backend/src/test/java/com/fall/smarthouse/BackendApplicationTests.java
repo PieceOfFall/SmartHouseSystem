@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,9 +35,8 @@ class BackendApplicationTests {
     ISensorService sensorService;
 
     @Test
-    void testSensorService(){
-//        System.out.println(sensorService.insertToSensor(new Sensor(new Timestamp(Calendar.getInstance().getTimeInMillis()),
-//                1.0,2.0,3.3,5.0,6.7)));
+    void testSensorService() throws ParseException {
+        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291"));
     }
 
 

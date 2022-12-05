@@ -21,6 +21,12 @@ public class DateConverter {
         return sdf.format(time);
     }
 
+    public static java.sql.Date StringToSqlDate(String time) throws ParseException {
+        String dateString = LongToDateString(Long.parseLong(time));
+        java.sql.Date date = DateStringToSqlDate(dateString);
+        return date;
+    }
+
     /**
      * @description: 将dateString字符串转化为Sql.date
      * @author xiaoQe
@@ -33,6 +39,12 @@ public class DateConverter {
         return date;
     }
 
+    /**
+     * @description: dateString字符串转化为Util.date
+     * @author xiaoQe
+     * @date 2022/12/5 17:34
+     * @version 1.0
+     */
     public static java.util.Date DateStringToUtilSql(String dateString) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = sdf.parse(dateString);

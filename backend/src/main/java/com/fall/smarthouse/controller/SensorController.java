@@ -4,15 +4,13 @@ import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.service.ISensorService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * @author xiaoQe
@@ -37,5 +35,15 @@ public class SensorController {
         boolean insertToSensor = sensorService.insertToSensor(time, gas, smog, temperature, humidity, shake);
         response.setStatus(200);
         return ResBean.ok("ok");
+    }
+
+    @ApiOperation("查询烟雾传感器数据")
+    @GetMapping("get_gas_datas")
+    public ResBean GetGasData(@NotEmpty @RequestParam("minTime") String minTime,
+                               @NotEmpty @RequestParam("maxTime") String maxTime,
+                               HttpServletResponse response) throws ParseException {
+        List<Double> gasSensorData = sensorService.getGasSensorData(minTime, maxTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",gasSensorData);
     }
 }
