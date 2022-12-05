@@ -1,6 +1,7 @@
 package com.fall.smarthouse.mapper;
 
 import com.fall.smarthouse.model.Sensor;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,5 @@ public interface SensorMapper {
      */
     Sensor testMapper();
 
-
+    Integer insertToSensor(Sensor sensor);
 }

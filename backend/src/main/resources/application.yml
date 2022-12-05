@@ -1,6 +1,11 @@
 server:
   port: 8081
 spring:
+#  spring.jackson.parser.allow-numeric-leading-zeros=true
+  jackson:
+    parser:
+      allow-numeric-leading-zeros: true
+    time-zone: "GMT+8"
   # Druid
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -20,3 +25,4 @@ jwt:
   tokenPrefix: "Bearer "      # token 前缀
   secret: "1f101b867a904c2ba01f5ce75df24185" # 私钥
   expireTime: 1440            # token 的有效时间，单位是分钟
+
