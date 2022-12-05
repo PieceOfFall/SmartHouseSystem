@@ -83,7 +83,7 @@ public class JWTUtil {
     public static String createToken(String sub) {
         return tokenPrefix + JWT.create()
                 .withSubject(sub)
-                .withExpiresAt(new Date(System.currentTimeMillis() + expireTime))
+                .withExpiresAt(new Date(System.currentTimeMillis() + expireTime*1000*60*60*24))
                 .sign(Algorithm.HMAC512(secret));
     }
 
@@ -100,7 +100,6 @@ public class JWTUtil {
             // 去除 token 的前缀
             String noPrefixToken = token.replace(tokenPrefix, "");
             DecodedJWT decodedJwt = jwtVerifier.verify(noPrefixToken);
-            System.out.println("decode"+decodedJwt);
             if(decodedJwt != null) {
                 return decodedJwt.getSubject();
             }

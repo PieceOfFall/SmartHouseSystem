@@ -20,11 +20,10 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
     import Aside from '../components/Aside.vue';
     import Header from '../components/Header.vue';
     import {
-        defineComponent,
         onMounted,
         ref,
         watch
@@ -34,12 +33,6 @@
         storeToRefs
     } from 'pinia';
 
-    export default defineComponent({
-        components: {
-            Aside,
-            Header
-        },
-        setup() {
             // pinia
             const store = useAsideStore().aside
             const {
@@ -60,12 +53,6 @@
                     hasCollapse.value = false
                 }
             })
-
-            return {
-                hasCollapse
-            }
-        }
-    })
 </script>
 
 <style lang="less" scoped>

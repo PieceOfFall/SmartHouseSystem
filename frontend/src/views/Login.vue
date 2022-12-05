@@ -1,19 +1,134 @@
 <template>
-    <div>
-        登录页面
+    <div class="login-container">
+        <el-card class="form-box" shadow="hover" :style="{opacity:`${formOpacity}%`}">
+            <span class="title">5 3 9 <span class="smart-title">智能家居</span></span>
+        <el-form 
+        ref="ruleFormRef"
+        :model="form"
+        :rules="rules"
+        label-width="60px"
+        label-position = "left"
+        :hide-required-asterisk = "true">
+            <el-form-item label="账号"
+            id="account-item"
+            prop="account">
+                <el-input v-model="form.account"
+                placeholder="输入账号" 
+                :suffix-icon="User"
+                />
+            </el-form-item>
+
+            <el-form-item label="密码"
+            id="pwd-item"
+            prop="password">
+                <el-input v-model="form.password" 
+                placeholder="输入密码"
+                :suffix-icon="Unlock"/>
+            </el-form-item>
+
+            <el-button plain @click="submitForm(ruleFormRef)">
+                登 录<el-icon class="el-icon--right"><Upload /></el-icon>
+            </el-button>
+        </el-form>
+    </el-card>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { FormInstance, FormRules } from 'element-plus';
+import { onMounted, reactive, ref } from 'vue';
+import {
+    Unlock,
+    User,
+    Upload 
+  } from '@element-plus/icons-vue'
+  import {useRouter} from 'vue-router';
 
-export default defineComponent({
-    setup () {
-        return {}
-    }
+//  验证表单并提交
+const ruleFormRef = ref<FormInstance>()
+const router = useRouter()
+const form = reactive({
+    account:'',
+    password:''
 })
+
+const rules = reactive<FormRules>({
+    account:[
+        {required:true,message:'请输入账号',trigger:'blur'},
+        { min: 9, max: 9, message: '长度应该为9', trigger: 'blur' }
+    ],
+    password:[
+        {required:true, message:'请输入账号',trigger:'blur'},
+        {required:true, min: 6, message: '密码长度至少为6', trigger: 'blur' }
+    ]
+})
+async function submitForm(formEl: FormInstance | undefined) {
+    if (!formEl) return
+    await formEl.validate((valid, fields) => {      
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+    
+}
+
+
+// 页面加载时逐渐显示表单
+let formOpacity = ref(0)
+onMounted(()=>{
+    const Interval:number = setInterval(()=>{
+        if(formOpacity.value !== 60){
+            formOpacity.value++
+        }
+    },30)
+    setTimeout(()=>{
+        clearInterval(Interval)
+        formOpacity.value =60
+    },3000)
+})
+
+
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.login-container {
+    position: relative;
+    background-image: url("../assets/img/login.jpg");
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    .form-box {
+        position: absolute;
+        text-align: center;
+        user-select: none;
+        line-height: 6rem;
+        padding: 0 5rem;
+        left: 50%; 
+        top: 50%; 
+        transform: translate(-50%,-50%);
+        .title{
+            font-size: larger;
+            font-family: 'STXingkai';
+            letter-spacing: 5px;
+            .smart-title{
+                letter-spacing: 10px;
+            }
+        }
+        #account-item{
+            margin-bottom: 2rem;
+        }
+        
+        #pwd-item{
+            margin-bottom: 0;
+        }
+
+    }
+    
+}
+
 
 </style>
