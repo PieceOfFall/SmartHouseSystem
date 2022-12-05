@@ -1,7 +1,7 @@
 <template>
 
   <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
-    unique-opened @select="changeItem">
+    unique-opened>
 
     <!-- 收起侧边栏 -->
     <div class="switch" @click="changeCollapse">
@@ -34,6 +34,7 @@
   import {
     onMounted,
     ref,
+watch,
   } from 'vue'
   import {
     Document,
@@ -105,6 +106,11 @@
 
       // 选中菜单选项
       const router = ref(useRouter().currentRoute);
+      watch(router,
+      ()=>{
+        selectItem.value = router.value.fullPath
+        window.sessionStorage.setItem('selectItem', router.value.fullPath)
+      })
       onMounted(() => {
         if (window.sessionStorage.getItem('selectItem')) {
           selectItem.value = window.sessionStorage.getItem('selectItem') as string
@@ -112,11 +118,6 @@
           selectItem.value = '/homepage'
         }
       })
-      async function changeItem(path: string) {
-        selectItem.value = path
-        window.sessionStorage.setItem('selectItem', selectItem.value)
-      }
-
 
 </script>
 
