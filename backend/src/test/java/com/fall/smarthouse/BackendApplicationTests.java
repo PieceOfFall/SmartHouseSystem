@@ -62,12 +62,12 @@ class BackendApplicationTests {
 
     @Test
     void testJwtDecode() throws Exception {
-        String s = JWTUtil.validateToken("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLlvKDkuIkiLCJleHAiOjE2NzAxNDE3MDl9.X6bAVUGkMypLQZOgpDHuG99nE4Nx85JSVmjZjnD0ThXC-vbm1jDjUpYhsVikhpT2nJ11XNnkdxltzknzxn3jiw");
+        String s = JWTUtil.validateToken("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLlvKDkuIkiLCJleHAiOjE2NzAyOTY3NDR9.w5WOPs5_GVRhzSAkBT2BrVGF60j34_YJRVbUbLnkwZwTvFBKFvv5l_1w4VRuqiZVYVJdHH2kKCQrdkRl2tzafQ");
     }
 
     @Test
     void testIsNeedUpdate() throws Exception {
-        boolean ret = JWTUtil.isNeedUpdate("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLlvKDkuIkiLCJleHAiOjE2NzAxNDE3MDl9.X6bAVUGkMypLQZOgpDHuG99nE4Nx85JSVmjZjnD0ThXC-vbm1jDjUpYhsVikhpT2nJ11XNnkdxltzknzxn3jiw");
+        boolean ret = JWTUtil.isNeedUpdate("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLlvKDkuIkiLCJleHAiOjE2NzAyOTY3NDR9.w5WOPs5_GVRhzSAkBT2BrVGF60j34_YJRVbUbLnkwZwTvFBKFvv5l_1w4VRuqiZVYVJdHH2kKCQrdkRl2tzafQ");
         System.out.println(ret);
     }
 

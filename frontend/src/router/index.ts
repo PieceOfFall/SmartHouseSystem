@@ -38,4 +38,8 @@ const routes: Array < RouteRecordRaw > = [{
 export const router = createRouter({
     history: createWebHistory(),
     routes,
+    // 刷新时，滚动条位置还原
+    scrollBehavior: () => ({ left: 0, top: 0 })
 })
+
+
