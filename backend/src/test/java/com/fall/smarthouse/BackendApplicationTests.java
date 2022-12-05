@@ -4,6 +4,8 @@ import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
+import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.JWTUtil;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 @SpringBootTest
@@ -24,10 +29,20 @@ class BackendApplicationTests {
     ElectricMapper electricMapper;
 
     @Autowired
-    ElectricApplianceServiceImpl electricApplianceService;
+    IElectricApplianceService electricApplianceService;
+
+    @Autowired
+    ISensorService sensorService;
+
+    @Test
+    void testSensorService() throws ParseException {
+        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291"));
+    }
+
 
     @Test
     void testUpdateElectricAppliance(){
+        System.out.println(System.currentTimeMillis());
         System.out.println(electricApplianceService.setWarnLight(0));
     }
 
@@ -70,6 +85,14 @@ class BackendApplicationTests {
         boolean ret = JWTUtil.isNeedUpdate("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLlvKDkuIkiLCJleHAiOjE2NzAyOTY3NDR9.w5WOPs5_GVRhzSAkBT2BrVGF60j34_YJRVbUbLnkwZwTvFBKFvv5l_1w4VRuqiZVYVJdHH2kKCQrdkRl2tzafQ");
         System.out.println(ret);
     }
+
+    @Test
+    void testSimpleDateFormat() {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(new Date(System.currentTimeMillis()));
+        System.out.println(format);
+    }
+
 
 
 }

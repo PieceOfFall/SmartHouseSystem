@@ -6,4 +6,54 @@
     <select id="testMapper" resultType="com.fall.smarthouse.model.Sensor">
         select * from sensor
     </select>
+
+<!--    Integer insertToSensor(Sensor sensor);-->
+    <insert id="insertToSensor">
+        insert into sensor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">
+                time,
+            </if>
+            <if test="gas != null">
+                gas,
+            </if>
+            <if test="smog != null">
+                smog,
+            </if>
+            <if test="temperature != null">
+                temperature,
+            </if>
+            <if test="humidity != null">
+                humidity,
+            </if>
+            <if test="shake != null">
+                shake,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="time != null">
+                #{time},
+            </if>
+            <if test="gas != null">
+                #{gas},
+            </if>
+            <if test="smog != null">
+                #{smog},
+            </if>
+            <if test="temperature != null">
+                #{temperature},
+            </if>
+            <if test="humidity != null">
+                #{humidity},
+            </if>
+            <if test="shake != null">
+                #{shake},
+            </if>
+        </trim>
+    </insert>
+
+<!--    List<Double> selectGasSensorData(Date minTime,Date maxTime);-->
+<select id="selectGasSensorData" resultType="double">
+    select  gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc
+</select>
 </mapper>

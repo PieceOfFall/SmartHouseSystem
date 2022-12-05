@@ -1,9 +1,10 @@
 package com.fall.smarthouse.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * @author FAll
@@ -11,11 +12,13 @@ import java.sql.Timestamp;
  * @description 传感器
  */
 @Data
+@AllArgsConstructor
 public class Sensor {
 
     // 时间戳
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp time;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date time;
     // 燃气
     private double gas;
     // 烟雾
