@@ -29,7 +29,6 @@ public interface ElectricMapper {
     @Select("select warn_light from electric_appliance")
     ElectricAppliance getWarnLight();
 
-    @Update("update electric_appliance light_bed_a = #{lightBedAState}")
-    void updateLightBedA(Integer lightBedAState);
+    Integer updateElectricAppliance(ElectricAppliance electricAppliance);
 
 }

@@ -27,6 +27,11 @@ class BackendApplicationTests {
     ElectricApplianceServiceImpl electricApplianceService;
 
     @Test
+    void testUpdateElectricAppliance(){
+        System.out.println(electricApplianceService.setWarnLight(0));
+    }
+
+    @Test
     void testElectric(){
         System.out.println(electricApplianceService.getWarnLight());
     }
