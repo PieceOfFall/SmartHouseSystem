@@ -1,7 +1,7 @@
 <template>
 
   <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
-    unique-opened @select="changeItem">
+    unique-opened>
 
     <!-- 收起侧边栏 -->
     <div class="switch" @click="changeCollapse">
@@ -30,11 +30,11 @@
   </el-menu>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import {
-    defineComponent,
     onMounted,
     ref,
+watch,
   } from 'vue'
   import {
     Document,
@@ -49,29 +49,11 @@
     storeToRefs
   } from 'pinia';
   import {
-    getCurrentInstance
-  } from 'vue'
-  import {
     useRouter
   } from "vue-router";
+  import {getAsideList} from '../api/aside/index';
+  import {MenuItem} from '../api/aside/types';
 
-  interface MenuItem {
-    id: number,
-      path: string,
-      authName: string,
-      children: Array < MenuItem >
-  }
-
-  export default defineComponent({
-    components: {
-      Document,
-      IconMenu,
-      Location,
-      Setting,
-      Minus,
-      MoreFilled
-    },
-    setup() {
       // pinia
       const store = useAsideStore().aside
       let {
@@ -89,7 +71,6 @@
           isCollapse.value = false;
         }
         isStoreCollapse.value = isCollapse.value
-
       })
 
       // 改变侧边栏开关状态
@@ -102,20 +83,16 @@
       // 获取侧边栏信息
       let menuList = ref < MenuItem[] > ()
       onMounted(async () => {
-        menuList.value = await getMenuList()
+        menuList.value = await (await getAsideList()).data
       })
-      async function getMenuList() {
-        const proxy = getCurrentInstance() ?.proxy
-        let ret;
-        ret = await proxy ?.$axios({
-          method: 'get',
-          url: '/smart_house/get_menu'
-        })
-        return ret ?.data.data
-      }
 
       // 选中菜单选项
       const router = ref(useRouter().currentRoute);
+      watch(router,
+      async ()=>{      
+        selectItem.value = router.value.fullPath
+        window.sessionStorage.setItem('selectItem', router.value.fullPath)
+      })
       onMounted(() => {
         if (window.sessionStorage.getItem('selectItem')) {
           selectItem.value = window.sessionStorage.getItem('selectItem') as string
@@ -123,23 +100,7 @@
           selectItem.value = '/homepage'
         }
       })
-      async function changeItem(path: string) {
-        selectItem.value = path
-        window.sessionStorage.setItem('selectItem', selectItem.value)
-      }
 
-
-      return {
-        isCollapse,
-        changeCollapse,
-        menuList,
-        router,
-        changeItem,
-        selectItem
-      }
-
-    }
-  })
 </script>
 
 
