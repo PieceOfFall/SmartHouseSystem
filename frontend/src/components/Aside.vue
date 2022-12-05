@@ -49,18 +49,10 @@ watch,
     storeToRefs
   } from 'pinia';
   import {
-    getCurrentInstance
-  } from 'vue'
-  import {
     useRouter
   } from "vue-router";
-
-  interface MenuItem {
-    id: number,
-      path: string,
-      authName: string,
-      children: Array < MenuItem >
-  }
+  import {getAsideList} from '../api/aside/index';
+  import {MenuItem} from '../api/aside/types';
 
       // pinia
       const store = useAsideStore().aside
@@ -79,7 +71,6 @@ watch,
           isCollapse.value = false;
         }
         isStoreCollapse.value = isCollapse.value
-
       })
 
       // 改变侧边栏开关状态
@@ -92,22 +83,13 @@ watch,
       // 获取侧边栏信息
       let menuList = ref < MenuItem[] > ()
       onMounted(async () => {
-        menuList.value = await getMenuList()
+        menuList.value = await (await getAsideList()).data
       })
-      async function getMenuList() {
-        const proxy = getCurrentInstance() ?.proxy
-        let ret;
-        ret = await proxy ?.$axios({
-          method: 'get',
-          url: '/smart_house/get_menu'
-        })
-        return ret ?.data.data
-      }
 
       // 选中菜单选项
       const router = ref(useRouter().currentRoute);
       watch(router,
-      ()=>{
+      async ()=>{      
         selectItem.value = router.value.fullPath
         window.sessionStorage.setItem('selectItem', router.value.fullPath)
       })

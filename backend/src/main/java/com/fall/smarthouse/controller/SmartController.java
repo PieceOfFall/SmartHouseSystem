@@ -5,8 +5,6 @@ import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.IUserService;
-import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
-import com.fall.smarthouse.service.impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
