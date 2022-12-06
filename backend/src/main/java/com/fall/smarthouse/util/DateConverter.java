@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  */
 public class DateConverter {
     /**
-     * @description: 将13位时间错转换为时间字符串
+     * @description: 将13位时间戳转换为时间字符串
      * @author xiaoQe
      * @date 2022/12/5 17:25
      * @version 1.0

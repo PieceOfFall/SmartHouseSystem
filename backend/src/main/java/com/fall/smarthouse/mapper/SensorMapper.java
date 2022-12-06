@@ -63,4 +63,31 @@ public interface SensorMapper {
      */
     @Select("select smog from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
     List<Double> selectSmogSensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询温度传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 15:33
+     * @version 1.0
+     */
+    @Select("select temperature from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectTemperatureSensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询湿度传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 16:04
+     * @version 1.0
+     */
+    @Select("select humidity from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectHumiditySensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询震动传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 16:16
+     * @version 1.0
+     */
+    @Select("select shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectShakeSensorData(Date minTime,Date maxTime);
 }
