@@ -2,6 +2,7 @@ package com.fall.smarthouse.service.exception;
 
 import com.fall.smarthouse.bean.ResBean;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -93,6 +94,13 @@ public class GlobalExceptionHandler {
         log.warn("请求方式错误", e);
         response.setStatus(405);
         return ResBean.badRequest(405, String.format("请求方法不正确:%s", e.getMessage()));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResBean httpMessageNotReadableException(HttpMessageNotReadableException e,HttpServletResponse response) {
+        log.warn("请求参数不可读",e);
+        response.setStatus(400);
+        return ResBean.badRequest(400,String.format("请求参数不可读:%s", e.getMessage()));
     }
 
     /**

@@ -3,14 +3,18 @@ package com.fall.smarthouse.controller;
 import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 /**
@@ -37,10 +41,9 @@ public class SmartController {
 
     @ApiOperation("用户登录")
     @PostMapping("/user_login")
-    public ResBean userLogin(@NotEmpty @RequestParam("account") String account,
-                             @NotEmpty @RequestParam("password") String password,
+    public ResBean userLogin(@Valid @RequestBody User user,
                              HttpServletResponse response) {
-        String token = userService.userLogin(account, password);
+        String token = userService.userLogin(user.getAccount(), user.getPassword());
         if (token == null) {
             response.setStatus(401);
             return ResBean.unauthorized("验证失败");
@@ -51,15 +54,16 @@ public class SmartController {
 
     @ApiOperation("检测用户登录是否过期 (页面拦截器用)")
     @PostMapping("/check_login")
-    public ResBean checkLogin(@NotEmpty @RequestParam("token") String token,
+    public ResBean checkLogin(HttpServletRequest request,
                               HttpServletResponse response) throws Exception {
+        String token = request.getHeader("Authorization");
         Boolean isLogin = userService.checkLogin(token);
         if (isLogin) {
             response.setStatus(200);
             return ResBean.ok("ok");
         }
-        response.setStatus(401);
-        return ResBean.unauthorized("验证失败，请重新登录");
+        response.setStatus(403);
+        return ResBean.forbidden("验证失败，请重新登录");
 
     }
 

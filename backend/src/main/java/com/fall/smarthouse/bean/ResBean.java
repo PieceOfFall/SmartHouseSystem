@@ -55,4 +55,8 @@ public class ResBean {
         return new ResBean(500, msg, obj);
     }
 
+    public static ResBean forbidden(String msg) {
+        return new ResBean(403, msg, null);
+    }
+
 }
