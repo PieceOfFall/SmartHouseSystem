@@ -1,12 +1,44 @@
 server:
   port: 8081
 spring:
-  # Druid
+  # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/smart_house?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    # Druid配置
+    druid:
+      access-to-underlying-connection-allowed:
+        #     配置初始化大小、最小、最大线程数
+          initialSize: 5
+          minIdle: 5
+          #     CPU核数+1，也可以大些但不要超过20，数据库加锁时连接过多性能下降
+          maxActive: 20
+          #     最大等待时间，内网：800，外网：1200（三次握手1s）
+          maxWait: 60000
+          timeBetweenEvictionRunsMillis: 60000
+          #     配置一个连接在池中最大空间时间，单位是毫秒
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: SELECT 1
+          testWhileIdle: true
+          #     设置从连接池获取连接时是否检查连接有效性，true检查，false不检查
+          testOnBorrow: true
+          #     设置从连接池归还连接时是否检查连接有效性，true检查，false不检查
+          testOnReturn: true
+          #     可以支持PSCache（提升写入、查询效率）
+          poolPreparedStatements: true
+          #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+          filters: stat,wall,log4j
+          #     保持长连接
+          keepAlive: true
+          maxPoolPreparedStatementPerConnectionSize: 20
+          useGlobalDataSourceStat: true
+          connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+          wall:
+          # 开启防止SQL注入
+          enabled: true
+          db-type: mysql
   mvc:
     # swagger-ui启动配置
     pathmatch:
@@ -21,3 +53,4 @@ jwt:
   tokenPrefix: "Bearer "      # token 前缀
   secret: "1f101b867a904c2ba01f5ce75df24185" # 私钥
   expireTime: 1           # token 的有效时间，单位是分钟
+
