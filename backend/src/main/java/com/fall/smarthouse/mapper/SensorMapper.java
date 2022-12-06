@@ -4,6 +4,7 @@ import com.fall.smarthouse.model.Sensor;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -46,10 +47,47 @@ public interface SensorMapper {
     Integer insertToSensor(Sensor sensor);
 
     /**
-     * @description: 查询传感器数据
+     * @description: 查询燃气传感器数据
      * @author xiaoQe
      * @date 2022/12/5 17:42
      * @version 1.0
      */
+    @Select({"select  gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc"})
     List<Double> selectGasSensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询烟雾传感器数据
+     * @author xiaoQe
+     * @date 2022/12/5 19:13
+     * @version 1.0
+     */
+    @Select("select smog from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectSmogSensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询温度传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 15:33
+     * @version 1.0
+     */
+    @Select("select temperature from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectTemperatureSensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询湿度传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 16:04
+     * @version 1.0
+     */
+    @Select("select humidity from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectHumiditySensorData(Date minTime,Date maxTime);
+
+    /**
+     * @description: 查询震动传感器数据
+     * @author xiaoQe
+     * @date 2022/12/6 16:16
+     * @version 1.0
+     */
+    @Select("select shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Double> selectShakeSensorData(Date minTime,Date maxTime);
 }

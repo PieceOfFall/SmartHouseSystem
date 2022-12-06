@@ -37,13 +37,53 @@ public class SensorController {
         return ResBean.ok("ok");
     }
 
-    @ApiOperation("查询烟雾传感器数据")
-    @GetMapping("get_gas_datas")
+    @ApiOperation("查询燃气传感器数据")
+    @GetMapping("get_gas_data")
     public ResBean GetGasData(@NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("maxTime") String maxTime,
                                HttpServletResponse response) throws ParseException {
         List<Double> gasSensorData = sensorService.getGasSensorData(minTime, maxTime);
         response.setStatus(200);
         return ResBean.ok("ok",gasSensorData);
+    }
+
+    @ApiOperation("查询烟雾传感器数据")
+    @GetMapping("get_smog_data")
+    public ResBean getSmogData(@NotEmpty @RequestParam("minTime") String minTime,
+                               @NotEmpty @RequestParam("maxTime") String maxTime,
+                               HttpServletResponse response) throws ParseException {
+        List<Double> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",smogSensorData);
+    }
+
+    @ApiOperation("查询温度传感器数据")
+    @GetMapping("get_temperature_data")
+    public ResBean getTemperatureData(@NotEmpty @RequestParam("minTime") String minTime,
+                                      @NotEmpty @RequestParam("maxTime") String maxTime,
+                                      HttpServletResponse response) throws ParseException {
+        List<Double> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",temperatureSensorData);
+    }
+
+    @ApiOperation("查询湿度传感器数据")
+    @GetMapping("get_humidity_data")
+    public ResBean getHumidityData(@NotEmpty @RequestParam("minTime") String minTime,
+                                   @NotEmpty @RequestParam("maxTime") String maxTime,
+                                   HttpServletResponse response) throws ParseException {
+        List<Double> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",humiditySensorData);
+    }
+
+    @ApiOperation("查询震动传感器数据")
+    @GetMapping("get_shake_data")
+    public ResBean getShakeData(@NotEmpty @RequestParam("minTime") String minTime,
+                                @NotEmpty @RequestParam("maxTime") String maxTime,
+                                HttpServletResponse response) throws ParseException {
+        List<Double> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",shakeSensorData);
     }
 }

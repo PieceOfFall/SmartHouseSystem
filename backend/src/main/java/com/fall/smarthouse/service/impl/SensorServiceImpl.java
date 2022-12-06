@@ -43,7 +43,39 @@ public class SensorServiceImpl implements ISensorService {
     public List<Double> getGasSensorData(String minTime, String maxTime) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
-        List<Double> gasDatas = sensorMapper.selectGasSensorData(minDate, maxDate);
-        return gasDatas;
+        List<Double> gasData = sensorMapper.selectGasSensorData(minDate, maxDate);
+        return gasData;
+    }
+
+    @Override
+    public List<Double> getSmogSensorData(String minTime, String maxTime) throws ParseException {
+        Date minDate = DateConverter.StringToSqlDate(minTime);
+        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        List<Double> smogSensorData = sensorMapper.selectSmogSensorData(minDate, maxDate);
+        return smogSensorData;
+    }
+
+    @Override
+    public List<Double> getTemperatureSensorData(String minTime, String maxTime) throws ParseException {
+        Date minDate = DateConverter.StringToSqlDate(minTime);
+        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        List<Double> temperatureSensorData = sensorMapper.selectTemperatureSensorData(minDate, maxDate);
+        return temperatureSensorData;
+    }
+
+    @Override
+    public List<Double> getHumiditySensorData(String minTime, String maxTime) throws ParseException {
+        Date minDate = DateConverter.StringToSqlDate(minTime);
+        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        List<Double> humiditySensorData = sensorMapper.selectHumiditySensorData(minDate, maxDate);
+        return humiditySensorData;
+    }
+
+    @Override
+    public List<Double> getShakeSensorData(String minTime, String maxTime) throws ParseException {
+        Date minDate = DateConverter.StringToSqlDate(minTime);
+        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        List<Double> shakeSensorData = sensorMapper.selectShakeSensorData(minDate, maxDate);
+        return shakeSensorData;
     }
 }
