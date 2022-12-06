@@ -2,7 +2,10 @@ package com.fall.smarthouse.service.impl;
 
 import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.constant.MenuID;
+import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.service.IUserService;
+import com.fall.smarthouse.util.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import java.util.ArrayList;
  */
 @Service
 public class UserServiceImpl implements IUserService {
+
+    @Autowired
+    UserMapper userMapper;
 
     /**
      * @author FAll
@@ -60,4 +66,27 @@ public class UserServiceImpl implements IUserService {
         return list;
 
     }
+
+    @Override
+    public String userLogin(String account, String password) {
+
+        // MD5加盐
+        String s = userMapper.userLogin(account, JWTUtil.SALT_BEFORE+password + JWTUtil.SALT_AFTER);
+        if (s == null || s.trim().equals("")) {
+            return null;
+        }
+        // 如果存在该用户，执行JWT签发
+        String token = JWTUtil.createToken(s);
+        return token;
+    }
+
+    @Override
+    public Boolean checkLogin(String token) throws Exception {
+        boolean isNeedUpdate = JWTUtil.isNeedUpdate(token);
+        if(isNeedUpdate) {
+            return false;
+        }
+        return true;
+    }
+
 }

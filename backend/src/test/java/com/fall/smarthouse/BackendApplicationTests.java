@@ -2,6 +2,7 @@ package com.fall.smarthouse;
 
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
+import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.IElectricApplianceService;
@@ -33,6 +34,9 @@ class BackendApplicationTests {
 
     @Autowired
     ISensorService sensorService;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Test
     void testSensorService() throws ParseException {
@@ -93,6 +97,11 @@ class BackendApplicationTests {
         System.out.println(format);
     }
 
+    @Test
+    void testLogin(){
+        String ret = userMapper.userLogin("940313262", "123456");
+        System.out.println(ret);
+    }
 
 
 }
