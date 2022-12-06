@@ -36,7 +36,7 @@ class BackendApplicationTests {
 
     @Test
     void testSensorService() throws ParseException {
-        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291"));
+        System.out.println(sensorService.getShakeSensorData("11111111111","1770231713291"));
 //        System.out.println(sensorService.insertToSensor("1770231713291",3.0,4.9,7.0,7.8,2.1));
     }
 
