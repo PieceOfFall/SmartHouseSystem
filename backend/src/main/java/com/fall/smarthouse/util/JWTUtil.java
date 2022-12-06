@@ -18,6 +18,13 @@ import java.util.Date;
 @Component
 @ConfigurationProperties(prefix = "jwt")
 public class JWTUtil {
+
+    // 前缀盐值
+    public static final String SALT_BEFORE = "my";
+
+    // 后缀盐值
+    public static final String SALT_AFTER = "name";
+
     // token 返回头部
     public static String header;
 
@@ -34,9 +41,9 @@ public class JWTUtil {
     public static final String USER_LOGIN_TOKEN = "token";
 
     /**
+     * @param header
      * @author FAll
      * @description 设置 token 头部
-     * @param header
      * @date 2022/12/4 15:39
      */
     public void setHeader(String header) {
@@ -44,9 +51,9 @@ public class JWTUtil {
     }
 
     /**
+     * @param tokenPrefix
      * @author FAll
      * @description 设置 token 前缀
-     * @param tokenPrefix
      * @date 2022/12/4 15:39
      */
     public void setTokenPrefix(String tokenPrefix) {
@@ -54,9 +61,9 @@ public class JWTUtil {
     }
 
     /**
+     * @param secret
      * @author FAll
      * @description 设置 token 密钥
-     * @param secret
      * @date 2022/12/4 15:39
      */
     public void setSecret(String secret) {
@@ -64,9 +71,9 @@ public class JWTUtil {
     }
 
     /**
+     * @param expireTimeInt
      * @author FAll
      * @description 设置 token 有效时间
-     * @param expireTimeInt
      * @date 2022/12/4 15:39
      */
     public void setExpireTime(int expireTimeInt) {
@@ -74,16 +81,16 @@ public class JWTUtil {
     }
 
     /**
+     * @param sub
      * @author FAll
      * @description 创建 TOKEN
-     * @param sub
      * @return: java.lang.String
      * @date 2022/12/4 15:39
      */
     public static String createToken(String sub) {
         return tokenPrefix + JWT.create()
                 .withSubject(sub)
-                .withExpiresAt(new Date(System.currentTimeMillis() + expireTime*1000*60*60*24))
+                .withExpiresAt(new Date(System.currentTimeMillis() + expireTime * 1000 * 60 * 60 * 24))
                 .sign(Algorithm.HMAC512(secret));
     }
 
@@ -100,13 +107,13 @@ public class JWTUtil {
             // 去除 token 的前缀
             String noPrefixToken = token.replace(tokenPrefix, "");
             DecodedJWT decodedJwt = jwtVerifier.verify(noPrefixToken);
-            if(decodedJwt != null) {
+            if (decodedJwt != null) {
                 return decodedJwt.getSubject();
             }
             return "";
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
@@ -114,9 +121,9 @@ public class JWTUtil {
     }
 
     /**
+     * @param token
      * @author FAll
      * @description 检查 token 是否需要更新
-     * @param token
      * @return: boolean
      * @date 2022/12/4 15:39
      */
@@ -128,10 +135,10 @@ public class JWTUtil {
                     .build()
                     .verify(token.replace(tokenPrefix, ""))
                     .getExpiresAt();
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             return true;
-        } catch (Exception e){
-            throw new Exception(("token 验证失败"));
+        } catch (Exception e) {
+            return true;
         }
         // 需要更新
         return (expiresAt.getTime() - System.currentTimeMillis()) < (expireTime >> 1);

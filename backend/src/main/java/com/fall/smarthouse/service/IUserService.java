@@ -18,4 +18,23 @@ public interface IUserService {
      * @date 2022/12/3 10:17
      */
     public ArrayList<MenuItem> getMenu();
+
+    /**
+     * @author FAll
+     * @description 用户登录
+     * @param account
+     * @param password
+     * @return: java.lang.Boolean
+     * @date 2022/12/6 13:36
+     */
+    public String userLogin(String account,String password);
+
+    /**
+     * @author FAll
+     * @description 校验Token是否过期
+     * @param token
+     * @return: java.lang.Boolean
+     * @date 2022/12/6 16:02
+     */
+    public Boolean checkLogin(String token) throws Exception;
 }

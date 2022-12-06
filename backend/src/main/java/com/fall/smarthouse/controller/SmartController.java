@@ -35,5 +35,32 @@ public class SmartController {
         return ResBean.ok("ok", menu);
     }
 
+    @ApiOperation("用户登录")
+    @PostMapping("/user_login")
+    public ResBean userLogin(@NotEmpty @RequestParam("account") String account,
+                             @NotEmpty @RequestParam("password") String password,
+                             HttpServletResponse response) {
+        String token = userService.userLogin(account, password);
+        if (token == null) {
+            response.setStatus(401);
+            return ResBean.unauthorized("验证失败");
+        }
+        response.setStatus(200);
+        return ResBean.ok("ok", token);
+    }
+
+    @ApiOperation("检测用户登录是否过期 (页面拦截器用)")
+    @PostMapping("/check_login")
+    public ResBean checkLogin(@NotEmpty @RequestParam("token") String token,
+                              HttpServletResponse response) throws Exception {
+        Boolean isLogin = userService.checkLogin(token);
+        if (isLogin) {
+            response.setStatus(200);
+            return ResBean.ok("ok");
+        }
+        response.setStatus(401);
+        return ResBean.unauthorized("验证失败，请重新登录");
+
+    }
 
 }
