@@ -12,6 +12,8 @@ import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootTest
@@ -41,6 +44,15 @@ class BackendApplicationTests {
     @Autowired
     UserMapper userMapper;
 
+
+    @Test
+    void testPage() throws ParseException {
+        PageHelper.startPage(2,3);
+        List<Double> data = sensorService.getShakeSensorData("11111111111", "1770231713291");
+        System.out.println(data);
+        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
+        System.out.println(doublePageInfo);
+    }
     @Test
     void testSensorService() throws ParseException {
         System.out.println(sensorService.getShakeSensorData("11111111111","1770231713291"));
