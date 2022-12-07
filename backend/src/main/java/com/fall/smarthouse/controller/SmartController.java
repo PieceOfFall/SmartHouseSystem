@@ -54,9 +54,9 @@ public class SmartController {
 
     @ApiOperation("检测用户登录是否过期 (页面拦截器用)")
     @PostMapping("/check_login")
-    public ResBean checkLogin(HttpServletRequest request,
-                              HttpServletResponse response) throws Exception {
-        String token = request.getHeader("Authorization");
+
+    public ResBean checkLogin(@NotEmpty @RequestParam("token") String token,
+                              HttpServletResponse response)  {
         Boolean isLogin = userService.checkLogin(token);
         if (isLogin) {
             response.setStatus(200);

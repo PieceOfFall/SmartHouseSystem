@@ -36,5 +36,5 @@ public interface IUserService {
      * @return: java.lang.Boolean
      * @date 2022/12/6 16:02
      */
-    public Boolean checkLogin(String token) throws Exception;
+    public Boolean checkLogin(String token) ;
 }

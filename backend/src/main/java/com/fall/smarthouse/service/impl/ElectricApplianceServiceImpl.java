@@ -45,8 +45,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setLightBedA(Integer lightBedA){
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setLightBedA(ElectricAppliance electricAppliance){
+        Integer lightBedA = electricAppliance.getLightBedA();
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -57,8 +57,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setLightBedB(Integer lightBedB) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setLightBedB(ElectricAppliance electricAppliance) {
+        Integer lightBedB = electricAppliance.getLightBedB();
         Integer lightBedBState = checkLightIntegerLegal(lightBedB);
         electricAppliance.setLightBedB(lightBedBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -69,8 +69,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setLightLivingRoom(Integer lightLivingRoom) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setLightLivingRoom(ElectricAppliance electricAppliance) {
+        Integer lightLivingRoom = electricAppliance.getLightLivingRoom();
         Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
         electricAppliance.setLightLivingRoom(lightLivingRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -81,8 +81,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setLightBathroom(Integer lightBathRoom) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setLightBathroom(ElectricAppliance electricAppliance) {
+        Integer lightBathRoom = electricAppliance.getLightBathroom();
         Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
         electricAppliance.setLightBathroom(lightBathRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -93,8 +93,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setSwitchA(Integer switchA) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setSwitchA(ElectricAppliance electricAppliance) {
+        Integer switchA = electricAppliance.getSwitchA();
         Integer switchAState = checkSwitchIntegerLegal(switchA);
         electricAppliance.setSwitchA(switchAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -105,8 +105,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setSwitchB(Integer switchB) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setSwitchB(ElectricAppliance electricAppliance) {
+        Integer switchB = electricAppliance.getSwitchB();
         Integer switchBState = checkSwitchIntegerLegal(switchB);
         electricAppliance.setSwitchB(switchBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -117,8 +117,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setSwitchC(Integer switchC) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setSwitchC(ElectricAppliance electricAppliance) {
+        Integer switchC = electricAppliance.getSwitchC();
         Integer switchCState = checkSwitchIntegerLegal(switchC);
         electricAppliance.setSwitchC(switchCState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -129,8 +129,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setCurtainA(Integer curtainA) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setCurtainA(ElectricAppliance electricAppliance) {
+        Integer curtainA = electricAppliance.getCurtainA();
         Integer curtainAState = checkSwitchIntegerLegal(curtainA);
         electricAppliance.setCurtainA(curtainAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -141,8 +141,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setCurtainB(Integer curtainB) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setCurtainB(ElectricAppliance electricAppliance) {
+        Integer curtainB = electricAppliance.getCurtainB();
         Integer curtainBState = checkSwitchIntegerLegal(curtainB);
         electricAppliance.setCurtainB(curtainBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
@@ -153,8 +153,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public boolean setWarnLight(Integer warnLight) {
-        ElectricAppliance electricAppliance = new ElectricAppliance();
+    public boolean setWarnLight(ElectricAppliance electricAppliance) {
+        Integer warnLight = electricAppliance.getWarnLight();
         Integer warnLightState = checkSwitchIntegerLegal(warnLight);
         electricAppliance.setWarnLight(warnLightState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);

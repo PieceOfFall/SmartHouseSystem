@@ -2,6 +2,9 @@ package com.fall.smarthouse.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author FAll
