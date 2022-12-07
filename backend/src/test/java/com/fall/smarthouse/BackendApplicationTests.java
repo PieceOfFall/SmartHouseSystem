@@ -9,6 +9,7 @@ import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
+import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,19 +46,27 @@ class BackendApplicationTests {
     @Autowired
     UserMapper userMapper;
 
+    @Test
+    void testSelectAll() throws ParseException {
+        java.sql.Date minTime = DateConverter.StringToSqlDate("1670231713291");
+        java.sql.Date maxTime = DateConverter.StringToSqlDate("1770231713291");
+        List<Sensor> sensors = sensorMapper.selectAllSensorData(minTime, maxTime);
+        System.out.println(sensors);
+    }
+
 
     @Test
     void testPage() throws ParseException {
         PageHelper.startPage(1,3);
-        List<Double> data = sensorService.getShakeSensorData("11111111111", "1770231713291");
-        System.out.println(data);
-        System.out.println();
-        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
-        System.out.println(doublePageInfo.getList());
+        PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData("11111111111", "1770231713291", 1, 2);
+//        System.out.println(data);
+//        System.out.println();
+//        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
+        System.out.println(shakeSensorData);
     }
     @Test
     void testSensorService() throws ParseException {
-        System.out.println(sensorService.getShakeSensorData("11111111111","1770231713291"));
+        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291",1,2));
 //        System.out.println(sensorService.insertToSensor("1770231713291",3.0,4.9,7.0,7.8,2.1));
     }
 
