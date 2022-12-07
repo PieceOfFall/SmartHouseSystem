@@ -26,7 +26,6 @@ public class SmartHouseFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
     }
 
     /**
@@ -38,7 +37,7 @@ public class SmartHouseFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         boolean needUpdate = JWTUtil.isNeedUpdate(token);
         if (needUpdate) {
             ObjectMapper mapper = new ObjectMapper();
