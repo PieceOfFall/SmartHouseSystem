@@ -97,6 +97,6 @@ public interface SensorMapper {
      * @date 2022/12/7 14:52
      * @version 1.0
      */
-    @Select("select * from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Sensor> selectAllSensorData(Date minTime,Date maxTime);
+    @Select("select * from sensor order by `time` desc limit 1")
+    Sensor selectLastTimeSensorData();
 }

@@ -14,7 +14,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author FAll
@@ -93,7 +95,29 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public Boolean safetyInspection() {
-        return null;
+    public Map<String,Object> safetyInspection() {
+        Sensor sensor = sensorMapper.selectLastTimeSensorData();
+        Map<String, Object> warnMap = new HashMap<>();
+        if(sensor.getGas() < 2 || sensor.getGas() > 15){
+            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("gas",sensor.getGas());
+        }
+        if(sensor.getSmog() < 5 || sensor.getSmog() >25){
+            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("smog",sensor.getSmog());
+        }
+        if(sensor.getTemperature() > 57){
+            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("temperature",sensor.getTemperature());
+        }
+        if(sensor.getHumidity() < 20 || sensor.getHumidity() > 80){
+            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("humidity",sensor.getHumidity());
+        }
+        if (sensor.getShake() > 30){
+            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("shake",sensor.getShake());
+        }
+        return warnMap;
     }
 }

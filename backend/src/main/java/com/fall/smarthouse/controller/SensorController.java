@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiaoQe
@@ -96,5 +97,18 @@ public class SensorController {
         PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",shakeSensorData);
+    }
+
+    @ApiOperation("检测传感器是否异常")
+    @GetMapping("/safety_inspection")
+    public ResBean getSafetyInspection(HttpServletResponse response){
+        Map<String, Object> map = sensorService.safetyInspection();
+        if(map.isEmpty()){
+            response.setStatus(200);
+            return ResBean.ok("ok");
+        }else {
+            response.setStatus(200);
+            return ResBean.ok("Abnormal sensor",map);
+        }
     }
 }

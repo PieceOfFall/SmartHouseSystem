@@ -23,10 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -47,11 +44,10 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
-    void testSelectAll() throws ParseException {
-        java.sql.Date minTime = DateConverter.StringToSqlDate("1670231713291");
-        java.sql.Date maxTime = DateConverter.StringToSqlDate("1770231713291");
-        List<Sensor> sensors = sensorMapper.selectAllSensorData(minTime, maxTime);
-        System.out.println(sensors);
+    void testSelectAll(){
+        Map<String, Object> map = sensorService.safetyInspection();
+        System.out.println(map.isEmpty());
+        System.out.println(map);
     }
 
 

@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author FAll
@@ -64,10 +65,10 @@ public interface ISensorService {
     public PageInfo<Double> getShakeSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
-     * @description: 传感器安全检测 true为安全 false为警告
+     * @description: 传感器安全检测 map返回时间及异常的传感器数据
      * @author xiaoQe
      * @date 2022/12/7 14:47
      * @version 1.0
      */
-    public Boolean safetyInspection();
+    public Map<String,Object> safetyInspection();
 }
