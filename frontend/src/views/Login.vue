@@ -22,6 +22,7 @@
             id="pwd-item"
             prop="password">
                 <el-input v-model="form.password" 
+                type = "password"
                 placeholder="输入密码"
                 :suffix-icon="Unlock"/>
             </el-form-item>

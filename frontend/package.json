@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "axios": "^1.2.0",
+    "echarts": "^5.4.0",
     "element-plus": "^2.2.25",
     "pinia": "^2.0.27",
     "vue": "^3.2.41",
+    "vue-echarts": "^6.2.3",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
