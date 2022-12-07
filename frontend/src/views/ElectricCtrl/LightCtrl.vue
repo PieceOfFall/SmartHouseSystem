@@ -92,20 +92,18 @@ onMounted(async()=>{
 /*
    控制灯光，延迟同步
 */
-// 上次切换时间
-let switchTime:number = new Date().getTime()
-// 本次点击时的时间
-let thisTime:number;
-watch(lights,async ()=>{
-    
+let timer:number; // 定时器序号
+watch(lights,async()=>{
     // 防抖
-    thisTime = new Date().getTime() // 进入监听时更新本次点击时间
-    if(thisTime-switchTime<1000) {  // 如果距离上次提交时间不到1秒，则直接返回
-        return
-    } 
-    // 调用接口提交数据
-    await setAppliance(lights.value as ElectricAppliance)
-    switchTime = new Date().getTime() // 数据提交完成，更新切换时间
+    if(timer) {
+        clearTimeout(timer)
+    }
+    timer = setTimeout(async()=>{
+        console.log("调用接口");
+        // 调用接口提交数据
+        await setAppliance(lights.value as ElectricAppliance)
+    },1000)
+    
 },
 // 开启深度监听
 {deep:true})
