@@ -12,6 +12,7 @@ import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
@@ -47,11 +48,12 @@ class BackendApplicationTests {
 
     @Test
     void testPage() throws ParseException {
-        PageHelper.startPage(2,3);
+        PageHelper.startPage(1,3);
         List<Double> data = sensorService.getShakeSensorData("11111111111", "1770231713291");
         System.out.println(data);
+        System.out.println();
         PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
-        System.out.println(doublePageInfo);
+        System.out.println(doublePageInfo.getList());
     }
     @Test
     void testSensorService() throws ParseException {
@@ -70,8 +72,9 @@ class BackendApplicationTests {
 
     @Test
     void testUpdateElectricAppliance(){
-        System.out.println(System.currentTimeMillis());
-        System.out.println(electricApplianceService.setWarnLight(0));
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        electricAppliance.setLightBedB(0);
+        System.out.println(electricApplianceService.setLightBedB(electricAppliance));
     }
 
     @Test

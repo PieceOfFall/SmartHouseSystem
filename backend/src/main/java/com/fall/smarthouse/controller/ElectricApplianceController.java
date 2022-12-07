@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 
@@ -84,88 +85,88 @@ public class ElectricApplianceController {
 
     @ApiOperation("主卧灯光控制")
     @PostMapping("set_light_bed_a")
-    public ResBean setLightBedA(@NotEmpty @RequestParam("lightBedA") Integer LightBedA,
+    public ResBean setLightBedA(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        boolean setLightBedA = electricApplianceService.setLightBedA(LightBedA.intValue());
+        boolean setLightBedA = electricApplianceService.setLightBedA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
     @ApiOperation("次卧灯光控制")
     @PostMapping("set_light_bed_b")
-    public ResBean setLightBedB(@NotEmpty @RequestParam("lightBedB") Integer LightBedB,
+    public ResBean setLightBedB(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        boolean setLightBedB = electricApplianceService.setLightBedB(LightBedB.intValue());
+        boolean setLightBedB = electricApplianceService.setLightBedB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("客厅灯光控制")
     @PostMapping("set_light_living_room")
-    public ResBean setLightLivingRoom(@NotEmpty @RequestParam("lightLivingRoom") Integer LightLivingRoom,
+    public ResBean setLightLivingRoom(@Valid @RequestBody ElectricAppliance electricAppliance,
                                       HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setLightLivingRoom(LightLivingRoom.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setLightLivingRoom(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("浴室灯光控制")
     @PostMapping("set_light_bathroom")
-    public ResBean setLightBathroom(@NotEmpty @RequestParam("lightBathroom") Integer LightBathroom,
+    public ResBean setLightBathroom(@Valid @RequestBody ElectricAppliance electricAppliance,
                                     HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setLightBathroom(LightBathroom.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setLightBathroom(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("开关A控制")
     @PostMapping("set_switch_a")
-    public ResBean setSwitchA(@NotEmpty @RequestParam("switchA") Integer SwitchA,
+    public ResBean setSwitchA(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setSwitchA(SwitchA.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setSwitchA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
     @ApiOperation("开关B控制")
     @PostMapping("set_switch_b")
-    public ResBean setSwitchB(@NotEmpty @RequestParam("switchB") Integer SwitchB,
+    public ResBean setSwitchB(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setSwitchB(SwitchB.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setSwitchB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("开关C控制")
     @PostMapping("set_switch_c")
-    public ResBean setSwitchC(@NotEmpty @RequestParam("switchC") Integer SwitchC,
+    public ResBean setSwitchC(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setSwitchC(SwitchC.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setSwitchC(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("窗帘A控制")
     @PostMapping("set_curtain_a")
-    public ResBean setCurtainA(@NotEmpty @RequestParam("curtainA") Integer curtainA,
+    public ResBean setCurtainA(@Valid @RequestBody ElectricAppliance electricAppliance,
                                HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setCurtainA(curtainA.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setCurtainA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("窗帘B控制")
     @PostMapping("set_curtain_b")
-    public ResBean setCurtainB(@NotEmpty @RequestParam("curtainB") Integer curtainB,
+    public ResBean setCurtainB(@Valid @RequestBody ElectricAppliance electricAppliance,
                                HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setCurtainB(curtainB.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setCurtainB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("警鸣灯光控制")
     @PostMapping("set_warn_light")
-    public ResBean setWarnLight(@NotEmpty @RequestParam("warnLight") Integer warnLight,
+    public ResBean setWarnLight(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        boolean setLightLivingRoom = electricApplianceService.setWarnLight(warnLight.intValue());
+        boolean setLightLivingRoom = electricApplianceService.setWarnLight(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }

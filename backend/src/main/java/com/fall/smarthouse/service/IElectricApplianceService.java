@@ -45,7 +45,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 15:25
      * @version 1.0
      */
-    public boolean setLightBedA(Integer lightBedA);
+    public boolean setLightBedA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 次卧灯光控制
@@ -53,7 +53,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightBedB(Integer lightBedB);
+    public boolean setLightBedB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 客厅灯光控制
@@ -61,7 +61,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightLivingRoom(Integer lightLivingRoom);
+    public boolean setLightLivingRoom(ElectricAppliance electricAppliance);
 
     /**
      * @description: 浴室灯光控制
@@ -69,7 +69,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightBathroom(Integer lightLivingRoom);
+    public boolean setLightBathroom(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关A控制
@@ -77,7 +77,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchA(Integer switchA);
+    public boolean setSwitchA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关B控制
@@ -85,7 +85,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchB(Integer switchB);
+    public boolean setSwitchB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关C控制
@@ -93,7 +93,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchC(Integer switchC);
+    public boolean setSwitchC(ElectricAppliance electricAppliance);
 
     /**
      * @description: 窗帘A控制
@@ -101,7 +101,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setCurtainA(Integer curtainA);
+    public boolean setCurtainA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 窗帘B控制
@@ -109,7 +109,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setCurtainB(Integer curtainB);
+    public boolean setCurtainB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 警鸣灯光控制
@@ -117,5 +117,5 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setWarnLight(Integer warnLight);
+    public boolean setWarnLight(ElectricAppliance electricAppliance);
 }
