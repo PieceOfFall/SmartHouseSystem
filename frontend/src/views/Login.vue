@@ -22,6 +22,7 @@
             id="pwd-item"
             prop="password">
                 <el-input v-model="form.password" 
+                type = "password"
                 placeholder="输入密码"
                 :suffix-icon="Unlock"/>
             </el-form-item>
@@ -37,21 +38,26 @@
 <script setup lang="ts">
 import { FormInstance, FormRules } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
 import {
     Unlock,
     User,
     Upload 
   } from '@element-plus/icons-vue'
   import {useRouter} from 'vue-router';
+  import {userLogin} from '../api/login/index';
+  import {Token} from '../api/login/types';
 
-//  验证表单并提交
+/*
+   验证表单并提交
+*/
 const ruleFormRef = ref<FormInstance>()
 const router = useRouter()
 const form = reactive({
     account:'',
     password:''
 })
-
+// 表单验证规则
 const rules = reactive<FormRules>({
     account:[
         {required:true,message:'请输入账号',trigger:'blur'},
@@ -62,14 +68,26 @@ const rules = reactive<FormRules>({
         {required:true, min: 6, message: '密码长度至少为6', trigger: 'blur' }
     ]
 })
+
+// 验证表单，提交数据
 async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
-    await formEl.validate((valid, fields) => {      
+    await formEl.validate( async function (valid, fields) {   
     if (valid) {
-      console.log('submit!')
+      let token:Token = await (await userLogin(form.account,form.password)).data
+      window.localStorage.setItem("authorization",token)
+      ElMessage({
+        message: `欢迎回来！${form.account}`,
+        type: 'success',
+    })
+    router.push('/homepage')
     } else {
-      console.log('error submit!', fields)
+        ElMessage({
+            message: '请补全信息',
+            type: 'error'
+          })
     }
+
   })
     
 }

@@ -1,8 +1,17 @@
 import {
+    Token
+} from './../api/login/types';
+import {
     createRouter,
     createWebHistory,
     RouteRecordRaw
 } from 'vue-router'
+import {
+    checkLogin
+} from '../api/login/index';
+import {
+    ElMessageBox
+} from 'element-plus';
 
 const routes: Array < RouteRecordRaw > = [{
         path: '/login',
@@ -46,3 +55,33 @@ export const router = createRouter({
         top: 0
     })
 })
+
+// 登录拦截
+router.beforeEach(async (to, from, next) => {
+    // 判断是否去登录页
+    if (to.name == "Login") {
+        next()
+    } else {
+        // 判断是否第一次登录
+        const token: Token | null = localStorage.getItem('authorization')
+        if (token === undefined || token === null || token ?.trim() === "") {
+            ElMessageBox.confirm('当前页面已失效，请重新登录', '提示', {
+                confirmButtonText: 'OK',
+                type: 'warning'
+            }).then(() => {
+                localStorage.clear()
+                router.push('/login')
+            })
+        } else {
+            // token存在,校验token
+            await checkLogin(token as string)
+            /*
+               如果token已经过期,封装的request API会检测到403状态码，自动返回登录页面
+            */
+
+            // token未过期
+            next()
+        }
+    }
+
+});
