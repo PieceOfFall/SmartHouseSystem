@@ -3,7 +3,6 @@
         <!-- 面包屑 -->
         <Breadcrumb bread-route="窗帘控制"/>
 
-        
     </div>
 </template>
 

@@ -105,9 +105,6 @@ watch(lights,async()=>{
 
 
 
-
-
-
 </script>
 
 <style lang="less" scoped>
