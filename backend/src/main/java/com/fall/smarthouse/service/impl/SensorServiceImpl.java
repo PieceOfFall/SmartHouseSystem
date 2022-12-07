@@ -91,4 +91,9 @@ public class SensorServiceImpl implements ISensorService {
         PageInfo<Double> shakePageInfo = new PageInfo<>(shakeSensorData);
         return shakePageInfo;
     }
+
+    @Override
+    public Boolean safetyInspection() {
+        return null;
+    }
 }

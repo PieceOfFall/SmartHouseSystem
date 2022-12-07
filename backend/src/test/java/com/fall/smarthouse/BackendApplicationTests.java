@@ -9,6 +9,7 @@ import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
+import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,14 @@ class BackendApplicationTests {
 
     @Autowired
     UserMapper userMapper;
+
+    @Test
+    void testSelectAll() throws ParseException {
+        java.sql.Date minTime = DateConverter.StringToSqlDate("1670231713291");
+        java.sql.Date maxTime = DateConverter.StringToSqlDate("1770231713291");
+        List<Sensor> sensors = sensorMapper.selectAllSensorData(minTime, maxTime);
+        System.out.println(sensors);
+    }
 
 
     @Test

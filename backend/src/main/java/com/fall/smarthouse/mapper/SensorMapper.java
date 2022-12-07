@@ -91,5 +91,12 @@ public interface SensorMapper {
     @Select("select shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
     List<Double> selectShakeSensorData(Date minTime,Date maxTime);
 
-
+    /**
+     * @description: 查询所有传感器数据
+     * @author xiaoQe
+     * @date 2022/12/7 14:52
+     * @version 1.0
+     */
+    @Select("select * from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
+    List<Sensor> selectAllSensorData(Date minTime,Date maxTime);
 }

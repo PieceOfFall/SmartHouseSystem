@@ -62,4 +62,12 @@ public interface ISensorService {
      * @version 1.0
      */
     public PageInfo<Double> getShakeSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
+
+    /**
+     * @description: 传感器安全检测 true为安全 false为警告
+     * @author xiaoQe
+     * @date 2022/12/7 14:47
+     * @version 1.0
+     */
+    public Boolean safetyInspection();
 }
