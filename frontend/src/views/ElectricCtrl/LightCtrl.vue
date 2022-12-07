@@ -97,12 +97,14 @@ let switchTime = new Date().getTime()
 // 本次点击时的时间
 let thisTime:number;
 watch(lights,()=>{
+    
     // 防抖
     thisTime = new Date().getTime() // 进入监听时更新本次点击时间
     if(thisTime-switchTime<1000) {  // 如果距离上次提交时间不到1秒，则直接返回
         return
     } 
-    //TODO:等待post接口修改完成 
+    // 调用接口提交数据
+
     switchTime = new Date().getTime() // 数据提交完成，更新切换时间
 },
 {deep:true})
