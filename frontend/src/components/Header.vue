@@ -1,8 +1,11 @@
 <template>
-    <div class="header-container" @click="backHome">
-        <!-- 标题 -->
-        <span>539 <b>智</b> 能家居</span>
-    </div>
+
+
+        <div class="header-container" @click="backHome">
+            <!-- 标题 -->
+            <span>539 <b>智</b> 能家居</span>
+        </div>
+
 </template>
 
 <script setup lang="ts">

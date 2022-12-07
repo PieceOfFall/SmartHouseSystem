@@ -44,7 +44,7 @@ public class ElectricApplianceController {
         return ResBean.ok("ok",map);
     }
 
-    @ApiOperation("获取所有灯的状态")
+    @ApiOperation("获取所有开关的状态")
     @GetMapping("get_switch")
     public ResBean getSwitch(HttpServletResponse response){
         ElectricAppliance switchAppliance = electricApplianceService.getSwitch();
