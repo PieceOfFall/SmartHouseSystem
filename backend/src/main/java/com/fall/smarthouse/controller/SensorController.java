@@ -2,6 +2,7 @@ package com.fall.smarthouse.controller;
 
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.service.ISensorService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +42,10 @@ public class SensorController {
     @GetMapping("get_gas_data")
     public ResBean GetGasData(@NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("maxTime") String maxTime,
+                               @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                               @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                HttpServletResponse response) throws ParseException {
-        List<Double> gasSensorData = sensorService.getGasSensorData(minTime, maxTime);
+        PageInfo<Double> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",gasSensorData);
     }
@@ -51,8 +54,10 @@ public class SensorController {
     @GetMapping("get_smog_data")
     public ResBean getSmogData(@NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("maxTime") String maxTime,
+                               @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                               @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                HttpServletResponse response) throws ParseException {
-        List<Double> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime);
+        PageInfo<Double> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",smogSensorData);
     }
@@ -61,8 +66,10 @@ public class SensorController {
     @GetMapping("get_temperature_data")
     public ResBean getTemperatureData(@NotEmpty @RequestParam("minTime") String minTime,
                                       @NotEmpty @RequestParam("maxTime") String maxTime,
+                                      @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                      @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                       HttpServletResponse response) throws ParseException {
-        List<Double> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime);
+        PageInfo<Double> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",temperatureSensorData);
     }
@@ -71,8 +78,10 @@ public class SensorController {
     @GetMapping("get_humidity_data")
     public ResBean getHumidityData(@NotEmpty @RequestParam("minTime") String minTime,
                                    @NotEmpty @RequestParam("maxTime") String maxTime,
+                                   @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                   @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                    HttpServletResponse response) throws ParseException {
-        List<Double> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime);
+        PageInfo<Double> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",humiditySensorData);
     }
@@ -81,8 +90,10 @@ public class SensorController {
     @GetMapping("get_shake_data")
     public ResBean getShakeData(@NotEmpty @RequestParam("minTime") String minTime,
                                 @NotEmpty @RequestParam("maxTime") String maxTime,
+                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                 HttpServletResponse response) throws ParseException {
-        List<Double> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime);
+        PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",shakeSensorData);
     }

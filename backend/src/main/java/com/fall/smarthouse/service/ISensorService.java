@@ -1,6 +1,8 @@
 package com.fall.smarthouse.service;
 
 import com.fall.smarthouse.model.Sensor;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -27,7 +29,7 @@ public interface ISensorService {
      * @date 2022/12/5 18:00
      * @version 1.0
      */
-    public List<Double> getGasSensorData(String minTime,String maxTime) throws ParseException;
+    public PageInfo<Double> getGasSensorData(String minTime, String maxTime, Integer pageNum, Integer pageSize) throws ParseException;
 
     /**
      * @description: 根据时间查询烟雾传感器数据
@@ -35,7 +37,7 @@ public interface ISensorService {
      * @date 2022/12/6 15:21
      * @version 1.0
      */
-    public List<Double> getSmogSensorData(String minTime,String maxTime) throws ParseException;
+    public PageInfo<Double> getSmogSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
      * @description: 根据时间查询温度传感器数据
@@ -43,7 +45,7 @@ public interface ISensorService {
      * @date 2022/12/6 15:35
      * @version 1.0
      */
-    public List<Double> getTemperatureSensorData(String minTime,String maxTime) throws ParseException;
+    public PageInfo<Double> getTemperatureSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
      * @description: 根据时间查询湿度传感器数据
@@ -51,7 +53,7 @@ public interface ISensorService {
      * @date 2022/12/6 16:06
      * @version 1.0
      */
-    public List<Double> getHumiditySensorData(String minTime,String maxTime) throws ParseException;
+    public PageInfo<Double> getHumiditySensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
      * @description: 根据时间查询震动传感器数据
@@ -59,5 +61,13 @@ public interface ISensorService {
      * @date 2022/12/6 16:18
      * @version 1.0
      */
-    public List<Double> getShakeSensorData(String minTime,String maxTime) throws ParseException;
+    public PageInfo<Double> getShakeSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
+
+    /**
+     * @description: 传感器安全检测 true为安全 false为警告
+     * @author xiaoQe
+     * @date 2022/12/7 14:47
+     * @version 1.0
+     */
+    public Boolean safetyInspection();
 }

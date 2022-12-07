@@ -4,6 +4,9 @@ import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.util.DateConverter;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,42 +43,57 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public List<Double> getGasSensorData(String minTime, String maxTime) throws ParseException {
+    public PageInfo<Double> getGasSensorData(String minTime, String maxTime, Integer pageNum, Integer pageSize) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
         List<Double> gasData = sensorMapper.selectGasSensorData(minDate, maxDate);
-        return gasData;
+        PageInfo<Double> gasPageInfo = new PageInfo<>(gasData);
+        return gasPageInfo;
     }
 
     @Override
-    public List<Double> getSmogSensorData(String minTime, String maxTime) throws ParseException {
+    public PageInfo<Double> getSmogSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
         List<Double> smogSensorData = sensorMapper.selectSmogSensorData(minDate, maxDate);
-        return smogSensorData;
+        PageInfo<Double> smogPageInfo = new PageInfo<>(smogSensorData);
+        return smogPageInfo;
     }
 
     @Override
-    public List<Double> getTemperatureSensorData(String minTime, String maxTime) throws ParseException {
+    public PageInfo<Double> getTemperatureSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
         List<Double> temperatureSensorData = sensorMapper.selectTemperatureSensorData(minDate, maxDate);
-        return temperatureSensorData;
+        PageInfo<Double> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
+        return temperaturePageInfo;
     }
 
     @Override
-    public List<Double> getHumiditySensorData(String minTime, String maxTime) throws ParseException {
+    public PageInfo<Double> getHumiditySensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
         List<Double> humiditySensorData = sensorMapper.selectHumiditySensorData(minDate, maxDate);
-        return humiditySensorData;
+        PageInfo<Double> humidityPageInfo = new PageInfo<>(humiditySensorData);
+        return humidityPageInfo;
     }
 
     @Override
-    public List<Double> getShakeSensorData(String minTime, String maxTime) throws ParseException {
+    public PageInfo<Double> getShakeSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
         Date minDate = DateConverter.StringToSqlDate(minTime);
         Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
         List<Double> shakeSensorData = sensorMapper.selectShakeSensorData(minDate, maxDate);
-        return shakeSensorData;
+        PageInfo<Double> shakePageInfo = new PageInfo<>(shakeSensorData);
+        return shakePageInfo;
+    }
+
+    @Override
+    public Boolean safetyInspection() {
+        return null;
     }
 }
