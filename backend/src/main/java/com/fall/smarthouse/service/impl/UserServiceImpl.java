@@ -81,7 +81,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Boolean checkLogin(String token) throws Exception {
+    public Boolean checkLogin(String token) {
         boolean isNeedUpdate = JWTUtil.isNeedUpdate(token);
         if(isNeedUpdate) {
             return false;

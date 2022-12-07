@@ -5,10 +5,16 @@ import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
+import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.JWTUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootTest
@@ -38,17 +45,36 @@ class BackendApplicationTests {
     @Autowired
     UserMapper userMapper;
 
+
+    @Test
+    void testPage() throws ParseException {
+        PageHelper.startPage(1,3);
+        List<Double> data = sensorService.getShakeSensorData("11111111111", "1770231713291");
+        System.out.println(data);
+        System.out.println();
+        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
+        System.out.println(doublePageInfo.getList());
+    }
     @Test
     void testSensorService() throws ParseException {
         System.out.println(sensorService.getShakeSensorData("11111111111","1770231713291"));
 //        System.out.println(sensorService.insertToSensor("1770231713291",3.0,4.9,7.0,7.8,2.1));
     }
 
+    @Test
+    void testJackson() throws JsonProcessingException {
+        User user = new User();
+        user.setAccount("123");
+        user.setPassword("456");
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(user));
+    }
 
     @Test
     void testUpdateElectricAppliance(){
-        System.out.println(System.currentTimeMillis());
-        System.out.println(electricApplianceService.setWarnLight(0));
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        electricAppliance.setLightBedB(0);
+        System.out.println(electricApplianceService.setLightBedB(electricAppliance));
     }
 
     @Test

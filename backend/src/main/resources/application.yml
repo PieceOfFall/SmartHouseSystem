@@ -54,3 +54,9 @@ jwt:
   secret: "1f101b867a904c2ba01f5ce75df24185" # 私钥
   expireTime: 1           # token 的有效时间，单位是分钟
 
+#分页插件使用
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

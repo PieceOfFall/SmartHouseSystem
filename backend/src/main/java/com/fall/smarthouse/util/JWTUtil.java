@@ -127,7 +127,7 @@ public class JWTUtil {
      * @return: boolean
      * @date 2022/12/4 15:39
      */
-    public static boolean isNeedUpdate(String token) throws Exception {
+    public static boolean isNeedUpdate(String token) {
         // 获取 token 过期时间
         Date expiresAt = null;
         try {
