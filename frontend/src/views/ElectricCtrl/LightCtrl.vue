@@ -1,13 +1,8 @@
 <template>
     <div class="light-container">
         <!-- 面包屑 -->
-        <el-breadcrumb :separator-icon="ArrowRight">
-            <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
-            <el-breadcrumb-item>灯光控制</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Breadcrumb bread-route="灯光控制"/>
 
-        <!-- 分割线 -->
-        <el-divider/>
 
         <!-- 卡片 -->
         <el-card>
@@ -17,16 +12,16 @@
                     <div class="control-box">
                         <!-- 控制项 -->
                         <div v-if="prop==='lightBedA'">
-                            主卧灯光
+                            主 卧 灯 光
                         </div>
                         <div v-else-if="prop==='lightBedB'">
-                            次卧灯光
+                            次 卧 灯 光
                         </div>
                         <div v-else-if="prop==='lightLivingRoom'">
-                            客厅灯光
+                            客 厅 灯 光
                         </div>
                         <div v-else-if="prop==='lightBathroom'">
-                            浴室灯光
+                            浴 室 灯 光
                         </div>
 
                             <!-- 图标 -->
@@ -71,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import Breadcrumb from '../../components/Breadcrumb.vue';
 import { ArrowRight,Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
 import {getLights,setAppliance} from '../../api/Electric/index';
 import {LightsState,ElectricAppliance} from '../../api/Electric/types';
@@ -99,10 +95,9 @@ watch(lights,async()=>{
         clearTimeout(timer)
     }
     timer = setTimeout(async()=>{
-        console.log("调用接口");
         // 调用接口提交数据
         await setAppliance(lights.value as ElectricAppliance)
-    },1000)
+    },700)
     
 },
 // 开启深度监听
@@ -125,6 +120,7 @@ watch(lights,async()=>{
     .control-box {
         text-align: center;
         line-height: 4rem;
+        padding-bottom: 2rem;
     }
 
 }
