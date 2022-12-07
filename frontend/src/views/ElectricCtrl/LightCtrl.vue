@@ -72,8 +72,8 @@
 
 <script setup lang="ts">
 import { ArrowRight,Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
-import {getLights} from '../../api/light/index';
-import {LightsState} from '../../api/light/types';
+import {getLights,setAppliance} from '../../api/Electric/index';
+import {LightsState,ElectricAppliance} from '../../api/Electric/types';
 import { onMounted, ref, watch } from 'vue';
 
 /*
@@ -93,10 +93,10 @@ onMounted(async()=>{
    控制灯光，延迟同步
 */
 // 上次切换时间
-let switchTime = new Date().getTime()
+let switchTime:number = new Date().getTime()
 // 本次点击时的时间
 let thisTime:number;
-watch(lights,()=>{
+watch(lights,async ()=>{
     
     // 防抖
     thisTime = new Date().getTime() // 进入监听时更新本次点击时间
@@ -104,9 +104,10 @@ watch(lights,()=>{
         return
     } 
     // 调用接口提交数据
-
+    await setAppliance(lights.value as ElectricAppliance)
     switchTime = new Date().getTime() // 数据提交完成，更新切换时间
 },
+// 开启深度监听
 {deep:true})
 
 
