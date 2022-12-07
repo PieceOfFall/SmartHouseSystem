@@ -15,6 +15,7 @@
             <el-row :gutter="10" justify="space-around">
                 <el-col :span="3" v-for="(value,prop) in lights" :key="prop">
                     <div class="control-box">
+                        <!-- 控制项 -->
                         <div v-if="prop==='lightBedA'">
                             主卧灯光
                         </div>
@@ -28,6 +29,7 @@
                             浴室灯光
                         </div>
 
+                            <!-- 图标 -->
                             <div v-if="(value===0)">
                                 <el-icon size="5rem" color="grey">
                                     <Moon/>
@@ -72,8 +74,7 @@
 import { ArrowRight,Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
 import {getLights} from '../../api/light/index';
 import {LightsState} from '../../api/light/types';
-import { Mark } from 'element-plus/es/components/slider/src/composables';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 /*
    获取所有灯光，并渲染
@@ -84,13 +85,13 @@ let lights = ref<LightsState>({
     lightLivingRoom:0,
     lightBathroom:0
 })
+onMounted(async()=>{
+    lights.value = await (await getLights()).data
+})
 
 /*
    控制灯光，延迟同步
 */
-onMounted(async()=>{
-    lights.value = await (await getLights()).data
-})
 // 上次切换时间
 let switchTime = new Date().getTime()
 // 本次点击时的时间
@@ -110,14 +111,7 @@ watch(lights,()=>{
 
 
 
-// type Marks = Record<number, Mark | string>
-// const marks = reactive<Marks>({
-//   0: '关闭',
-//   1: '微弱',
-//   2: '正常',
-//   3:'较亮',
-//   4:'全开'
-// })
+
 </script>
 
 <style lang="less" scoped>
