@@ -44,7 +44,7 @@ service.interceptors.response.use(
         return Promise.reject(error.message)
       }
       if (error.response.data) {
-        const { status, msg } = error.response.data;
+        const { status, msg } = error.response.data
         // token 过期,重新登录
         if (status === 403) {       
           logOut()
