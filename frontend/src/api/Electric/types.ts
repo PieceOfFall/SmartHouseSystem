@@ -9,20 +9,37 @@ export interface LightsState {
 }
 
 /*
-   获取所有开关状态
+   开关提交状态
 */
-export interface SwitchState {
+export interface SubmitSwitchState {
     switchA: number,
     switchB: number,
     switchC: number
 }
 
 /*
+   获取所有开关状态
+*/
+export interface SwitchState {
+    switchA: boolean,
+    switchB: boolean,
+    switchC: boolean
+}
+
+/*
+   窗帘提交状态
+*/
+export interface SubmitCurtainState {
+    curtainA: number,
+    curtainB: number
+}
+
+/*
    获取所有窗帘状态
 */
 export interface CurtainState {
-    curtainA: number,
-    curtainB: number
+    curtainA: boolean,
+    curtainB: boolean
 }
 
 /*
@@ -32,4 +49,4 @@ export interface WarnState {
     warnLight: number
 }
 
-export interface ElectricAppliance extends WarnState,CurtainState,SwitchState,LightsState { }
+export interface ElectricAppliance extends WarnState,SubmitCurtainState,SubmitSwitchState,LightsState { }

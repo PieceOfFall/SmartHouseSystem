@@ -99,7 +99,6 @@ watch,
           
         } else {
           selectItem.value = '/homepage'
-          console.log(2);
         }
       })
 
