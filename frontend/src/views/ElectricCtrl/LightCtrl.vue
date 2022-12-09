@@ -1,13 +1,8 @@
 <template>
     <div class="light-container">
         <!-- 面包屑 -->
-        <el-breadcrumb :separator-icon="ArrowRight">
-            <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
-            <el-breadcrumb-item>灯光控制</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Breadcrumb bread-route="灯光控制"/>
 
-        <!-- 分割线 -->
-        <el-divider/>
 
         <!-- 卡片 -->
         <el-card>
@@ -17,16 +12,16 @@
                     <div class="control-box">
                         <!-- 控制项 -->
                         <div v-if="prop==='lightBedA'">
-                            主卧灯光
+                            主 卧 灯 光
                         </div>
                         <div v-else-if="prop==='lightBedB'">
-                            次卧灯光
+                            次 卧 灯 光
                         </div>
                         <div v-else-if="prop==='lightLivingRoom'">
-                            客厅灯光
+                            客 厅 灯 光
                         </div>
                         <div v-else-if="prop==='lightBathroom'">
-                            浴室灯光
+                            浴 室 灯 光
                         </div>
 
                             <!-- 图标 -->
@@ -71,9 +66,10 @@
 </template>
 
 <script setup lang="ts">
+import Breadcrumb from '../../components/Breadcrumb.vue';
 import { ArrowRight,Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
-import {getLights} from '../../api/light/index';
-import {LightsState} from '../../api/light/types';
+import {getLights,setAppliance} from '../../api/Electric/index';
+import {LightsState,ElectricAppliance} from '../../api/Electric/types';
 import { onMounted, ref, watch } from 'vue';
 
 /*
@@ -92,23 +88,20 @@ onMounted(async()=>{
 /*
    控制灯光，延迟同步
 */
-// 上次切换时间
-let switchTime = new Date().getTime()
-// 本次点击时的时间
-let thisTime:number;
-watch(lights,()=>{
+let timer:number; // 定时器序号
+watch(lights,async()=>{
     // 防抖
-    thisTime = new Date().getTime() // 进入监听时更新本次点击时间
-    if(thisTime-switchTime<1000) {  // 如果距离上次提交时间不到1秒，则直接返回
-        return
-    } 
-    //TODO:等待post接口修改完成 
-    switchTime = new Date().getTime() // 数据提交完成，更新切换时间
+    if(timer) {
+        clearTimeout(timer)
+    }
+    timer = setTimeout(async()=>{
+        // 调用接口提交数据
+        await setAppliance(lights.value as ElectricAppliance)
+    },700)
+    
 },
+// 开启深度监听
 {deep:true})
-
-
-
 
 
 
@@ -124,6 +117,7 @@ watch(lights,()=>{
     .control-box {
         text-align: center;
         line-height: 4rem;
+        padding-bottom: 2rem;
     }
 
 }

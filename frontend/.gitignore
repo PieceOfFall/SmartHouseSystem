@@ -27,3 +27,6 @@ dist-ssr
 # IDEA
 *.iml
 backend/.idea/*
+
+# Vue
+components.d.ts

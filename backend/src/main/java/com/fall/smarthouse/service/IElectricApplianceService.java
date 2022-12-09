@@ -45,7 +45,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 15:25
      * @version 1.0
      */
-    public boolean setLightBedA(ElectricAppliance electricAppliance);
+    public Boolean setLightBedA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 次卧灯光控制
@@ -53,7 +53,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightBedB(ElectricAppliance electricAppliance);
+    public Boolean setLightBedB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 客厅灯光控制
@@ -61,7 +61,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightLivingRoom(ElectricAppliance electricAppliance);
+    public Boolean setLightLivingRoom(ElectricAppliance electricAppliance);
 
     /**
      * @description: 浴室灯光控制
@@ -69,7 +69,16 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 16:46
      * @version 1.0
      */
-    public boolean setLightBathroom(ElectricAppliance electricAppliance);
+    public Boolean setLightBathroom(ElectricAppliance electricAppliance);
+
+    /**
+     * @author FAll
+     * @description 控制所有电器
+     * @param electricAppliance
+     * @return: java.lang.Boolean
+     * @date 2022/12/7 13:37
+     */
+    public Boolean setAppliance(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关A控制
@@ -77,7 +86,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchA(ElectricAppliance electricAppliance);
+    public Boolean setSwitchA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关B控制
@@ -85,7 +94,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchB(ElectricAppliance electricAppliance);
+    public Boolean setSwitchB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 开关C控制
@@ -93,7 +102,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setSwitchC(ElectricAppliance electricAppliance);
+    public Boolean setSwitchC(ElectricAppliance electricAppliance);
 
     /**
      * @description: 窗帘A控制
@@ -101,7 +110,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setCurtainA(ElectricAppliance electricAppliance);
+    public Boolean setCurtainA(ElectricAppliance electricAppliance);
 
     /**
      * @description: 窗帘B控制
@@ -109,7 +118,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setCurtainB(ElectricAppliance electricAppliance);
+    public Boolean setCurtainB(ElectricAppliance electricAppliance);
 
     /**
      * @description: 警鸣灯光控制
@@ -117,5 +126,6 @@ public interface IElectricApplianceService {
      * @date 2022/12/4 18:03
      * @version 1.0
      */
-    public boolean setWarnLight(ElectricAppliance electricAppliance);
+    public Boolean setWarnLight(ElectricAppliance electricAppliance);
+    
 }
