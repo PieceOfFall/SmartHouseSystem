@@ -8,7 +8,7 @@
                 <SwitchButton/>      
             </el-icon>
             <div id="main-switch">
-                总开关
+                总 开 关
             </div>
             </div>
             
@@ -21,7 +21,7 @@
                             <el-row :gutter="20" justify="space-between">
                                 <!-- 开关名 -->
                                 <el-col :span="8">
-                                    <span>开关{{prop[prop.length-1]}}</span>
+                                    <span>开关 {{prop[prop.length-1]}}</span>
                                 </el-col>
                                 <!-- 每个开关 -->
                                 <el-col :span="7">
@@ -136,24 +136,28 @@ watch(switchState,async ()=>{
             text-align: center;
             font-size: larger;
             .el-icon{
-                margin-top: 1rem;
-                padding: 10px;
-            }
-            .el-icon:hover{
-                margin-top: 1rem;
+                cursor: pointer;
+                margin-top: 0.8rem;
                 padding: 10px;
                 background-color: rgba(221, 221, 221, 0.067);
                 border-radius: 15%;
             }
+            .el-icon:hover{
+                cursor: pointer;
+                margin-top: 0.8rem;
+                padding: 10px;
+                background-color: #1d1e1f;
+                border-radius: 15%;
+            }
+
             #main-switch{
-                margin-top: 1rem;
+                margin-top: 1.5rem;
                 margin-bottom: 1.5rem;
             }
             .card-box{
                 .el-card{
                     text-align:initial;
                     font-size: large;
-                    padding-top: 7px;
                 }
             }
         }
