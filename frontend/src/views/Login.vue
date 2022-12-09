@@ -15,7 +15,7 @@
                 <el-input v-model="form.account"
                 placeholder="输入账号" 
                 :suffix-icon="User"
-                />
+                @keydown.native.enter="submitForm(ruleFormRef)"/>
             </el-form-item>
 
             <el-form-item label="密码"
@@ -24,7 +24,8 @@
                 <el-input v-model="form.password" 
                 type = "password"
                 placeholder="输入密码"
-                :suffix-icon="Unlock"/>
+                :suffix-icon="Unlock"
+                @keydown.native.enter="submitForm(ruleFormRef)"/>
             </el-form-item>
 
             <el-button plain @click="submitForm(ruleFormRef)">
