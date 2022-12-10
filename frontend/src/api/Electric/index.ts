@@ -5,7 +5,8 @@ import {
 import {
     LightsState,
     ElectricAppliance,
-    SwitchState
+    SwitchState,
+    CurtainState
 } from './types';
 
 // 修改电器数据
@@ -60,4 +61,14 @@ export async function toggleAllSwitch(isOneSwitchOnExist:boolean) {
         } as ElectricAppliance)
     }
 
+}
+
+/*
+   获取所有窗帘数据
+*/
+export async function getCurtains():AxiosPromise < CurtainState > {
+    return await request({
+        url:'/electric/get_curtain',
+        method:'get'
+    })
 }

@@ -38,8 +38,8 @@ export interface SubmitCurtainState {
    获取所有窗帘状态
 */
 export interface CurtainState {
-    curtainA: boolean,
-    curtainB: boolean
+    curtainA: number,
+    curtainB: number
 }
 
 /*
