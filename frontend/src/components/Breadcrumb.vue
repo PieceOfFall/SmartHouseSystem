@@ -6,7 +6,7 @@
         </el-breadcrumb>
         
         <!-- 分割线 -->
-        <el-divider/>
+        <el-divider content-position="right"><div id="description">smartHouse</div></el-divider>
 </template>
 
 <script setup lang="ts">
@@ -18,5 +18,9 @@ defineProps<{
 </script>
 
 <style lang="less" scoped>
-
+#description{
+    user-select: none;
+    color: rgba(169, 169, 169, 0.432);
+    font-style:oblique;
+}
 </style>
