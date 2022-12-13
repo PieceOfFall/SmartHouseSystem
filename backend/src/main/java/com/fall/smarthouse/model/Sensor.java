@@ -1,10 +1,7 @@
 package com.fall.smarthouse.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.sql.Date;
 
 /**
  * @author FAll

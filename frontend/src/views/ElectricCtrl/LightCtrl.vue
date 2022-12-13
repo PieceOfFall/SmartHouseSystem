@@ -27,25 +27,25 @@
                             <!-- 图标 -->
                             <div v-if="(value===0)">
                                 <el-icon size="5rem" color="grey">
-                                    <Moon/>
+                                    <Moon class="animate__animated animate__fadeIn animate__faster"/>
                                 </el-icon>
                             </div>
 
                             <div v-if="(value===1)">
                                 <el-icon size="5rem" color="#fff799">
-                                    <Cloudy/>
+                                    <Cloudy class="animate__animated animate__fadeIn animate__faster"/>
                                 </el-icon>
                             </div>
 
                             <div v-if="(value===2)">
                                 <el-icon size="5rem" color="#ffee6f">
-                                    <Sunrise/>
+                                    <Sunrise class="animate__animated animate__fadeIn animate__faster"/>
                                 </el-icon>
                             </div>
 
                             <div v-if="(value===3)">
                                 <el-icon size="5rem" color="#ecd452">
-                                    <Sunny/>
+                                    <Sunny class="animate__animated animate__fadeIn animate__faster"/>
                                 </el-icon>
                             </div>
                         
