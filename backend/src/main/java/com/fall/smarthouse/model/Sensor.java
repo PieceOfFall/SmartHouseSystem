@@ -1,11 +1,10 @@
 package com.fall.smarthouse.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+
 
 /**
  * @author FAll
@@ -16,14 +15,10 @@ import java.sql.Date;
 @AllArgsConstructor
 public class Sensor {
 
-    @NotNull
-    // 时间戳
-    private Date time;
-    @NotNull
-    // 燃气
+    private Long time;
+    // 燃气 (百分制 危险值 5)
     private double gas;
-    @NotNull
-    // 烟雾
+    // 烟雾 (单位 ppm 危险值 100)
     private double smog;
     @NotNull
     // 温度

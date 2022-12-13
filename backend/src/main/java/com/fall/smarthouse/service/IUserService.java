@@ -17,7 +17,7 @@ public interface IUserService {
      * @return: java.util.ArrayList<com.fall.smarthouse.bean.MenuItem>
      * @date 2022/12/3 10:17
      */
-    public ArrayList<MenuItem> getMenu();
+    ArrayList<MenuItem> getMenu();
 
     /**
      * @author FAll
@@ -27,7 +27,7 @@ public interface IUserService {
      * @return: java.lang.Boolean
      * @date 2022/12/6 13:36
      */
-    public String userLogin(String account,String password);
+    String userLogin(String account,String password);
 
     /**
      * @author FAll
@@ -36,5 +36,5 @@ public interface IUserService {
      * @return: java.lang.Boolean
      * @date 2022/12/6 16:02
      */
-    public Boolean checkLogin(String token) ;
+    Boolean checkLogin(String token) ;
 }

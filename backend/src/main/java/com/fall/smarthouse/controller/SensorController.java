@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * @author xiaoQe
@@ -29,7 +29,8 @@ public class SensorController {
 
     @ApiOperation("添加传感器数据")
     @PostMapping("add_sensor")
-    public ResBean AddSensor(@Valid @RequestBody Sensor sensor,
+
+    public ResBean AddSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
         boolean insertToSensor = sensorService.insertToSensor(sensor);
         response.setStatus(200);

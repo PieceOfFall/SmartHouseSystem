@@ -15,7 +15,7 @@
                 <el-input v-model="form.account"
                 placeholder="输入账号" 
                 :suffix-icon="User"
-                />
+                @keydown.native.enter="submitForm(ruleFormRef)"/>
             </el-form-item>
 
             <el-form-item label="密码"
@@ -24,7 +24,8 @@
                 <el-input v-model="form.password" 
                 type = "password"
                 placeholder="输入密码"
-                :suffix-icon="Unlock"/>
+                :suffix-icon="Unlock"
+                @keydown.native.enter="submitForm(ruleFormRef)"/>
             </el-form-item>
 
             <el-button plain @click="submitForm(ruleFormRef)">
@@ -44,9 +45,9 @@ import {
     User,
     Upload 
   } from '@element-plus/icons-vue'
-  import {useRouter} from 'vue-router';
-  import {userLogin} from '../api/login/index';
-  import {Token} from '../api/login/types';
+import {useRouter} from 'vue-router';
+import {userLogin} from '../api/login/index';
+import {Token} from '../api/login/types';
 
 /*
    验证表单并提交
@@ -92,7 +93,6 @@ async function submitForm(formEl: FormInstance | undefined) {
     
 }
 
-
 // 页面加载时逐渐显示表单
 let formOpacity = ref(0)
 onMounted(()=>{
@@ -106,7 +106,6 @@ onMounted(()=>{
         formOpacity.value =60
     },3000)
 })
-
 
 </script>
 

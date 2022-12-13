@@ -70,6 +70,7 @@ router.beforeEach(async (to, from, next) => {
                 type: 'warning'
             }).then(() => {
                 localStorage.clear()
+                sessionStorage.clear()
                 router.push('/login')
             })
         } else {

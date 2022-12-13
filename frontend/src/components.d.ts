@@ -12,7 +12,6 @@ ElRow: typeof import('element-plus/es')['ElRow']
 HelloWorld: typeof import('./components/HelloWorld.vue')['default']
 RouterLink: typeof import('vue-router')['RouterLink']
 RouterView: typeof import('vue-router')['RouterView']
-
 }
 
 export interface ComponentCustomProperties {

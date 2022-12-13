@@ -4,16 +4,13 @@ import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.util.DateConverter;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +25,10 @@ public class SensorServiceImpl implements ISensorService {
     @Autowired
     SensorMapper sensorMapper;
 
-
     @Override
-    public boolean insertToSensor(Sensor sensor){
+    public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
+        Sensor sensor = new Sensor(sensorRequest.getTime()/1000, sensorRequest.getGas(), sensorRequest.getSmog(),
+                sensorRequest.getTemperature(),sensorRequest.getHumidity() , sensorRequest.getShake());
         Integer affectRows = sensorMapper.insertToSensor(sensor);
         if(affectRows == 0){
             return false;
@@ -93,23 +91,23 @@ public class SensorServiceImpl implements ISensorService {
         Sensor sensor = sensorMapper.selectLastTimeSensorData();
         Map<String, Object> warnMap = new HashMap<>();
         if(sensor.getGas() < 2 || sensor.getGas() > 15){
-            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("gas",sensor.getGas());
         }
         if(sensor.getSmog() < 5 || sensor.getSmog() >25){
-            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("smog",sensor.getSmog());
         }
         if(sensor.getTemperature() > 57){
-            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("temperature",sensor.getTemperature());
         }
         if(sensor.getHumidity() < 20 || sensor.getHumidity() > 80){
-            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("humidity",sensor.getHumidity());
         }
         if (sensor.getShake() > 30){
-            warnMap.put("time", new Long(sensor.getTime().getTime()));
+            warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("shake",sensor.getShake());
         }
         return warnMap;
