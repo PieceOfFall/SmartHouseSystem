@@ -56,6 +56,10 @@
 </script>
 
 <style lang="less" scoped>
+
+    :deep(.el-card__body) {
+        background-color:#0e1117 !important;
+    }
     .main-container {
         width: 100%;
         height: 100vh;

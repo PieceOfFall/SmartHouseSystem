@@ -45,9 +45,9 @@ import {
     User,
     Upload 
   } from '@element-plus/icons-vue'
-  import {useRouter} from 'vue-router';
-  import {userLogin} from '../api/login/index';
-  import {Token} from '../api/login/types';
+import {useRouter} from 'vue-router';
+import {userLogin} from '../api/login/index';
+import {Token} from '../api/login/types';
 
 /*
    验证表单并提交
@@ -93,7 +93,6 @@ async function submitForm(formEl: FormInstance | undefined) {
     
 }
 
-
 // 页面加载时逐渐显示表单
 let formOpacity = ref(0)
 onMounted(()=>{
@@ -107,7 +106,6 @@ onMounted(()=>{
         formOpacity.value =60
     },3000)
 })
-
 
 </script>
 

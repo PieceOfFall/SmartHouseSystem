@@ -18,9 +18,4 @@
     padding: 0;
   }
 
-  :deep(.el-card__body) {
-    background-color:#0e1117 !important;
-  }
-
-
 </style>
