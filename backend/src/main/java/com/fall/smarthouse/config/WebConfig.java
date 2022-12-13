@@ -70,7 +70,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 对所有访问路径，都通过MyInterceptor类型的拦截器进行拦截
         registry.addInterceptor(new SmartFilter()).addPathPatterns("/**")
-                .excludePathPatterns("/smart_house/*");
+                .excludePathPatterns("/smart_house/*","/*","/webjars/**","/swagger-resources/**","/sensor/add_sensor");
     }
 
     /**
