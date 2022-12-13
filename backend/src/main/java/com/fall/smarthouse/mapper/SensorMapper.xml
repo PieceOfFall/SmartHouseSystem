@@ -32,7 +32,7 @@
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="time != null">
-                #{time},
+                FROM_UNIXTIME(#{time,jdbcType=BIGINT}, '%Y-%m-%d %H:%i:%s'),
             </if>
             <if test="gas != null">
                 #{gas},

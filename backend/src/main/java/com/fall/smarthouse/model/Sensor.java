@@ -16,10 +16,10 @@ import java.sql.Date;
 public class Sensor {
 
     // 时间戳
-    private Date time;
-    // 燃气
+    private Long time;
+    // 燃气 (百分制 危险值 5)
     private double gas;
-    // 烟雾
+    // 烟雾 (单位 ppm 危险值 100)
     private double smog;
     // 温度
     private double temperature;

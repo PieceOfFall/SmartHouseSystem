@@ -1,9 +1,11 @@
 package com.fall.smarthouse.config;
 
 
+import com.fall.smarthouse.filter.SmartFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -56,6 +58,19 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
                 .allowedHeaders("*")
                 .exposedHeaders("*");
+    }
+
+    /**
+     * @author FAll
+     * @description 添加拦截器
+     * @param registry
+     * @date 2022/12/12 12:36
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 对所有访问路径，都通过MyInterceptor类型的拦截器进行拦截
+        registry.addInterceptor(new SmartFilter()).addPathPatterns("/**")
+                .excludePathPatterns("/smart_house/*","/*","/webjars/**","/swagger-resources/**","/sensor/add_sensor");
     }
 
     /**

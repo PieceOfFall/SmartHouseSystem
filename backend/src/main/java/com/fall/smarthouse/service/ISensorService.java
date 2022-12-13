@@ -1,12 +1,9 @@
 package com.fall.smarthouse.service;
 
 import com.fall.smarthouse.model.Sensor;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * @author FAll
@@ -21,7 +18,7 @@ public interface ISensorService {
      * @date 2022/12/5 15:19
      * @version 1.0
      */
-    public boolean insertToSensor(String time,Double gas,Double smog,Double temperature,Double humidity,Double shake) throws ParseException;
+    public boolean insertToSensor(Sensor sensor) throws ParseException;
 
     /**
      * @description: 根据时间查询燃气传感器数据

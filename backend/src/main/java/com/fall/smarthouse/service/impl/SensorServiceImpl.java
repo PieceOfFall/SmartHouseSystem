@@ -4,16 +4,13 @@ import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.util.DateConverter;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -26,15 +23,10 @@ public class SensorServiceImpl implements ISensorService {
     @Autowired
     SensorMapper sensorMapper;
 
-
     @Override
-    public boolean insertToSensor(String time, Double gas, Double smog, Double temperature,
-                                  Double humidity, Double shake) throws ParseException {
-        String dateString = DateConverter.LongToDateString(Long.parseLong(time));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date(sdf.parse(dateString).getTime());
-        Sensor sensor = new Sensor(date, gas, smog, temperature, humidity, shake);
+    public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
+        Sensor sensor = new Sensor(sensorRequest.getTime()/1000, sensorRequest.getGas(), sensorRequest.getSmog(),
+                sensorRequest.getTemperature(),sensorRequest.getHumidity() , sensorRequest.getShake());
         Integer affectRows = sensorMapper.insertToSensor(sensor);
         if(affectRows == 0){
             return false;
