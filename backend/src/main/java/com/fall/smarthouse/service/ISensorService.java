@@ -65,11 +65,11 @@ public interface ISensorService {
     PageInfo<Double> getShakeSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
-     * @description: 传感器安全检测 map为空安全，不为空不安全，map返回时间及异常的传感器数据
+     * @description: 传感器根据时间进行安全检测 map为空安全，不为空不安全，map返回时间及异常的传感器数据
      * @author xiaoQe
      * @date 2022/12/7 14:47
      * @version 1.0
      */
-    Map<String,Object> safetyInspection();
+    Map<String,Object> safetyInspection(String time);
 
 }

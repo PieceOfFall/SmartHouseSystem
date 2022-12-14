@@ -88,26 +88,30 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public Map<String,Object> safetyInspection() {
-        Sensor sensor = sensorMapper.selectLastTimeSensorData();
-        Map<String, Object> warnMap = new HashMap<>();
-        if(sensor.getGas() < 2 || sensor.getGas() > 15){
+    public Map<String, Object> safetyInspection(String time) {
+
+        return null;
+    }
+
+
+    private Map<String,Object> SafetyJudgment(Sensor sensor,Map<String,Object> warnMap) {
+        if(sensor.getGas() < 0.001 || sensor.getGas() > 0.01){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("gas",sensor.getGas());
         }
-        if(sensor.getSmog() < 5 || sensor.getSmog() >25){
+        if(sensor.getSmog() < 60 || sensor.getSmog() >70){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("smog",sensor.getSmog());
         }
-        if(sensor.getTemperature() > 57){
+        if(sensor.getTemperature() > 29 || sensor.getTemperature() < 28){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("temperature",sensor.getTemperature());
         }
-        if(sensor.getHumidity() < 20 || sensor.getHumidity() > 80){
+        if(sensor.getHumidity() < 0.3 || sensor.getHumidity() > 0.6){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("humidity",sensor.getHumidity());
         }
-        if (sensor.getShake() > 30){
+        if (sensor.getShake() > 1){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("shake",sensor.getShake());
         }

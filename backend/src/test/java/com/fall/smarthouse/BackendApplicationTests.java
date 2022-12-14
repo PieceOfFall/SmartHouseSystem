@@ -50,9 +50,8 @@ class BackendApplicationTests {
 
     @Test
     void testSelectAll(){
-        Map<String, Object> map = sensorService.safetyInspection();
-        System.out.println(map.isEmpty());
-        System.out.println(map);
+        List<Sensor> sensorList = sensorMapper.pollingSelectSensorData(DateConverter.StringToTimeStamp("1670942460000"));
+        System.out.println(sensorList);
     }
 
 

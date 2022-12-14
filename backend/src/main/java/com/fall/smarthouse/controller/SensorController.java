@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -99,8 +100,8 @@ public class SensorController {
 
     @ApiOperation("检测传感器是否异常")
     @GetMapping("/safety_inspection")
-    public ResBean getSafetyInspection(HttpServletResponse response){
-        Map<String, Object> map = sensorService.safetyInspection();
+    public ResBean getSafetyInspection(@NotEmpty @RequestParam("time") String time,HttpServletResponse response){
+        Map<String, Object> map = sensorService.safetyInspection(time);
         if(map.isEmpty()){
             response.setStatus(200);
             return ResBean.ok("ok");
