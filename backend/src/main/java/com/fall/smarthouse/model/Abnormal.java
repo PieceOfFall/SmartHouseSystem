@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  * @data 2022/12/14 19:42
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Abnormal {
     //开始时间

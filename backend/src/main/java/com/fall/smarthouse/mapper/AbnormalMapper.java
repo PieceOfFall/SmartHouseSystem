@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * @author xiaoQe
  * @version 1.0
@@ -28,4 +31,12 @@ public interface AbnormalMapper {
      * @version 1.0
      */
     Integer updateAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 重启时启动的再次检查
+     * @author xiaoQe
+     * @date 2022/12/14 22:03
+     * @version 1.0
+     */
+    List<Abnormal> restartSelectAbnormalData(Timestamp closeTime, Timestamp startTime);
 }

@@ -9,6 +9,7 @@ import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
+import com.fall.smarthouse.service.IAbnormalService;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
@@ -32,6 +33,8 @@ import java.util.*;
 class BackendApplicationTests {
 
     @Autowired
+    IAbnormalService abnormalService;
+    @Autowired
     AbnormalMapper abnormalMapper;
     @Autowired
     SensorMapper sensorMapper;
@@ -49,17 +52,23 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
+    void selectAbnormal(){
+        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
+        System.out.println(abnormals);
+    }
+
+    @Test
     void testInsertAbnormal(){
-        Abnormal abnormal = new Abnormal();
-        abnormal.setStartTime(new Long("1671019424000"));
-        abnormal.setEndTime(new Long("1671019424000"));
-        abnormal.setRiskIndex(RiskIndex.GAS_DANGER.getIndex());
-//        Integer integer = abnormalMapper.insertAbnormal(new Abnormal(abnormal.getStartTime() / 1000, abnormal.getEndTime() / 1000, abnormal.getRiskIndex()));
-        abnormal.setEndTime(new Long("1671029264000"));
-        Integer integer = abnormalMapper.updateAbnormal(new Abnormal(
-                abnormal.getStartTime()/1000, abnormal.getEndTime()/1000, abnormal.getRiskIndex()
-        ));
-        System.out.println(integer);
+//        Abnormal abnormal = new Abnormal();
+//        abnormal.setStartTime(new Long("1671019424000"));
+//        abnormal.setEndTime(new Long("1671019424000"));
+//        abnormal.setRiskIndex(RiskIndex.GAS_DANGER.getIndex());
+////        Integer integer = abnormalMapper.insertAbnormal(new Abnormal(abnormal.getStartTime() / 1000, abnormal.getEndTime() / 1000, abnormal.getRiskIndex()));
+//        abnormal.setEndTime(new Long("1671029264000"));
+//        Integer integer = abnormalMapper.updateAbnormal(new Abnormal(
+//                abnormal.getStartTime()/1000, abnormal.getEndTime()/1000, abnormal.getRiskIndex()
+//        ));
+//        System.out.println(integer);
     }
 
     @Test

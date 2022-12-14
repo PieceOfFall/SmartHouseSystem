@@ -72,4 +72,11 @@ public interface ISensorService {
      */
     Map<String,Object> safetyInspection(String time);
 
+    /**
+     * @description: 根据时间查询传感器数据的方法
+     * @author xiaoQe
+     * @date 2022/12/14 22:35
+     * @version 1.0
+     */
+    PageInfo<Sensor> selectSensorDataByTime(String minTime,String maxTime,Integer pageNum,Integer pageSize);
 }

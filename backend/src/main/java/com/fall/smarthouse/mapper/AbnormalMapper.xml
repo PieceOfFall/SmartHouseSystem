@@ -42,4 +42,9 @@
         </set>
         where start_time = FROM_UNIXTIME(#{startTime})
     </update>
+<!--    List<Abnormal> restartSelectAbnormalData(Timestamp closeTime, Timestamp startTime);-->
+    <select id="restartSelectAbnormalData" resultType="com.fall.smarthouse.model.Abnormal">
+        select UNIX_TIMESTAMP(start_time),UNIX_TIMESTAMP(end_time),risk_index
+        from abnormal where start_time between #{closeTime} and #{startTime}
+    </select>
 </mapper>

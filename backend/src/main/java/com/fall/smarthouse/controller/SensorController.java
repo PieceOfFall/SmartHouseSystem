@@ -6,6 +6,8 @@ import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.IAbnormalService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.impl.SensorServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,4 +131,32 @@ public class SensorController {
             return ResBean.ok("Abnormal sensor",map);
         }
     }
+
+    @ApiOperation("通过异常表查询重启是否有异常")
+    @GetMapping("get_restart_safety")
+    public ResBean getRestartSafety(@NotEmpty @RequestParam("closeTime") String closeTime,
+                                           @NotEmpty @RequestParam("startTime") String startTime,
+                                           HttpServletResponse response) {
+        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData(closeTime, startTime);
+        if(abnormals.isEmpty()){
+            response.setStatus(200);
+            return ResBean.ok("ok");
+        }else {
+            response.setStatus(200);
+            return ResBean.ok("have abnormal",abnormals);
+        }
+    }
+
+    @ApiOperation("根据时间查询传感器数据的接口")
+    @GetMapping("get_sensor data_by_time")
+    public ResBean getSensorDataByTime(@NotEmpty @RequestParam("minTime") String minTime,
+                                       @NotEmpty @RequestParam("maxTime") String maxTime,
+                                       @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                       HttpServletResponse response){
+        PageInfo<Sensor> sensorPageInfo = sensorService.selectSensorDataByTime(minTime, maxTime, pageNum, pageSize);
+        response.setStatus(200);
+        return ResBean.ok("ok",sensorPageInfo);
+    }
+
 }

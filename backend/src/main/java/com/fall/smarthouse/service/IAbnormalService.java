@@ -2,6 +2,9 @@ package com.fall.smarthouse.service;
 
 import com.fall.smarthouse.model.Abnormal;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * @author xiaoQe
  * @version 1.0
@@ -23,4 +26,12 @@ public interface IAbnormalService {
      * @version 1.0
      */
     Boolean updateAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 重启检查的方法
+     * @author xiaoQe
+     * @date 2022/12/14 22:15
+     * @version 1.0
+     */
+    List<Abnormal> restartSelectAbnormalData(String closeTime,String startTime);
 }

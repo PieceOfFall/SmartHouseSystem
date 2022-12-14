@@ -116,8 +116,23 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public Map<String, Object> safetyInspection(String time) {
+        Timestamp timestamp = DateConverter.StringToTimeStamp(time);
+        List<Sensor> sensors = sensorMapper.pollingSelectSensorData(timestamp);
+        HashMap<String, Object> map = new HashMap<>();
+        for (Sensor sensor : sensors) {
+            map = (HashMap<String, Object>) SafetyJudgment(sensor);
+        }
+        return map;
+    }
 
-        return null;
+    @Override
+    public PageInfo<Sensor> selectSensorDataByTime(String minTime, String maxTime,Integer pageNum,Integer pageSize) {
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Sensor> sensors = sensorMapper.selectSensorDataByTime(minDate, maxDate);
+        PageInfo<Sensor> sensorPageInfo = new PageInfo<>(sensors);
+        return sensorPageInfo;
     }
 
 

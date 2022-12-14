@@ -98,4 +98,12 @@ public interface SensorMapper {
      * @version 1.0
      */
     List<Sensor> pollingSelectSensorData(Timestamp time);
+
+    /**
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/14 22:32
+     * @version 1.0
+     */
+    List<Sensor> selectSensorDataByTime(Timestamp minTime,Timestamp maxTime);
 }
