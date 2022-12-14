@@ -1,8 +1,11 @@
 package com.fall.smarthouse;
 
+import com.fall.smarthouse.constant.RiskIndex;
+import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
@@ -29,6 +32,8 @@ import java.util.*;
 class BackendApplicationTests {
 
     @Autowired
+    AbnormalMapper abnormalMapper;
+    @Autowired
     SensorMapper sensorMapper;
 
     @Autowired
@@ -42,6 +47,20 @@ class BackendApplicationTests {
 
     @Autowired
     UserMapper userMapper;
+
+    @Test
+    void testInsertAbnormal(){
+        Abnormal abnormal = new Abnormal();
+        abnormal.setStartTime(new Long("1671019424000"));
+        abnormal.setEndTime(new Long("1671019424000"));
+        abnormal.setRiskIndex(RiskIndex.GAS_DANGER.getIndex());
+//        Integer integer = abnormalMapper.insertAbnormal(new Abnormal(abnormal.getStartTime() / 1000, abnormal.getEndTime() / 1000, abnormal.getRiskIndex()));
+        abnormal.setEndTime(new Long("1671029264000"));
+        Integer integer = abnormalMapper.updateAbnormal(new Abnormal(
+                abnormal.getStartTime()/1000, abnormal.getEndTime()/1000, abnormal.getRiskIndex()
+        ));
+        System.out.println(integer);
+    }
 
     @Test
     void testDateTime() throws ParseException {
