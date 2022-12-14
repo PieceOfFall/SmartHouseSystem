@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -30,7 +31,7 @@ public class GlobalExceptionHandler {
      * @date 2022/12/4 15:23
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResBean missingServletRequestParameterException(MissingServletRequestParameterException e, HttpServletResponse response) {
+    public ResBean missingServletRequestParameterException(MissingServletRequestParameterException e, HttpServletResponse response, HttpServletRequest request) {
         log.warn("请求参数缺失", e);
         response.setStatus(405);
         return ResBean.badRequest(String.format("请求参数缺失:%s", e.getParameterName()));
