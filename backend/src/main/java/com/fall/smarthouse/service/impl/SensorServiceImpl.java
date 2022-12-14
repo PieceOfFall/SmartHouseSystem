@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +39,8 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public PageInfo<Double> getGasSensorData(String minTime, String maxTime, Integer pageNum, Integer pageSize) throws ParseException {
-        Date minDate = DateConverter.StringToSqlDate(minTime);
-        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         PageHelper.startPage(pageNum,pageSize);
         List<Double> gasData = sensorMapper.selectGasSensorData(minDate, maxDate);
         PageInfo<Double> gasPageInfo = new PageInfo<>(gasData);
@@ -48,8 +49,8 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public PageInfo<Double> getSmogSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
-        Date minDate = DateConverter.StringToSqlDate(minTime);
-        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         PageHelper.startPage(pageNum,pageSize);
         List<Double> smogSensorData = sensorMapper.selectSmogSensorData(minDate, maxDate);
         PageInfo<Double> smogPageInfo = new PageInfo<>(smogSensorData);
@@ -58,8 +59,8 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public PageInfo<Double> getTemperatureSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
-        Date minDate = DateConverter.StringToSqlDate(minTime);
-        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         PageHelper.startPage(pageNum,pageSize);
         List<Double> temperatureSensorData = sensorMapper.selectTemperatureSensorData(minDate, maxDate);
         PageInfo<Double> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
@@ -68,8 +69,8 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public PageInfo<Double> getHumiditySensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
-        Date minDate = DateConverter.StringToSqlDate(minTime);
-        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         PageHelper.startPage(pageNum,pageSize);
         List<Double> humiditySensorData = sensorMapper.selectHumiditySensorData(minDate, maxDate);
         PageInfo<Double> humidityPageInfo = new PageInfo<>(humiditySensorData);
@@ -78,8 +79,8 @@ public class SensorServiceImpl implements ISensorService {
 
     @Override
     public PageInfo<Double> getShakeSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
-        Date minDate = DateConverter.StringToSqlDate(minTime);
-        Date maxDate = DateConverter.StringToSqlDate(maxTime);
+        Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
+        Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         PageHelper.startPage(pageNum,pageSize);
         List<Double> shakeSensorData = sensorMapper.selectShakeSensorData(minDate, maxDate);
         PageInfo<Double> shakePageInfo = new PageInfo<>(shakeSensorData);

@@ -53,7 +53,7 @@ public interface SensorMapper {
      * @version 1.0
      */
     @Select({"select  gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc"})
-    List<Double> selectGasSensorData(Date minTime,Date maxTime);
+    List<Double> selectGasSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 查询烟雾传感器数据
@@ -62,7 +62,7 @@ public interface SensorMapper {
      * @version 1.0
      */
     @Select("select smog from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectSmogSensorData(Date minTime,Date maxTime);
+    List<Double> selectSmogSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 查询温度传感器数据
@@ -71,7 +71,7 @@ public interface SensorMapper {
      * @version 1.0
      */
     @Select("select temperature from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectTemperatureSensorData(Date minTime,Date maxTime);
+    List<Double> selectTemperatureSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 查询湿度传感器数据
@@ -80,7 +80,7 @@ public interface SensorMapper {
      * @version 1.0
      */
     @Select("select humidity from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectHumiditySensorData(Date minTime,Date maxTime);
+    List<Double> selectHumiditySensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 查询震动传感器数据
@@ -89,7 +89,7 @@ public interface SensorMapper {
      * @version 1.0
      */
     @Select("select shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectShakeSensorData(Date minTime,Date maxTime);
+    List<Double> selectShakeSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 查询所有传感器数据

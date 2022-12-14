@@ -44,6 +44,11 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
+    void testDateTime() throws ParseException {
+        System.out.println(DateConverter.StringToTimeStamp("1670935260000"));
+    }
+
+    @Test
     void testSelectAll(){
         Map<String, Object> map = sensorService.safetyInspection();
         System.out.println(map.isEmpty());
@@ -53,11 +58,14 @@ class BackendApplicationTests {
 
     @Test
     void testPage() throws ParseException {
-        PageHelper.startPage(1,3);
-        PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData("11111111111", "1770231713291", 1, 2);
+//        PageHelper.startPage(1,3);
+        PageInfo<Double> shakeSensorData = sensorService.getGasSensorData("1670942400000", "1670942460000", 1, 10);
 //        System.out.println(data);
 //        System.out.println();
 //        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
+//        Timestamp minDate = DateConverter.StringToTimeStamp("1670942400000");
+//        Timestamp maxDate = DateConverter.StringToTimeStamp("1670942460000");
+//        List<Double> doubles = sensorMapper.selectGasSensorData(minDate, maxDate);
         System.out.println(shakeSensorData);
     }
     @Test
