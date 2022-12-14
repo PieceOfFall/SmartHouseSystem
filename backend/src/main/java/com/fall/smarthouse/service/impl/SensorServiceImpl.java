@@ -1,5 +1,6 @@
 package com.fall.smarthouse.service.impl;
 
+import com.fall.smarthouse.constant.RiskIndex;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author FAll
@@ -23,11 +22,39 @@ import java.util.Map;
 @Service
 public class SensorServiceImpl implements ISensorService {
 
+    public static Boolean firstTime = true;
+    public static Boolean isChange = false;
+    public static HashMap<String,Object> abnormalType = new HashMap<>();
     @Autowired
     SensorMapper sensorMapper;
 
     @Override
     public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
+        Map<String, Object> map = SafetyJudgment(sensorRequest);
+        if(!map.isEmpty() && firstTime){
+            Long time = (Long)map.get("time");
+            abnormalType.put("startTime",time);
+            abnormalType.put("endTime",time);
+            Integer riskIndex = (Integer) map.get("riskIndex");
+            abnormalType.put("riskIndex",riskIndex);
+        }
+        if(!map.isEmpty() && !firstTime){
+            Integer riskIndexForMap = (Integer)map.get("riskIndex");
+            Integer riskIndexForAbnormal = (Integer)abnormalType.get("riskIndex");
+            Long time = (Long) map.get("time");
+            abnormalType.put("endTime",time);
+            if(riskIndexForMap != riskIndexForAbnormal){
+                isChange = true;
+                abnormalType.put("riskIndex",riskIndexForMap);
+                abnormalType.put("startTime",time);
+            }
+
+        }
+        if(map.isEmpty() && !firstTime){
+            firstTime = true;
+            isChange = false;
+            abnormalType.clear();
+        }
         Sensor sensor = new Sensor(sensorRequest.getTime()/1000, sensorRequest.getGas(), sensorRequest.getSmog(),
                 sensorRequest.getTemperature(),sensorRequest.getHumidity() , sensorRequest.getShake());
         Integer affectRows = sensorMapper.insertToSensor(sensor);
@@ -94,26 +121,42 @@ public class SensorServiceImpl implements ISensorService {
     }
 
 
-    private Map<String,Object> SafetyJudgment(Sensor sensor,Map<String,Object> warnMap) {
+    /**
+     * @description: 判断是否安全并返回所需map，map中包含时间，传感器异常值，和异常系数
+     * @author xiaoQe
+     * @date 2022/12/14 21:16
+     * @version 1.0
+     */
+    private Map<String,Object> SafetyJudgment(Sensor sensor) {
+        HashMap<String, Object> warnMap = new HashMap<>();
+        Integer riskIndex = 0;
         if(sensor.getGas() < 0.001 || sensor.getGas() > 0.01){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("gas",sensor.getGas());
+            riskIndex += RiskIndex.SMOG_DANGER.getIndex();
         }
         if(sensor.getSmog() < 60 || sensor.getSmog() >70){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("smog",sensor.getSmog());
+            riskIndex += RiskIndex.SMOG_DANGER.getIndex();
         }
         if(sensor.getTemperature() > 29 || sensor.getTemperature() < 28){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("temperature",sensor.getTemperature());
+            riskIndex += RiskIndex.TEMPERATURE_DANGER.getIndex();
         }
         if(sensor.getHumidity() < 0.3 || sensor.getHumidity() > 0.6){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("humidity",sensor.getHumidity());
+            riskIndex += RiskIndex.HUMIDITY_DANGER.getIndex();
         }
         if (sensor.getShake() > 1){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("shake",sensor.getShake());
+            riskIndex += RiskIndex.SHAKE_DANGER.getIndex();
+        }
+        if(riskIndex != 0){
+            warnMap.put("riskIndex",riskIndex);
         }
         return warnMap;
     }

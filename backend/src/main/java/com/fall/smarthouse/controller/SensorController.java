@@ -1,8 +1,11 @@
 package com.fall.smarthouse.controller;
 
 import com.fall.smarthouse.bean.ResBean;
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
+import com.fall.smarthouse.service.IAbnormalService;
 import com.fall.smarthouse.service.ISensorService;
+import com.fall.smarthouse.service.impl.SensorServiceImpl;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +28,31 @@ import java.util.Map;
 @RequestMapping("/sensor")
 @RestController
 public class SensorController {
+
+    @Autowired
+    IAbnormalService abnormalService;
     @Autowired
     ISensorService sensorService;
 
     @ApiOperation("添加传感器数据")
     @PostMapping("add_sensor")
-
     public ResBean AddSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
         boolean insertToSensor = sensorService.insertToSensor(sensor);
+        if(SensorServiceImpl.abnormalType.isEmpty()){
+            Abnormal abnormal = new Abnormal((Long) SensorServiceImpl.abnormalType.get("startTime"),
+                    (Long) SensorServiceImpl.abnormalType.get("endTime"),
+                    (Integer) SensorServiceImpl.abnormalType.get("riskIndex"));
+            if(!SensorServiceImpl.firstTime){
+                Boolean aBoolean = abnormalService.insertAbnormal(abnormal);
+                SensorServiceImpl.firstTime = false;
+            }else if(SensorServiceImpl.isChange){
+                Boolean aBoolean = abnormalService.insertAbnormal(abnormal);
+                SensorServiceImpl.isChange = false;
+            }else {
+                Boolean aBoolean = abnormalService.updateAbnormal(abnormal);
+            }
+        }
         response.setStatus(200);
         return ResBean.ok("ok");
     }
