@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fall.smarthouse.mapper.AbnormalMapper">
+<!--    Integer insertAbnormal(Abnormal abnormal);-->
+    <insert id="insertAbnormal">
+        insert into abnormal
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="riskIndex != null">
+                risk_index,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="startTime != null">
+                FROM_UNIXTIME(#{startTime,jdbcType=BIGINT}, '%Y-%m-%d %H:%i:%s'),
+            </if>
+            <if test="endTime != null">
+                FROM_UNIXTIME(#{endTime,jdbcType=BIGINT}, '%Y-%m-%d %H:%i:%s'),
+            </if>
+            <if test="riskIndex != null">
+                #{riskIndex},
+            </if>
+        </trim>
+    </insert>
+<!--Integer updateAbnormal(Abnormal abnormal);-->
+    <update id="updateAbnormal">
+        update abnormal
+        <set>
+            <if test="endTime != null">
+                end_time = FROM_UNIXTIME(#{endTime}),
+            </if>
+            <if test="riskIndex != null">
+                risk_index = #{riskIndex}
+            </if>
+        </set>
+        where start_time = FROM_UNIXTIME(#{startTime})
+    </update>
+<!--    List<Abnormal> restartSelectAbnormalData(Timestamp closeTime, Timestamp startTime);-->
+    <select id="restartSelectAbnormalData" resultType="com.fall.smarthouse.model.Abnormal">
+        select UNIX_TIMESTAMP(start_time),UNIX_TIMESTAMP(end_time),risk_index
+        from abnormal where start_time between #{closeTime} and #{startTime}
+    </select>
+</mapper>

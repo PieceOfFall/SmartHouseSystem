@@ -1,5 +1,6 @@
 package com.fall.smarthouse;
 
+import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
@@ -8,13 +9,10 @@ import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
-import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +21,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootTest
 class BackendApplicationTests {
 
+    @Autowired
+    AbnormalMapper abnormalMapper;
     @Autowired
     SensorMapper sensorMapper;
 
@@ -47,21 +44,63 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
-    void testSelectAll() throws ParseException {
-        java.sql.Date minTime = DateConverter.StringToSqlDate("1670231713291");
-        java.sql.Date maxTime = DateConverter.StringToSqlDate("1770231713291");
-        List<Sensor> sensors = sensorMapper.selectAllSensorData(minTime, maxTime);
-        System.out.println(sensors);
+    void selectAbnormal(){
+//        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
+//        System.out.println(abnormals);
+        HashSet<Object> integers = new HashSet<>();
+        System.out.println(integers);
+        integers.add(new Long("12345678"));
+        integers.add(12);
+        Iterator<Object> iterator = integers.iterator();
+        while(iterator.hasNext()){
+            Object obj = iterator.next();
+            if(obj.getClass().equals(Integer.class)){
+                System.out.println(obj.getClass().equals(Integer.class));
+            }else if(obj.getClass().equals(Long.class)){
+                System.out.println(obj.getClass().equals(Long.class));
+            }
+        }
+//        System.out.println(integers);
+//        integers.remove(next);
+//        System.out.println(integers);
+    }
+
+    @Test
+    void testInsertAbnormal(){
+//        Abnormal abnormal = new Abnormal();
+//        abnormal.setStartTime(new Long("1671019424000"));
+//        abnormal.setEndTime(new Long("1671019424000"));
+//        abnormal.setRiskIndex(RiskIndex.GAS_DANGER.getIndex());
+////        Integer integer = abnormalMapper.insertAbnormal(new Abnormal(abnormal.getStartTime() / 1000, abnormal.getEndTime() / 1000, abnormal.getRiskIndex()));
+//        abnormal.setEndTime(new Long("1671029264000"));
+//        Integer integer = abnormalMapper.updateAbnormal(new Abnormal(
+//                abnormal.getStartTime()/1000, abnormal.getEndTime()/1000, abnormal.getRiskIndex()
+//        ));
+//        System.out.println(integer);
+    }
+
+    @Test
+    void testDateTime() throws ParseException {
+        System.out.println(DateConverter.StringToTimeStamp("1670935260000"));
+    }
+
+    @Test
+    void testSelectAll(){
+        List<Sensor> sensorList = sensorMapper.pollingSelectSensorData(DateConverter.StringToTimeStamp("1670942460000"));
+        System.out.println(sensorList);
     }
 
 
     @Test
     void testPage() throws ParseException {
-        PageHelper.startPage(1,3);
-        PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData("11111111111", "1770231713291", 1, 2);
+//        PageHelper.startPage(1,3);
+        PageInfo<Double> shakeSensorData = sensorService.getGasSensorData("1670942400000", "1670942460000", 1, 10);
 //        System.out.println(data);
 //        System.out.println();
 //        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
+//        Timestamp minDate = DateConverter.StringToTimeStamp("1670942400000");
+//        Timestamp maxDate = DateConverter.StringToTimeStamp("1670942460000");
+//        List<Double> doubles = sensorMapper.selectGasSensorData(minDate, maxDate);
         System.out.println(shakeSensorData);
     }
     @Test

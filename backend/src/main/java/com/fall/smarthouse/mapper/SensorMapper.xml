@@ -51,4 +51,16 @@
             </if>
         </trim>
     </insert>
+<!--    List<Sensor> pollingSelectSensorData(Timestamp time);-->
+    <select id="pollingSelectSensorData" resultType="com.fall.smarthouse.model.Sensor">
+        select UNIX_TIMESTAMP(`time`),gas,smog,temperature,humidity,shake
+        from sensor
+        where `time` >= DATE_SUB(#{time},INTERVAL 5 MINUTE) order by `time`
+    </select>
+<!--    List<Sensor> selectSensorDataByTime(Timestamp minTime,Timestamp maxTime);-->
+    <select id="selectSensorDataByTime" resultType="com.fall.smarthouse.model.Sensor">
+        select UNIX_TIMESTAMP(`time`),gas,smog,temperature,humidity,shake
+        from sensor
+        where `time` between #{minTime} and #{maxTime} order by `time`
+    </select>
 </mapper>

@@ -191,6 +191,44 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return true;
     }
 
+    @Override
+    public Boolean homeMode() {
+        ElectricAppliance homeMode = new ElectricAppliance();
+        homeMode.setLightBedA(LightState.BIG.getState());
+        homeMode.setLightBedB(LightState.BIG.getState());
+        homeMode.setLightBathroom(LightState.BIG.getState());
+        homeMode.setLightLivingRoom(LightState.BIG.getState());
+        homeMode.setCurtainA(SwitchState.ON.getState());
+        homeMode.setCurtainB(SwitchState.ON.getState());
+        homeMode.setSwitchA(SwitchState.ON.getState());
+        homeMode.setSwitchB(SwitchState.ON.getState());
+        homeMode.setSwitchC(SwitchState.ON.getState());
+        Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
+        if (affectRows == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean leaveHomeMode() {
+        ElectricAppliance leaveHomeMode = new ElectricAppliance();
+        leaveHomeMode.setLightBedA(LightState.CLOSED.getState());
+        leaveHomeMode.setLightBedB(LightState.CLOSED.getState());
+        leaveHomeMode.setLightBathroom(LightState.CLOSED.getState());
+        leaveHomeMode.setLightLivingRoom(LightState.CLOSED.getState());
+        leaveHomeMode.setCurtainA(SwitchState.OFF.getState());
+        leaveHomeMode.setCurtainB(SwitchState.OFF.getState());
+        leaveHomeMode.setSwitchA(SwitchState.OFF.getState());
+        leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
+        leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
+        Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
+        if (affectRows == 0) {
+            return false;
+        }
+        return true;
+    }
+
     private Integer checkLightIntegerLegal(Integer light) {
         if (light == null) {
             return null;
