@@ -1,7 +1,9 @@
 package com.fall.smarthouse.service.impl;
 
 import com.fall.smarthouse.constant.RiskIndex;
+import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.util.DateConverter;
@@ -22,37 +24,50 @@ import java.util.*;
 @Service
 public class SensorServiceImpl implements ISensorService {
 
-    public static Boolean firstTime = true;
-    public static Boolean isChange = false;
-    public static HashMap<String,Object> abnormalType = new HashMap<>();
+    private static HashSet<Object> abnormalType = new HashSet<>();
+
+    @Autowired
+    AbnormalMapper abnormalMapper;
     @Autowired
     SensorMapper sensorMapper;
 
     @Override
     public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
         Map<String, Object> map = SafetyJudgment(sensorRequest);
-        if(!map.isEmpty() && firstTime){
-            Long time = (Long)map.get("time");
-            abnormalType.put("startTime",time);
-            abnormalType.put("endTime",time);
+        if(!map.isEmpty() && abnormalType.isEmpty()){
             Integer riskIndex = (Integer) map.get("riskIndex");
-            abnormalType.put("riskIndex",riskIndex);
-        }
-        if(!map.isEmpty() && !firstTime){
+            //将数据异常信息添加到异常表中
+            insertAbnormal(new Abnormal(sensorRequest.getTime(), sensorRequest.getTime(),riskIndex));
+            //将异常系数及开始时间存入hashSet
+            abnormalType.add(riskIndex);
+            abnormalType.add(sensorRequest.getTime());
+        }else if(!map.isEmpty() && !abnormalType.isEmpty()){
             Integer riskIndexForMap = (Integer)map.get("riskIndex");
-            Integer riskIndexForAbnormal = (Integer)abnormalType.get("riskIndex");
-            Long time = (Long) map.get("time");
-            abnormalType.put("endTime",time);
+            //遍历set取出危险系数和开始时间
+            Iterator<Object> iterator = abnormalType.iterator();
+            Integer riskIndexForAbnormal = null;
+            Long startTime = null;
+            while(iterator.hasNext()){
+                Object obj = iterator.next();
+                if(obj.getClass().equals(Integer.class)){
+                    riskIndexForAbnormal = (Integer) obj;
+                }else if(obj.getClass().equals(Long.class)){
+                    startTime = (Long) obj;
+                }
+            }
+            //比较异常系数是否相等
             if(riskIndexForMap != riskIndexForAbnormal){
-                isChange = true;
-                abnormalType.put("riskIndex",riskIndexForMap);
-                abnormalType.put("startTime",time);
+                insertAbnormal(new Abnormal(sensorRequest.getTime(),
+                        sensorRequest.getTime(),riskIndexForMap));
+                abnormalType.remove(riskIndexForAbnormal);
+                abnormalType.remove(startTime);
+                abnormalType.add(riskIndexForMap);
+                abnormalType.add(sensorRequest.getTime());
+            }else {
+                updateAbnormal(new Abnormal(startTime,sensorRequest.getTime(),riskIndexForAbnormal));
             }
 
-        }
-        if(map.isEmpty() && !firstTime){
-            firstTime = true;
-            isChange = false;
+        } else if(map.isEmpty() && !abnormalType.isEmpty()){
             abnormalType.clear();
         }
         Sensor sensor = new Sensor(sensorRequest.getTime()/1000, sensorRequest.getGas(), sensorRequest.getSmog(),
@@ -135,6 +150,37 @@ public class SensorServiceImpl implements ISensorService {
         return sensorPageInfo;
     }
 
+    @Override
+    public Boolean insertAbnormal(Abnormal abnormal) {
+        Integer affectRows = abnormalMapper.insertAbnormal(
+                new Abnormal(abnormal.getStartTime() / 1000,
+                        abnormal.getEndTime() / 1000,
+                        abnormal.getRiskIndex()));
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean updateAbnormal(Abnormal abnormal) {
+        Integer affectRows = abnormalMapper.updateAbnormal(new Abnormal(
+                abnormal.getStartTime() / 1000,
+                abnormal.getEndTime() / 1000,
+                abnormal.getRiskIndex()));
+        if(affectRows == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public List<Abnormal> clientDisconnectSelectAbnormalData(String closeTime, String startTime) {
+        Timestamp closeDate = DateConverter.StringToTimeStamp(closeTime);
+        Timestamp startDate = DateConverter.StringToTimeStamp(startTime);
+        List<Abnormal> abnormals = abnormalMapper.restartSelectAbnormalData(closeDate, startDate);
+        return abnormals;
+    }
 
     /**
      * @description: 判断是否安全并返回所需map，map中包含时间，传感器异常值，和异常系数

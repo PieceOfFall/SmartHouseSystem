@@ -92,7 +92,7 @@ public interface SensorMapper {
     List<Double> selectShakeSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
-     * @description: 查询所有传感器数据
+     * @description: 轮询查询所有传感器数据
      * @author xiaoQe
      * @date 2022/12/7 14:52
      * @version 1.0

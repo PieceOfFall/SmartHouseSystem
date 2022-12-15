@@ -1,24 +1,18 @@
 package com.fall.smarthouse;
 
-import com.fall.smarthouse.constant.RiskIndex;
 import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
-import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
-import com.fall.smarthouse.service.IAbnormalService;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
-import com.fall.smarthouse.service.impl.ElectricApplianceServiceImpl;
 import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +26,6 @@ import java.util.*;
 @SpringBootTest
 class BackendApplicationTests {
 
-    @Autowired
-    IAbnormalService abnormalService;
     @Autowired
     AbnormalMapper abnormalMapper;
     @Autowired
@@ -53,8 +45,24 @@ class BackendApplicationTests {
 
     @Test
     void selectAbnormal(){
-        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
-        System.out.println(abnormals);
+//        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
+//        System.out.println(abnormals);
+        HashSet<Object> integers = new HashSet<>();
+        System.out.println(integers);
+        integers.add(new Long("12345678"));
+        integers.add(12);
+        Iterator<Object> iterator = integers.iterator();
+        while(iterator.hasNext()){
+            Object obj = iterator.next();
+            if(obj.getClass().equals(Integer.class)){
+                System.out.println(obj.getClass().equals(Integer.class));
+            }else if(obj.getClass().equals(Long.class)){
+                System.out.println(obj.getClass().equals(Long.class));
+            }
+        }
+//        System.out.println(integers);
+//        integers.remove(next);
+//        System.out.println(integers);
     }
 
     @Test

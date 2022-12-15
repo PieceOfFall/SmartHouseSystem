@@ -1,5 +1,6 @@
 package com.fall.smarthouse.service;
 
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
 import com.github.pagehelper.PageInfo;
 
@@ -79,4 +80,28 @@ public interface ISensorService {
      * @version 1.0
      */
     PageInfo<Sensor> selectSensorDataByTime(String minTime,String maxTime,Integer pageNum,Integer pageSize);
+
+    /**
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/14 20:18
+     * @version 1.0
+     */
+    Boolean insertAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 修改数据的方法
+     * @author xiaoQe
+     * @date 2022/12/14 20:23
+     * @version 1.0
+     */
+    Boolean updateAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 客户端断开连接检查的方法
+     * @author xiaoQe
+     * @date 2022/12/14 22:15
+     * @version 1.0
+     */
+    List<Abnormal> clientDisconnectSelectAbnormalData(String closeTime,String startTime);
 }

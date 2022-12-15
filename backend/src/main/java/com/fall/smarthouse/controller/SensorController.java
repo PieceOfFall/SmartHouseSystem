@@ -3,20 +3,14 @@ package com.fall.smarthouse.controller;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
-import com.fall.smarthouse.service.IAbnormalService;
 import com.fall.smarthouse.service.ISensorService;
-import com.fall.smarthouse.service.impl.SensorServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +24,6 @@ import java.util.Map;
 @RequestMapping("/sensor")
 @RestController
 public class SensorController {
-
-    @Autowired
-    IAbnormalService abnormalService;
     @Autowired
     ISensorService sensorService;
 
@@ -41,20 +32,6 @@ public class SensorController {
     public ResBean AddSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
         boolean insertToSensor = sensorService.insertToSensor(sensor);
-        if(SensorServiceImpl.abnormalType.isEmpty()){
-            Abnormal abnormal = new Abnormal((Long) SensorServiceImpl.abnormalType.get("startTime"),
-                    (Long) SensorServiceImpl.abnormalType.get("endTime"),
-                    (Integer) SensorServiceImpl.abnormalType.get("riskIndex"));
-            if(!SensorServiceImpl.firstTime){
-                Boolean aBoolean = abnormalService.insertAbnormal(abnormal);
-                SensorServiceImpl.firstTime = false;
-            }else if(SensorServiceImpl.isChange){
-                Boolean aBoolean = abnormalService.insertAbnormal(abnormal);
-                SensorServiceImpl.isChange = false;
-            }else {
-                Boolean aBoolean = abnormalService.updateAbnormal(abnormal);
-            }
-        }
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -132,12 +109,12 @@ public class SensorController {
         }
     }
 
-    @ApiOperation("通过异常表查询重启是否有异常")
+    @ApiOperation("通过异常表查询客户端断开连接是否有异常")
     @GetMapping("get_restart_safety")
     public ResBean getRestartSafety(@NotEmpty @RequestParam("closeTime") String closeTime,
                                            @NotEmpty @RequestParam("startTime") String startTime,
                                            HttpServletResponse response) {
-        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData(closeTime, startTime);
+        List<Abnormal> abnormals = sensorService.clientDisconnectSelectAbnormalData(closeTime, startTime);
         if(abnormals.isEmpty()){
             response.setStatus(200);
             return ResBean.ok("ok");
@@ -148,7 +125,7 @@ public class SensorController {
     }
 
     @ApiOperation("根据时间查询传感器数据的接口")
-    @GetMapping("get_sensor data_by_time")
+    @GetMapping("get_sensor_data_by_time")
     public ResBean getSensorDataByTime(@NotEmpty @RequestParam("minTime") String minTime,
                                        @NotEmpty @RequestParam("maxTime") String maxTime,
                                        @NotEmpty @RequestParam("pageNum") Integer pageNum,
