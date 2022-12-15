@@ -96,7 +96,7 @@ public class SensorController {
         return ResBean.ok("ok",shakeSensorData);
     }
 
-    @ApiOperation("检测传感器是否异常")
+    @ApiOperation("轮询检测传感器是否异常")
     @GetMapping("/safety_inspection")
     public ResBean getSafetyInspection(@NotEmpty @RequestParam("time") String time,HttpServletResponse response){
         Map<String, Object> map = sensorService.safetyInspection(time);
@@ -110,8 +110,8 @@ public class SensorController {
     }
 
     @ApiOperation("通过异常表查询客户端断开连接是否有异常")
-    @GetMapping("get_restart_safety")
-    public ResBean getRestartSafety(@NotEmpty @RequestParam("closeTime") String closeTime,
+    @GetMapping("get_client_disconnect_safety")
+    public ResBean getClientDisconnectSafety(@NotEmpty @RequestParam("closeTime") String closeTime,
                                            @NotEmpty @RequestParam("startTime") String startTime,
                                            HttpServletResponse response) {
         List<Abnormal> abnormals = sensorService.clientDisconnectSelectAbnormalData(closeTime, startTime);
@@ -125,7 +125,7 @@ public class SensorController {
     }
 
     @ApiOperation("根据时间查询传感器数据的接口")
-    @GetMapping("get_sensor_data_by_time")
+    @GetMapping("get_sensor_data")
     public ResBean getSensorDataByTime(@NotEmpty @RequestParam("minTime") String minTime,
                                        @NotEmpty @RequestParam("maxTime") String maxTime,
                                        @NotEmpty @RequestParam("pageNum") Integer pageNum,
