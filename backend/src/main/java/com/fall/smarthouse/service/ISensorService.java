@@ -111,6 +111,45 @@ public interface ISensorService {
      * @date 2022/12/16 19:25
      * @version 1.0
      */
-    List<Long> selectStartTimeByRiskIndex(Integer riskIndex);
+    List<Long> getStartTimeByRiskIndex(Integer riskIndex);
 
+    /**
+     * @description: 根据开始时间戳获取燃气异常数据
+     * @author xiaoQe
+     * @date 2022/12/16 20:27
+     * @version 1.0
+     */
+    List<Double> getAbnormalGasData(String startTime);
+
+    /**
+     * @description: 根据开始时间获取烟雾异常数据
+     * @author xiaoQe
+     * @date 2022/12/16 20:37
+     * @version 1.0
+     */
+    List<Double> getAbnormalSmogData(String startTime);
+
+    /**
+     * @description: 根据开始时间获取温度异常数据
+     * @author xiaoQe
+     * @date 2022/12/16 20:46
+     * @version 1.0
+     */
+    List<Double> getAbnormalTemperatureData(String startTime);
+
+    /**
+     * @description: 根据开始时间获取湿度异常数据
+     * @author xiaoQe
+     * @date 2022/12/16 20:51
+     * @version 1.0
+     */
+    List<Double> getAbnormalHumidityData(String startTime);
+
+    /**
+     * @description: 根据开始时间获取震动异常数据
+     * @author xiaoQe
+     * @date 2022/12/16 20:56
+     * @version 1.0
+     */
+    List<Double> getAbnormalShakeData(String startTime);
 }

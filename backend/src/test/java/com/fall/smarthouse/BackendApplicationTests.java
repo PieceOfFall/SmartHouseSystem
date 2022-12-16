@@ -48,8 +48,8 @@ class BackendApplicationTests {
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);
-        List<Long> longs = abnormalMapper.selectStartTimeByRiskIndex(2);
-        System.out.println(longs);
+        List<Double> doubles = sensorService.getAbnormalGasData("1671032420");
+        System.out.println(doubles);
     }
 
     @Test

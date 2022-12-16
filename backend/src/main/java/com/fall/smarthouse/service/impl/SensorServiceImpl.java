@@ -171,9 +171,44 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public List<Long> selectStartTimeByRiskIndex(Integer riskIndex) {
+    public List<Long> getStartTimeByRiskIndex(Integer riskIndex) {
         List<Long> startTimes = abnormalMapper.selectStartTimeByRiskIndex(riskIndex);
         return startTimes;
+    }
+
+    @Override
+    public List<Double> getAbnormalGasData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalGasData = sensorMapper.selectAbnormalGasData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalGasData;
+    }
+
+    @Override
+    public List<Double> getAbnormalSmogData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalSmogData = sensorMapper.selectAbnormalSmogData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalSmogData;
+    }
+
+    @Override
+    public List<Double> getAbnormalTemperatureData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalTemperature = sensorMapper.selectAbnormalTemperatureData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalTemperature;
+    }
+
+    @Override
+    public List<Double> getAbnormalHumidityData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalHumidityData = sensorMapper.selectAbnormalHumidityData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalHumidityData;
+    }
+
+    @Override
+    public List<Double> getAbnormalShakeData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalShakeData = sensorMapper.selectAbnormalShakeData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalShakeData;
     }
 
     /**

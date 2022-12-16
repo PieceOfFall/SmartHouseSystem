@@ -63,4 +63,34 @@
         from sensor
         where `time` between #{minTime} and #{maxTime} order by `time`
     </select>
+<!--    List<Double> selectAbnormalGasData(Timestamp startTime);-->
+    <select id="selectAbnormalGasData" resultType="java.lang.Double">
+        select gas from sensor where `time` between #{startTime} and (
+            select end_time from abnormal where start_time = #{startTime}
+            )
+    </select>
+<!--    List<Double> selectAbnormalSmogData(Timestamp startTime);-->
+    <select id="selectAbnormalSmogData" resultType="java.lang.Double">
+        select smog from sensor where `time` between #{startTime} and (
+            select end_time from abnormal where start_time = #{startTime}
+        )
+    </select>
+<!--    List<Double> selectAbnormalTemperatureData(Timestamp startTime);-->
+    <select id="selectAbnormalTemperatureData" resultType="java.lang.Double">
+        select temperature from sensor where `time` between #{startTime} and (
+            select end_time from abnormal where start_time = #{startTime}
+        )
+    </select>
+<!--    List<Double> selectAbnormalHumidityData(Timestamp startTime);-->
+    <select id="selectAbnormalHumidityData" resultType="java.lang.Double">
+        select humidity from sensor where `time` between #{startTime} and (
+            select end_time from abnormal where start_time = #{startTime}
+        )
+    </select>
+<!--    List<Double> selectAbnormalShakeData(Timestamp startTime);-->
+    <select id="selectAbnormalShakeData" resultType="java.lang.Double">
+        select shake from sensor where `time` between #{startTime} and (
+            select end_time from abnormal where start_time = #{startTime}
+        )
+    </select>
 </mapper>
