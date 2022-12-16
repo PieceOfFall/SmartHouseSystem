@@ -44,6 +44,15 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
+    void BitwiseOperation(){
+//        Integer i1 = 9;
+//        Integer i2 = 2;
+//        System.out.println(i1 & i2);
+        List<Long> longs = abnormalMapper.selectStartTimeByRiskIndex(2);
+        System.out.println(longs);
+    }
+
+    @Test
     void selectAbnormal(){
 //        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
 //        System.out.println(abnormals);

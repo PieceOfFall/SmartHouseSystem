@@ -136,4 +136,12 @@ public class SensorController {
         return ResBean.ok("ok",sensorPageInfo);
     }
 
+    @ApiOperation("根据异常类型查询开始时间")
+    @GetMapping("get_start_time")
+    public ResBean getStartTime(@NotEmpty @RequestParam("riskIndex") Integer riskIndex,
+                                HttpServletResponse response){
+        List<Long> startTimeByRiskIndex = sensorService.selectStartTimeByRiskIndex(riskIndex);
+        response.setStatus(200);
+        return ResBean.ok("ok",startTimeByRiskIndex);
+    }
 }

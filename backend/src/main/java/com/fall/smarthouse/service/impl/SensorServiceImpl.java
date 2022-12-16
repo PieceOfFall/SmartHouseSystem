@@ -170,6 +170,12 @@ public class SensorServiceImpl implements ISensorService {
         return abnormals;
     }
 
+    @Override
+    public List<Long> selectStartTimeByRiskIndex(Integer riskIndex) {
+        List<Long> startTimes = abnormalMapper.selectStartTimeByRiskIndex(riskIndex);
+        return startTimes;
+    }
+
     /**
      * @description: 判断是否安全并返回所需map，map中包含时间，传感器异常值，和异常系数
      * @author xiaoQe

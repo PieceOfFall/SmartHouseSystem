@@ -104,4 +104,13 @@ public interface ISensorService {
      * @version 1.0
      */
     List<Abnormal> clientDisconnectSelectAbnormalData(String closeTime,String startTime);
+
+    /**
+     * @description: 根据异常类型查询所有异常的开始时间
+     * @author xiaoQe
+     * @date 2022/12/16 19:25
+     * @version 1.0
+     */
+    List<Long> selectStartTimeByRiskIndex(Integer riskIndex);
+
 }
