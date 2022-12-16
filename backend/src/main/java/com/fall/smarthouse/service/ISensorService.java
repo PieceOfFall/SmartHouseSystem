@@ -1,9 +1,13 @@
 package com.fall.smarthouse.service;
 
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
 import com.github.pagehelper.PageInfo;
 
 import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * @author FAll
@@ -18,6 +22,7 @@ public interface ISensorService {
      * @date 2022/12/5 15:19
      * @version 1.0
      */
+
     boolean insertToSensor(Sensor sensor) throws ParseException;
 
     /**
@@ -61,10 +66,42 @@ public interface ISensorService {
     PageInfo<Double> getShakeSensorData(String minTime,String maxTime,Integer pageNum,Integer pageSize) throws ParseException;
 
     /**
-     * @description: 传感器安全检测 true为安全 false为警告
+     * @description: 传感器根据时间进行安全检测 map为空安全，不为空不安全，map返回时间及异常的传感器数据
      * @author xiaoQe
      * @date 2022/12/7 14:47
      * @version 1.0
      */
-    Boolean safetyInspection();
+    Map<String,Object> safetyInspection(String time);
+
+    /**
+     * @description: 根据时间查询传感器数据的方法
+     * @author xiaoQe
+     * @date 2022/12/14 22:35
+     * @version 1.0
+     */
+    PageInfo<Sensor> selectSensorDataByTime(String minTime,String maxTime,Integer pageNum,Integer pageSize);
+
+    /**
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/14 20:18
+     * @version 1.0
+     */
+    Boolean insertAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 修改数据的方法
+     * @author xiaoQe
+     * @date 2022/12/14 20:23
+     * @version 1.0
+     */
+    Boolean updateAbnormal(Abnormal abnormal);
+
+    /**
+     * @description: 客户端断开连接检查的方法
+     * @author xiaoQe
+     * @date 2022/12/14 22:15
+     * @version 1.0
+     */
+    List<Abnormal> clientDisconnectSelectAbnormalData(String closeTime,String startTime);
 }

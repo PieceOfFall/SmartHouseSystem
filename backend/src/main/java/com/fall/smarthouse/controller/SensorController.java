@@ -1,6 +1,7 @@
 package com.fall.smarthouse.controller;
 
 import com.fall.smarthouse.bean.ResBean;
+import com.fall.smarthouse.model.Abnormal;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.service.ISensorService;
 import com.github.pagehelper.PageInfo;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotEmpty;
 import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * @author xiaoQe
@@ -91,4 +95,45 @@ public class SensorController {
         response.setStatus(200);
         return ResBean.ok("ok",shakeSensorData);
     }
+
+    @ApiOperation("轮询检测传感器是否异常")
+    @GetMapping("/safety_inspection")
+    public ResBean getSafetyInspection(@NotEmpty @RequestParam("time") String time,HttpServletResponse response){
+        Map<String, Object> map = sensorService.safetyInspection(time);
+        if(map.isEmpty()){
+            response.setStatus(200);
+            return ResBean.ok("ok");
+        }else {
+            response.setStatus(200);
+            return ResBean.ok("Abnormal sensor",map);
+        }
+    }
+
+    @ApiOperation("通过异常表查询客户端断开连接是否有异常")
+    @GetMapping("get_client_disconnect_safety")
+    public ResBean getClientDisconnectSafety(@NotEmpty @RequestParam("closeTime") String closeTime,
+                                           @NotEmpty @RequestParam("startTime") String startTime,
+                                           HttpServletResponse response) {
+        List<Abnormal> abnormals = sensorService.clientDisconnectSelectAbnormalData(closeTime, startTime);
+        if(abnormals.isEmpty()){
+            response.setStatus(200);
+            return ResBean.ok("ok");
+        }else {
+            response.setStatus(200);
+            return ResBean.ok("have abnormal",abnormals);
+        }
+    }
+
+    @ApiOperation("根据时间查询传感器数据的接口")
+    @GetMapping("get_sensor_data")
+    public ResBean getSensorDataByTime(@NotEmpty @RequestParam("minTime") String minTime,
+                                       @NotEmpty @RequestParam("maxTime") String maxTime,
+                                       @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                       HttpServletResponse response){
+        PageInfo<Sensor> sensorPageInfo = sensorService.selectSensorDataByTime(minTime, maxTime, pageNum, pageSize);
+        response.setStatus(200);
+        return ResBean.ok("ok",sensorPageInfo);
+    }
+
 }

@@ -179,5 +179,21 @@ public class ElectricApplianceController {
         response.setStatus(200);
         return ResBean.ok("ok");
     }
+
+    @ApiOperation("设置回家模式")
+    @PostMapping("set_home_mode")
+    public ResBean setHomeMode(HttpServletResponse response){
+        Boolean aBoolean = electricApplianceService.homeMode();
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
+
+    @ApiOperation("设置离家模式")
+    @PostMapping("set_leave_home_mode")
+    public ResBean setLeaveHomeMode(HttpServletResponse response){
+        Boolean aBoolean = electricApplianceService.leaveHomeMode();
+        response.setStatus(200);
+        return ResBean.ok("ok");
+    }
 }
 

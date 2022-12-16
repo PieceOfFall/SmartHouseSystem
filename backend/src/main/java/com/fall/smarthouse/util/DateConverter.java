@@ -1,6 +1,7 @@
 package com.fall.smarthouse.util;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -19,6 +20,17 @@ public class DateConverter {
     public static String LongToDateString(Long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(time);
+    }
+
+    /**
+     * @description: 时间字符串转化为时间TimeStamp
+     * @author xiaoQe
+     * @date 2022/12/14 17:03
+     * @version 1.0
+     */
+    public static Timestamp StringToTimeStamp(String time){
+        Timestamp timestamp = new Timestamp(Long.parseLong(time));
+        return timestamp;
     }
 
     public static java.sql.Date StringToSqlDate(String time) throws ParseException {
