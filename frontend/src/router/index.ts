@@ -30,7 +30,11 @@ const routes: Array < RouteRecordRaw > = [{
             path: '/homepage',
             name: 'HomePage',
             component: () => import('../views/HomePage.vue')
-        }, {
+        }, 
+        /*
+           电器
+        */
+        {
             path: '/light_ctrl',
             name: 'LightCtrl',
             component: () => import('../views/ElectricCtrl/LightCtrl.vue')
@@ -42,7 +46,31 @@ const routes: Array < RouteRecordRaw > = [{
             path: '/curtain_ctrl',
             name: 'CurtainCtrl',
             component: () => import('../views/ElectricCtrl/CurtainCtrl.vue')
-        }]
+        },
+        /*
+           传感器
+        */
+       {
+        path: '/gas_detect',
+        name: 'GasDetect',
+        component: () => import('../views/SecurityCtrl/Gas.vue')
+       },
+       {
+        path: '/smog_detect',
+        name: 'SmogDetect',
+        component: () => import('../views/SecurityCtrl/Smog.vue')
+       },
+       {
+        path: '/shake_detect',
+        name: 'ShakeDetect',
+        component: () => import('../views/SecurityCtrl/Shake.vue')
+       },
+       {
+        path: '/warn_light',
+        name: 'Guard',
+        component: () => import('../views/SecurityCtrl/Guard.vue')
+       },
+    ]
     }
 ]
 

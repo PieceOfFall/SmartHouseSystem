@@ -46,8 +46,8 @@
 
 <script setup lang="ts">
 import {SwitchButton} from '@element-plus/icons-vue'
-import {getSwitches,setAppliance,toggleAllSwitch} from '../../api/Electric/index'
-import {SwitchState,SubmitSwitchState,ElectricAppliance} from '../../api/Electric/types';
+import {getSwitches,setAppliance,toggleAllSwitch} from '../../api/electric/index'
+import {SwitchState,SubmitSwitchState,ElectricAppliance} from '../../api/electric/types';
 import { onMounted,ref,watch } from 'vue';
 
 let isOneSwitchOnExist = ref(false);
