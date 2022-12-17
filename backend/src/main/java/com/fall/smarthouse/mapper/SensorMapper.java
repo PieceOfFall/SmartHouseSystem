@@ -108,6 +108,14 @@ public interface SensorMapper {
     List<Double> selectAbnormalShakeData(Timestamp startTime);
 
     /**
+     * @description: 根据异常开始时间查询异常传感器数据接口（用单个mapper实现）
+     * @author xiaoQe
+     * @date 2022/12/17 22:25
+     * @version 1.0
+     */
+    List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);
+
+    /**
      * @description: TODO
      * @author xiaoQe
      * @date 2022/12/17 18:08

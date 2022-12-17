@@ -93,6 +93,48 @@
             select end_time from abnormal where start_time = #{startTime}
         )
     </select>
+
+
+<!--    List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);-->
+    <select id="selectAbnormalSensorData" resultMap="returnMap">
+        select
+        <trim>
+            <if test="queryType == 's' ">
+                CONCAT(UNIX_TIMESTAMP(`time`),'000')
+            </if>
+            <if test="queryType == 'm' ">
+                REPLACE(UNIX_TIMESTAMP(DATE_FORMAT(time,'%Y-%m-%d %H:%i:00')),'.000000','000')
+            </if>
+            <if test="queryType == 'h' ">
+                REPLACE(UNIX_TIMESTAMP(DATE_FORMAT(time,'%Y-%m-%d %H:00:00')),'.000000','000')
+            </if>
+            <if test="queryType == 'd' ">
+                REPLACE(UNIX_TIMESTAMP(DATE_FORMAT(time,'%Y-%m-%d')),'.000000','000')
+            </if>
+        </trim>
+        as `date`,
+        <trim suffixOverrides=",">
+            <if test="sensor.gas == 1">
+                AVG(gas) as avg_gas,
+            </if>
+            <if test="sensor.smog == 1">
+                AVG(smog) as avg_smog,
+            </if>
+            <if test="sensor.temperature == 1">
+                AVG(temperature) as avg_temperature,
+            </if>
+            <if test="sensor.humidity == 1">
+                AVG(humidity) as avg_humidity,
+            </if>
+            <if test="sensor.shake == 1">
+                AVG(shake) as avg_shake,
+            </if>
+        </trim>
+        where `time` between #{startTime} and (
+        select end_time from abnormal where start_time = #{startTime})
+        group by `date`
+    </select>
+
 <!--    List<HashMap<String,Object>> testMap(Timestamp minTime,Timestamp maxTime);-->
     <resultMap id="testMap" type="java.util.Map">
         <result property="day" column="day" javaType="java.lang.Long"></result>
@@ -103,6 +145,7 @@
         SELECT REPLACE(UNIX_TIMESTAMP(DATE_FORMAT(time,'%Y-%m-%d')),'.000000','000') as `day`, AVG(smog) as avg_smog
         FROM `sensor` group by `day`
     </select>
+
 <!--        List<Map> selectSensorDataByQueryType(Timestamp minTime,Timestamp maxTime,Sensor sensor,Character queryType);-->
     <resultMap id="returnMap" type="java.util.Map">
         <result property="time" column="date" javaType="java.lang.Long"></result>
@@ -112,6 +155,7 @@
         <result property="humidity" column="avg_humidity" javaType="java.lang.Double"></result>
         <result property="shake" column="avg_shake" javaType="java.lang.Double"></result>
     </resultMap>
+
     <select id="selectSensorDataByQueryType" resultMap="returnMap">
         select
         <trim>
