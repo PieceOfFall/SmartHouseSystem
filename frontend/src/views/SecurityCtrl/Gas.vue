@@ -17,7 +17,15 @@
             </el-tab-pane>
             <!-- 历史查询 -->
             <el-tab-pane label="历史状态查询" name="second">
-
+                <!-- 时间选择 -->
+                <DatePicker
+                @change = "confirmDate"
+                />
+                <!-- 数据显示 -->
+                <el-table 
+                :data="[{},{},3]">
+                    <el-table-column />
+                </el-table>
             </el-tab-pane>
         </el-tabs>
 
@@ -26,8 +34,9 @@
 
 <script setup lang="ts">
 import Chart from '../../components/Chart.vue';
+import DatePicker from '../../components/DatePicker.vue';
 import {getCurrentData} from '../../api/sensor/index';
-import { ref,onMounted,getCurrentInstance,ComponentInternalInstance } from 'vue';
+import { ref,onMounted } from 'vue';
 
 /*
    默认选中监测卡片
@@ -67,6 +76,14 @@ setInterval(async()=>{
     gasData.value.push(data)
 },1000)
 
+/*
+   查询历史数据
+*/
+//获取查询范围并请求数据
+async function confirmDate(date:[]) {
+    console.log(date);
+}   
+
 
 </script>
 
@@ -77,6 +94,7 @@ setInterval(async()=>{
         height: 100%;
         background-color: #010409;
         font-weight: 300;
+        
     }
 
 

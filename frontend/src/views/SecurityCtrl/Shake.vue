@@ -50,7 +50,6 @@ onMounted(async()=>{
     },200)
     const data:number[] = (await getCurrentData('shake')).data.list
     let nowSecond:number = new Date().getSeconds()-5
-    console.log(data);
     
     data.forEach(e=>{
         timeArray.value.push(nowSecond++)

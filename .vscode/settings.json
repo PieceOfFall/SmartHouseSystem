@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
+        "daterange",
+        "datetimerange",
+        "monthrange",
         "pinia"
     ]
 }
