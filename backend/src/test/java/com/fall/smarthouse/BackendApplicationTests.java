@@ -44,6 +44,15 @@ class BackendApplicationTests {
     UserMapper userMapper;
 
     @Test
+    void BitwiseOperation(){
+//        Integer i1 = 9;
+//        Integer i2 = 2;
+//        System.out.println(i1 & i2);
+        List<Double> doubles = sensorService.getAbnormalGasData("1671032420");
+        System.out.println(doubles);
+    }
+
+    @Test
     void selectAbnormal(){
 //        List<Abnormal> abnormals = abnormalService.restartSelectAbnormalData("1671018424000", "1671029264000");
 //        System.out.println(abnormals);

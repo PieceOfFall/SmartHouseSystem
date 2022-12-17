@@ -136,4 +136,57 @@ public class SensorController {
         return ResBean.ok("ok",sensorPageInfo);
     }
 
+    @ApiOperation("根据异常类型查询开始时间")
+    @GetMapping("get_start_time")
+    public ResBean getStartTime(@NotEmpty @RequestParam("riskIndex") Integer riskIndex,
+                                HttpServletResponse response){
+        List<Long> startTimeByRiskIndex = sensorService.getStartTimeByRiskIndex(riskIndex);
+        response.setStatus(200);
+        return ResBean.ok("ok",startTimeByRiskIndex);
+    }
+
+    @ApiOperation("根据开始时间获取异常燃气数据")
+    @GetMapping("get_abnormal_gas_data")
+    public ResBean getAbnormalGasData(@NotEmpty @RequestParam("startTime") String startTime,
+                                      HttpServletResponse response){
+        List<Double> abnormalGasData = sensorService.getAbnormalGasData(startTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",abnormalGasData);
+    }
+
+    @ApiOperation("根据开始时间获取异常烟雾数据")
+    @GetMapping("get_abnormal_smog_data")
+    public ResBean getAbnormalSmogData(@NotEmpty @RequestParam("startTime") String startTime,
+                                       HttpServletResponse response){
+        List<Double> abnormalSmogData = sensorService.getAbnormalSmogData(startTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",abnormalSmogData);
+    }
+
+    @ApiOperation("根据开始时间获取异常温度数据")
+    @GetMapping("get_abnormal_temperature_data")
+    public ResBean getAbnormalTemperatureData(@NotEmpty @RequestParam("startTime") String startTime,
+                                       HttpServletResponse response){
+        List<Double> abnormalTemperatureData = sensorService.getAbnormalTemperatureData(startTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",abnormalTemperatureData);
+    }
+
+    @ApiOperation("根据开始时间获取异常湿度数据")
+    @GetMapping("get_abnormal_humidity_data")
+    public ResBean getAbnormalHumidityData(@NotEmpty @RequestParam("startTime") String startTime,
+                                              HttpServletResponse response){
+        List<Double> abnormalHumidityData = sensorService.getAbnormalHumidityData(startTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",abnormalHumidityData);
+    }
+
+    @ApiOperation("根据开始时间获取异常震动数据")
+    @GetMapping("get_abnormal_shake_data")
+    public ResBean getAbnormalShakeData(@NotEmpty @RequestParam("startTime") String startTime,
+                                           HttpServletResponse response){
+        List<Double> abnormalShakeData = sensorService.getAbnormalShakeData(startTime);
+        response.setStatus(200);
+        return ResBean.ok("ok",abnormalShakeData);
+    }
 }
