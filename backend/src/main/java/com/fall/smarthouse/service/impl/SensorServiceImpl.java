@@ -24,7 +24,8 @@ import java.util.*;
 @Service
 public class SensorServiceImpl implements ISensorService {
 
-    private static HashSet<Object> abnormalType = new HashSet<>();
+    private static Integer abnormalType = null;
+    private static Long startTime = null;
 
     @Autowired
     AbnormalMapper abnormalMapper;
@@ -34,41 +35,28 @@ public class SensorServiceImpl implements ISensorService {
     @Override
     public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
         Map<String, Object> map = SafetyJudgment(sensorRequest);
-        if(!map.isEmpty() && abnormalType.isEmpty()){
+        if(!map.isEmpty() && abnormalType == null){
             Integer riskIndex = (Integer) map.get("riskIndex");
             //将数据异常信息添加到异常表中
             insertAbnormal(new Abnormal(sensorRequest.getTime(), sensorRequest.getTime(),riskIndex));
             //将异常系数及开始时间存入hashSet
-            abnormalType.add(riskIndex);
-            abnormalType.add(sensorRequest.getTime());
-        }else if(!map.isEmpty() && !abnormalType.isEmpty()){
+            abnormalType = riskIndex;
+            startTime = sensorRequest.getTime();
+        }else if(!map.isEmpty() && abnormalType != null){
             Integer riskIndexForMap = (Integer)map.get("riskIndex");
-            //遍历set取出危险系数和开始时间
-            Iterator<Object> iterator = abnormalType.iterator();
-            Integer riskIndexForAbnormal = null;
-            Long startTime = null;
-            while(iterator.hasNext()){
-                Object obj = iterator.next();
-                if(obj.getClass().equals(Integer.class)){
-                    riskIndexForAbnormal = (Integer) obj;
-                }else if(obj.getClass().equals(Long.class)){
-                    startTime = (Long) obj;
-                }
-            }
             //比较异常系数是否相等
-            if(riskIndexForMap != riskIndexForAbnormal){
+            if(riskIndexForMap != abnormalType){
                 insertAbnormal(new Abnormal(sensorRequest.getTime(),
                         sensorRequest.getTime(),riskIndexForMap));
-                abnormalType.remove(riskIndexForAbnormal);
-                abnormalType.remove(startTime);
-                abnormalType.add(riskIndexForMap);
-                abnormalType.add(sensorRequest.getTime());
+                abnormalType = riskIndexForMap;
+                startTime = sensorRequest.getTime();
             }else {
-                updateAbnormal(new Abnormal(startTime,sensorRequest.getTime(),riskIndexForAbnormal));
+                updateAbnormal(new Abnormal(startTime,sensorRequest.getTime(),abnormalType));
             }
 
-        } else if(map.isEmpty() && !abnormalType.isEmpty()){
-            abnormalType.clear();
+        } else if(map.isEmpty() && abnormalType != null){
+            abnormalType = null;
+            startTime = null;
         }
         Sensor sensor = new Sensor(sensorRequest.getTime()/1000, sensorRequest.getGas(), sensorRequest.getSmog(),
                 sensorRequest.getTemperature(),sensorRequest.getHumidity() , sensorRequest.getShake());
@@ -182,6 +170,47 @@ public class SensorServiceImpl implements ISensorService {
         return abnormals;
     }
 
+    @Override
+    public List<Long> getStartTimeByRiskIndex(Integer riskIndex) {
+        List<Long> startTimes = abnormalMapper.selectStartTimeByRiskIndex(riskIndex);
+        return startTimes;
+    }
+
+    @Override
+    public List<Double> getAbnormalGasData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalGasData = sensorMapper.selectAbnormalGasData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalGasData;
+    }
+
+    @Override
+    public List<Double> getAbnormalSmogData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalSmogData = sensorMapper.selectAbnormalSmogData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalSmogData;
+    }
+
+    @Override
+    public List<Double> getAbnormalTemperatureData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalTemperature = sensorMapper.selectAbnormalTemperatureData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalTemperature;
+    }
+
+    @Override
+    public List<Double> getAbnormalHumidityData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalHumidityData = sensorMapper.selectAbnormalHumidityData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalHumidityData;
+    }
+
+    @Override
+    public List<Double> getAbnormalShakeData(String startTime) {
+        String startDate = startTime + "000";
+        List<Double> abnormalShakeData = sensorMapper.selectAbnormalShakeData(DateConverter.StringToTimeStamp(startDate));
+        return abnormalShakeData;
+    }
+
     /**
      * @description: 判断是否安全并返回所需map，map中包含时间，传感器异常值，和异常系数
      * @author xiaoQe
@@ -191,10 +220,10 @@ public class SensorServiceImpl implements ISensorService {
     private Map<String,Object> SafetyJudgment(Sensor sensor) {
         HashMap<String, Object> warnMap = new HashMap<>();
         Integer riskIndex = 0;
-        if(sensor.getGas() < 0.001 || sensor.getGas() > 0.01){
+        if(sensor.getGas() < 0.000 || sensor.getGas() > 0.01){
             warnMap.put("time", new Long(sensor.getTime()));
             warnMap.put("gas",sensor.getGas());
-            riskIndex += RiskIndex.SMOG_DANGER.getIndex();
+            riskIndex += RiskIndex.GAS_DANGER.getIndex();
         }
         if(sensor.getSmog() < 60 || sensor.getSmog() >70){
             warnMap.put("time", new Long(sensor.getTime()));

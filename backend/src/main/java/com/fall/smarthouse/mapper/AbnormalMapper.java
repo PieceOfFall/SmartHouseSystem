@@ -3,6 +3,7 @@ package com.fall.smarthouse.mapper;
 import com.fall.smarthouse.model.Abnormal;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -39,4 +40,13 @@ public interface AbnormalMapper {
      * @version 1.0
      */
     List<Abnormal> restartSelectAbnormalData(Timestamp closeTime, Timestamp startTime);
+
+    /**
+     * @description: 根据异常类型查询异常开始时间
+     * @author xiaoQe
+     * @date 2022/12/16 19:27
+     * @version 1.0
+     */
+    @Select("select UNIX_TIMESTAMP(start_time) from abnormal where risk_index & #{riskIndex} = #{riskIndex}")
+    List<Long> selectStartTimeByRiskIndex(Integer riskIndex);
 }
