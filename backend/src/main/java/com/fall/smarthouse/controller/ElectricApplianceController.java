@@ -78,8 +78,10 @@ public class ElectricApplianceController {
         }else {
             warnLightState = false;
         }
+        HashMap<String, Boolean> warnLightMap = new HashMap<>();
+        warnLightMap.put("isWarn",warnLightState);
         response.setStatus(200);
-        return ResBean.ok("ok",warnLightState);
+        return ResBean.ok("ok",warnLightMap);
     }
 
 

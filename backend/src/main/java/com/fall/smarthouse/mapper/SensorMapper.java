@@ -50,50 +50,6 @@ public interface SensorMapper {
      */
     Integer insertToSensor(Sensor sensor);
 
-    /**
-     * @description: 查询燃气传感器数据
-     * @author xiaoQe
-     * @date 2022/12/5 17:42
-     * @version 1.0
-     */
-    @Select({"select CONCAT(UNIX_TIMESTAMP(`time`),'000') as time, gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc"})
-    List<Map> selectGasSensorDataBySecond(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询烟雾传感器数据
-     * @author xiaoQe
-     * @date 2022/12/5 19:13
-     * @version 1.0
-     */
-    @Select("select CONCAT(UNIX_TIMESTAMP(`time`),'000') as time, smog from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Map> selectSmogSensorDataBySecond(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询温度传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 15:33
-     * @version 1.0
-     */
-    @Select("select CONCAT(UNIX_TIMESTAMP(`time`),'000')  as time, temperature from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Map> selectTemperatureSensorDataBySecond(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询湿度传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 16:04
-     * @version 1.0
-     */
-    @Select("select CONCAT(UNIX_TIMESTAMP(`time`),'000')  as time, humidity from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Map> selectHumiditySensorDataBySecond(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询震动传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 16:16
-     * @version 1.0
-     */
-    @Select("select CONCAT(UNIX_TIMESTAMP(`time`),'000')  as time, shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Map> selectShakeSensorDataBySecond(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 轮询查询所有传感器数据
