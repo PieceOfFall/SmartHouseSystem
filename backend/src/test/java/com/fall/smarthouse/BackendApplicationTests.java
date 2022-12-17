@@ -9,6 +9,7 @@ import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
+import com.fall.smarthouse.service.impl.SensorServiceImpl;
 import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,7 +43,15 @@ class BackendApplicationTests {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SensorServiceImpl sensorServiceI;
 
+
+    @Test
+    void testMap(){
+        List<Map<String, Object>> maps = sensorMapper.testMap();
+        System.out.println(maps);
+    }
     @Test
     void BitwiseOperation(){
 //        Integer i1 = 9;
@@ -103,18 +112,18 @@ class BackendApplicationTests {
     @Test
     void testPage() throws ParseException {
 //        PageHelper.startPage(1,3);
-        PageInfo<Double> shakeSensorData = sensorService.getGasSensorData("1670942400000", "1670942460000", 1, 10);
+//        PageInfo<Map> shakeSensorData = sensorServiceI.getGasSensorData("1670942400000", "1670942460000", 1, 10);
 //        System.out.println(data);
 //        System.out.println();
 //        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
 //        Timestamp minDate = DateConverter.StringToTimeStamp("1670942400000");
 //        Timestamp maxDate = DateConverter.StringToTimeStamp("1670942460000");
 //        List<Double> doubles = sensorMapper.selectGasSensorData(minDate, maxDate);
-        System.out.println(shakeSensorData);
+//        System.out.println(shakeSensorData);
     }
     @Test
     void testSensorService() throws ParseException {
-        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291",1,2));
+//        System.out.println(sensorService.getGasSensorData("11111111111","1770231713291",1,2));
 //        System.out.println(sensorService.insertToSensor("1770231713291",3.0,4.9,7.0,7.8,2.1));
     }
 
