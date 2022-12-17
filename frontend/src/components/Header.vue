@@ -1,11 +1,10 @@
 <template>
-
-
-        <div class="header-container" @click="backHome">
-            <!-- 标题 -->
-            <span>539 <b>智</b> 能家居</span>
-        </div>
-
+        <!-- <el-affix> -->
+            <div class="header-container" @click="backHome">
+                <!-- 标题 -->
+                <span>539 <b>智</b> 能家居</span>
+            </div>
+        <!-- </el-affix> -->
 </template>
 
 <script setup lang="ts">

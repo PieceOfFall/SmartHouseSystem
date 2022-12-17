@@ -32,7 +32,6 @@ public class SmartFilter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
-            log.info("OPTIONS请求,放行");
             return true;
         }
         String token = request.getHeader("Authorization");

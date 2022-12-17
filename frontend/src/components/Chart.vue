@@ -12,7 +12,7 @@ import VChart from 'vue-echarts';
 const props = defineProps<{
     xName?:string,
     yName?:string,
-    xArray:string[],
+    xArray:number[]|string[],
     dataSource:number[]
 }>()
 
@@ -42,9 +42,11 @@ const option = ref({
 <style lang="less" scoped>
 .chart-container{
     height: 100%;
+    .chart {
+      height: 80vh;
+      width: 80vw;
+    }
 }
 
-.chart {
-  height: 80%;
-}
+
 </style>
