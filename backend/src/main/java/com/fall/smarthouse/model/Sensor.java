@@ -21,14 +21,14 @@ public class Sensor {
 
     private Long time;
     // 燃气 (百分制 危险值 5)
-    private double gas;
+    private Double gas;
     // 烟雾 (单位 ppm 危险值 100)
-    private double smog;
+    private Double smog;
     // 温度
-    private double temperature;
+    private Double temperature;
     // 湿度
-    private double humidity;
+    private Double humidity;
     // 震动
-    private double shake;
+    private Double shake;
 
 }

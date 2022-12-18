@@ -69,7 +69,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor gasSensor = new Sensor();
-        gasSensor.setGas(1);
+        gasSensor.setGas(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> gasData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,gasSensor,queryType);
         PageInfo<Map> gasPageInfo = new PageInfo<>(gasData);
@@ -81,7 +81,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor smogSensor = new Sensor();
-        smogSensor.setSmog(1);
+        smogSensor.setSmog(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> smogSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,smogSensor,queryType);
         PageInfo<Map> smogPageInfo = new PageInfo<>(smogSensorData);
@@ -93,7 +93,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor temperatureSensor = new Sensor();
-        temperatureSensor.setTemperature(1);
+        temperatureSensor.setTemperature(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> temperatureSensorData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,temperatureSensor,queryType);
         PageInfo<Map> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
@@ -105,7 +105,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor humiditySensor = new Sensor();
-        humiditySensor.setHumidity(1);
+        humiditySensor.setHumidity(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> humiditySensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,humiditySensor,queryType);
         PageInfo<Map> humidityPageInfo = new PageInfo<>(humiditySensorData);
@@ -118,7 +118,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor shakeSensor = new Sensor();
-        shakeSensor.setShake(1);
+        shakeSensor.setShake(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> shakeSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,shakeSensor,queryType);
         PageInfo<Map> shakePageInfo = new PageInfo<>(shakeSensorData);

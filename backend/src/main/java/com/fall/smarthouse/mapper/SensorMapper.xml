@@ -174,19 +174,19 @@
         </trim>
         as `date`,
         <trim suffixOverrides=",">
-            <if test="sensor.gas == 1">
+            <if test="sensor.gas != null">
                 AVG(gas) as avg_gas,
             </if>
-            <if test="sensor.smog == 1">
+            <if test="sensor.smog != null">
                 AVG(smog) as avg_smog,
             </if>
-            <if test="sensor.temperature == 1">
+            <if test="sensor.temperature != null">
                 AVG(temperature) as avg_temperature,
             </if>
-            <if test="sensor.humidity == 1">
+            <if test="sensor.humidity != null">
                 AVG(humidity) as avg_humidity,
             </if>
-            <if test="sensor.shake == 1">
+            <if test="sensor.shake != null">
                 AVG(shake) as avg_shake,
             </if>
         </trim>
