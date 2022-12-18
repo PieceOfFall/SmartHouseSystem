@@ -71,10 +71,13 @@ public class ElectricApplianceController {
     @GetMapping("get_warn_light")
     public ResBean getWarnLight(HttpServletResponse response){
         ElectricAppliance warnLight = electricApplianceService.getWarnLight();
-        Boolean warnLightState;
+        boolean warnLightState;
+
         warnLightState = SwitchState.ON.getState().equals(warnLight.getWarnLight());
+        HashMap<String, Boolean> warnLightMap = new HashMap<>();
+        warnLightMap.put("isWarn",warnLightState);
         response.setStatus(200);
-        return ResBean.ok("ok",warnLightState);
+        return ResBean.ok("ok",warnLightMap);
     }
 
 

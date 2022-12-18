@@ -64,52 +64,63 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public PageInfo<Double> getGasSensorData(String minTime, String maxTime, Integer pageNum, Integer pageSize) throws ParseException {
+    public PageInfo<Map> getGasSensorData(String minTime, String maxTime, Integer pageNum, Integer pageSize,Character queryType){
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        Sensor gasSensor = new Sensor();
+        gasSensor.setGas(1);
         PageHelper.startPage(pageNum,pageSize);
-        List<Double> gasData = sensorMapper.selectGasSensorData(minDate, maxDate);
-        PageInfo<Double> gasPageInfo = new PageInfo<>(gasData);
+        List<Map> gasData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,gasSensor,queryType);
+        PageInfo<Map> gasPageInfo = new PageInfo<>(gasData);
         return gasPageInfo;
     }
 
     @Override
-    public PageInfo<Double> getSmogSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
+    public PageInfo<Map> getSmogSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize,Character queryType){
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        Sensor smogSensor = new Sensor();
+        smogSensor.setSmog(1);
         PageHelper.startPage(pageNum,pageSize);
-        List<Double> smogSensorData = sensorMapper.selectSmogSensorData(minDate, maxDate);
-        PageInfo<Double> smogPageInfo = new PageInfo<>(smogSensorData);
+        List<Map> smogSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,smogSensor,queryType);
+        PageInfo<Map> smogPageInfo = new PageInfo<>(smogSensorData);
         return smogPageInfo;
     }
 
     @Override
-    public PageInfo<Double> getTemperatureSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
+    public PageInfo<Map> getTemperatureSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize,Character queryType){
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        Sensor temperatureSensor = new Sensor();
+        temperatureSensor.setTemperature(1);
         PageHelper.startPage(pageNum,pageSize);
-        List<Double> temperatureSensorData = sensorMapper.selectTemperatureSensorData(minDate, maxDate);
-        PageInfo<Double> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
+        List<Map> temperatureSensorData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,temperatureSensor,queryType);
+        PageInfo<Map> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
         return temperaturePageInfo;
     }
 
     @Override
-    public PageInfo<Double> getHumiditySensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
+    public PageInfo<Map> getHumiditySensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize,Character queryType) {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        Sensor humiditySensor = new Sensor();
+        humiditySensor.setHumidity(1);
         PageHelper.startPage(pageNum,pageSize);
-        List<Double> humiditySensorData = sensorMapper.selectHumiditySensorData(minDate, maxDate);
-        PageInfo<Double> humidityPageInfo = new PageInfo<>(humiditySensorData);
+        List<Map> humiditySensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,humiditySensor,queryType);
+        PageInfo<Map> humidityPageInfo = new PageInfo<>(humiditySensorData);
         return humidityPageInfo;
     }
 
+
     @Override
-    public PageInfo<Double> getShakeSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize) throws ParseException {
+    public PageInfo<Map> getShakeSensorData(String minTime, String maxTime,Integer pageNum,Integer pageSize,Character queryType){
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
+        Sensor shakeSensor = new Sensor();
+        shakeSensor.setShake(1);
         PageHelper.startPage(pageNum,pageSize);
-        List<Double> shakeSensorData = sensorMapper.selectShakeSensorData(minDate, maxDate);
-        PageInfo<Double> shakePageInfo = new PageInfo<>(shakeSensorData);
+        List<Map> shakeSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,shakeSensor,queryType);
+        PageInfo<Map> shakePageInfo = new PageInfo<>(shakeSensorData);
         return shakePageInfo;
     }
 
