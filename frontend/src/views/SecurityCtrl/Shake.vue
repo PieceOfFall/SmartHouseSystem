@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import { ref,onMounted } from 'vue';
 import { getCurrentData } from '../../api/sensor';
+import { ShakeData } from '../../api/sensor/types';
 
 /*
    默认选中监测卡片
@@ -48,22 +49,22 @@ onMounted(async()=>{
         behavior: 'smooth'
     })
     },200)
-    const data:number[] = (await getCurrentData('shake')).data.list
+    const data:ShakeData[] = (await getCurrentData('shake')).data.list
     let nowSecond:number = new Date().getSeconds()-5
     
     data.forEach(e=>{
         timeArray.value.push(nowSecond++)
-        shakeData.value.push(e)
+        shakeData.value.push(e.shake)
     })
 })
 
 // 每秒更新数据
 setInterval(async()=>{
-    const [data]:number[] = (await getCurrentData('shake')).data.list
+    const [data]:ShakeData[] = (await getCurrentData('shake')).data.list
     timeArray.value.shift()
     timeArray.value.push(new Date().getSeconds())
     shakeData.value.shift()
-    shakeData.value.push(data)
+    shakeData.value.push(data['shake'])
 },1000)
 
 

@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { ref,onMounted } from 'vue'
 import { getCurrentData } from '../../api/sensor'
+import { SmogData } from '../../api/sensor/types';
 
 /*
    默认选中监测卡片
@@ -47,22 +48,22 @@ onMounted(async()=>{
         behavior: 'smooth'
     })
     },200)
-    const data:number[] = (await getCurrentData('smog')).data.list
+    const data:SmogData[] = (await getCurrentData('smog')).data.list
     let nowSecond:number = new Date().getSeconds()-5
     
     data.forEach(e=>{
         timeArray.value.push(nowSecond++)
-        smogData.value.push(e)
+        smogData.value.push(e.smog)
     })
 })
 
 // 每秒更新数据
 setInterval(async()=>{
-    const [data]:number[] = (await getCurrentData('smog')).data.list
+    const [data]:SmogData[] = (await getCurrentData('smog')).data.list
     timeArray.value.shift()
     timeArray.value.push(new Date().getSeconds())
     smogData.value.shift()
-    smogData.value.push(data)
+    smogData.value.push(data['smog'])
 },1000)
 
 </script>

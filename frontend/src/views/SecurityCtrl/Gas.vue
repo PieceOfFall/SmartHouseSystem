@@ -23,9 +23,19 @@
                 />
                 <!-- 数据显示 -->
                 <el-table 
-                :data="[{},{},3]">
-                    <el-table-column />
+                stripe 
+                :data="renderDataList">
+                    <el-table-column prop="time" :label="`记录时间 ${currentGap.toLocaleUpperCase()}`" />
+                    <el-table-column prop="gas" label="记录值" />
+                    <el-table-column label="操作">
+                        <template #default="scope" v-if="currentGap!=='s'">
+                          <el-button size="small" @click="getInfo(scope.$index, scope.row)"
+                            >详情</el-button
+                          >
+                        </template>
+                    </el-table-column>
                 </el-table>
+                
             </el-tab-pane>
         </el-tabs>
 
@@ -35,8 +45,8 @@
 <script setup lang="ts">
 import Chart from '../../components/Chart.vue';
 import DatePicker from '../../components/DatePicker.vue';
-import {getCurrentData} from '../../api/sensor/index';
-import {GasData} from '../../api/sensor/types';
+import {getCurrentData,getDataByDifference,getGapByDifference} from '../../api/sensor/index';
+import {GasData, SensorData,queryType,sensorType} from '../../api/sensor/types';
 import { ref,onMounted } from 'vue';
 
 /*
@@ -53,14 +63,14 @@ const timeArray = ref<number[]>([])
 const gasData = ref<number[]>([])
     
 // 初始化状态数据
-onMounted(async()=>{
+onMounted( async()=>{
     setTimeout(()=>{
         window.scrollTo({
         top:1000,
         behavior: 'smooth'
     })
     },200)
-    const data:Array<GasData> = (await getCurrentData('gas')).data.list
+    const data:GasData[] = (await getCurrentData('gas')).data.list
     let nowSecond:number = new Date().getSeconds()-5
     data.forEach(e=>{
         timeArray.value.push(nowSecond++)
@@ -70,25 +80,68 @@ onMounted(async()=>{
 
 // 每秒更新数据
 setInterval(async()=>{
-    // let a = (await getCurrentData('gas')).data.list
-    // let [data] = a
-    // console.log(a);
-    
-    // console.log(data);
-    
-    // timeArray.value.shift()
-    // timeArray.value.push(new Date().getSeconds())
-    // gasData.value.shift()    
-    // gasData.value.push(data['gas'])
+    const [data]:GasData[] = (await getCurrentData('gas')).data.list
+    timeArray.value.shift()
+    timeArray.value.push(new Date().getSeconds())
+    gasData.value.shift()    
+    gasData.value.push(data['gas'])
 },1000)
 
 /*
    查询历史数据
 */
+// 渲染对象类型
+interface RenderData {
+    time:string
+    timestamp:number // 仅存储,不显示
+    gas:string
+}
+// 查询结果
+const renderDataList = ref<RenderData[]>([])
+// 当前数据查询间隔
+const currentGap = ref<queryType>('s')
+
 //获取查询范围并请求数据
-async function confirmDate(date:[]) {
-    console.log(date);
-}   
+async function confirmDate(date:[number,number]) {    
+    if(!date){
+        return
+    } else {
+        await getAndRenderByDifference(date[0],date[1])
+    }
+}
+
+// 获取详情,并调用渲染
+async function getInfo(index: number, row: RenderData){
+    switch (currentGap.value) {
+        case 'd':{
+            await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60*60*24-1000)
+            break;
+        }
+        case 'h':{
+            await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60*60-1000)
+            break;
+        }
+        case 'm':{
+            await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60-1000)
+            break;
+        }
+    }
+}
+
+// 获取数据并渲染
+async function getAndRenderByDifference(startTime: number, endTime: number) {    
+    renderDataList.value = await (await getDataByDifference(startTime,endTime,'gas'))
+        .data.list?.map((currentValue:GasData,index:number,array)=>{
+            // 利用数组map方法将原始结果数组映射为渲染数组
+            let date:Date = new Date(currentValue.time)
+            return {
+                    time: `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日  ${date.getHours()}:${date.getMinutes()<=9?'0'+date.getMinutes():date.getMinutes()}:${date.getSeconds()<=9?'0'+date.getSeconds():date.getSeconds()}`,
+                    timestamp: currentValue.time,
+                    gas:`${currentValue.gas*100}%`
+                }
+        })
+        currentGap.value = getGapByDifference(endTime-startTime) as queryType
+}
 
 
 </script>
@@ -100,7 +153,10 @@ async function confirmDate(date:[]) {
         height: 100%;
         background-color: #010409;
         font-weight: 300;
-        
+        .el-table{
+            margin-top: 1rem;
+            height: 70vh;
+        }
     }
 
 

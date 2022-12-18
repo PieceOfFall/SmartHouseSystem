@@ -23,8 +23,8 @@ const props = defineProps<{
 }>()
 
 // 日期确认并格式化
-function confirmDate(date:[]){
-    emit('change',date.map((currentValue:Date,index:number,array)=>{
+function confirmDate(date:[Date,Date]){
+    emit('change',date?.map((currentValue:Date,index:number,array):number=>{
         return currentValue.getTime()
     }))
 }
