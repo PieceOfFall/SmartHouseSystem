@@ -76,17 +76,13 @@ public class UserServiceImpl implements IUserService {
             return null;
         }
         // 如果存在该用户，执行JWT签发
-        String token = JWTUtil.createToken(s);
-        return token;
+        return JWTUtil.createToken(s);
     }
 
     @Override
     public Boolean checkLogin(String token) {
         boolean isNeedUpdate = JWTUtil.isNeedUpdate(token);
-        if(isNeedUpdate) {
-            return false;
-        }
-        return true;
+        return !isNeedUpdate;
     }
 
 }

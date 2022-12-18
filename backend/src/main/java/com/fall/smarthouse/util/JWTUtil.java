@@ -37,9 +37,6 @@ public class JWTUtil {
     // 有效期
     public static long expireTime;
 
-    // 存进客户端的 token 的 key 名
-    public static final String USER_LOGIN_TOKEN = "token";
-
     /**
      * @param header
      * @author FAll
@@ -135,8 +132,6 @@ public class JWTUtil {
                     .build()
                     .verify(token.replace(tokenPrefix, ""))
                     .getExpiresAt();
-        } catch (TokenExpiredException e) {
-            return true;
         } catch (Exception e) {
             return true;
         }

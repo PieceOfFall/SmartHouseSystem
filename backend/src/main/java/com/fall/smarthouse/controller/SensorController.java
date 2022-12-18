@@ -31,7 +31,7 @@ public class SensorController {
     @PostMapping("add_sensor")
     public ResBean AddSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
-        boolean insertToSensor = sensorService.insertToSensor(sensor);
+        sensorService.insertToSensor(sensor);
         response.setStatus(200);
         return ResBean.ok("ok");
     }

@@ -1,7 +1,6 @@
 package com.fall.smarthouse.mapper;
 
 import com.fall.smarthouse.model.Abnormal;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

@@ -55,17 +55,12 @@ public class SmartFilter implements HandlerInterceptor {
     }
 
     private void returnJSON(HttpServletResponse response, String json){
-        PrintWriter writer = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;character=utf-8");
-        try {
-            writer = response.getWriter();
+        try (PrintWriter writer = response.getWriter()) {
             writer.write(json);
         } catch (IOException e) {
             log.error("response error", e);
-        } finally {
-            if (writer != null)
-                writer.close();
         }
     }
 }

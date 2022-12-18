@@ -3,7 +3,6 @@ package com.fall.smarthouse.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 
 
 /**

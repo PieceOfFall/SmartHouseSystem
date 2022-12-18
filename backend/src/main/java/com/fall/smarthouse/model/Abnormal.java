@@ -2,7 +2,6 @@ package com.fall.smarthouse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author xiaoQe

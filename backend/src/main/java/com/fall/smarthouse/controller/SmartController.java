@@ -2,7 +2,6 @@ package com.fall.smarthouse.controller;
 
 import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.bean.ResBean;
-import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.IUserService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 /**
