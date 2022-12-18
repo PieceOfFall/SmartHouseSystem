@@ -190,7 +190,7 @@
                 AVG(shake) as avg_shake,
             </if>
         </trim>
-        from sensor where `time` >= #{minTime} <![CDATA[<=]]> #{maxTime}
+        from sensor where `time` between #{minTime} and #{maxTime}
         group by `date`
     </select>
 </mapper>
