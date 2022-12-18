@@ -49,11 +49,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -62,11 +58,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBedBState = checkLightIntegerLegal(lightBedB);
         electricAppliance.setLightBedB(lightBedBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -75,11 +67,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
         electricAppliance.setLightLivingRoom(lightLivingRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -88,11 +76,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
         electricAppliance.setLightBathroom(lightBathRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -125,11 +109,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchAState = checkSwitchIntegerLegal(switchA);
         electricAppliance.setSwitchA(switchAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -138,11 +118,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchBState = checkSwitchIntegerLegal(switchB);
         electricAppliance.setSwitchB(switchBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -151,11 +127,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchCState = checkSwitchIntegerLegal(switchC);
         electricAppliance.setSwitchC(switchCState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -164,11 +136,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainAState = checkSwitchIntegerLegal(curtainA);
         electricAppliance.setCurtainA(curtainAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -177,11 +145,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainBState = checkSwitchIntegerLegal(curtainB);
         electricAppliance.setCurtainB(curtainBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -190,11 +154,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer warnLightState = checkSwitchIntegerLegal(warnLight);
         electricAppliance.setWarnLight(warnLightState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -210,11 +170,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         homeMode.setSwitchB(SwitchState.ON.getState());
         homeMode.setSwitchC(SwitchState.ON.getState());
         Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     @Override
@@ -230,11 +186,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
         Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
-<<<<<<< HEAD
         return affectRows != 0;
-=======
-        return !(affectRows == 0);
->>>>>>> 25785c82aa88e55b60e9a83e8ed01a1c84bdfd46
     }
 
     private Integer checkLightIntegerLegal(Integer light) {

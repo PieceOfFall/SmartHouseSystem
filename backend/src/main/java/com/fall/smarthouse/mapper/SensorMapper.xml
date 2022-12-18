@@ -191,6 +191,6 @@
             </if>
         </trim>
         from sensor where `time` >= #{minTime} <![CDATA[<=]]> #{maxTime}
-        group by `date`
-    </select>
+    group by `date`
+</select>
 </mapper>

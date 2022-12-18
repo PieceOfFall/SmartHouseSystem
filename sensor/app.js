@@ -8,17 +8,21 @@ const {getSensors,index}=require('./sensors')
 let job = new CronJob(
         '* * * * * *',
         async function() {
-            //TODO: 每秒调用网关api获取传感器数据并上传
-            const ret = await getSensors()
-            axios.post('http://localhost:8081/sensor/add_sensor',
-            {
-                "gas": ret[index.GAS],
-                "humidity": ret[index.HUMIDITY],
-                "shake": ret[index.SHAKE],
-                "smog": ret[index.SMOG],
-                "temperature": ret[index.TEMPERATURE],
-                "time": ret[index.TIME]
-            })
+            try {
+                // 每秒调用网关api获取传感器数据并上传
+                const ret = await getSensors()
+                axios.post('http://localhost:8081/sensor/add_sensor',
+                {
+                    "gas": ret[index.GAS],
+                    "humidity": ret[index.HUMIDITY],
+                    "shake": ret[index.SHAKE],
+                    "smog": ret[index.SMOG],
+                    "temperature": ret[index.TEMPERATURE],
+                    "time": ret[index.TIME]
+                })
+            } catch (error) {
+                console.log(error);
+            }
         },
         null,
         true,

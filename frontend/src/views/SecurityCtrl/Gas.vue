@@ -36,6 +36,7 @@
 import Chart from '../../components/Chart.vue';
 import DatePicker from '../../components/DatePicker.vue';
 import {getCurrentData} from '../../api/sensor/index';
+import {GasData} from '../../api/sensor/types';
 import { ref,onMounted } from 'vue';
 
 /*
@@ -59,21 +60,26 @@ onMounted(async()=>{
         behavior: 'smooth'
     })
     },200)
-    const data:number[] = (await getCurrentData('gas')).data.list
+    const data:Array<GasData> = (await getCurrentData('gas')).data.list
     let nowSecond:number = new Date().getSeconds()-5
     data.forEach(e=>{
         timeArray.value.push(nowSecond++)
-        gasData.value.push(e)
+        gasData.value.push(e.gas)
     })
 })
 
 // 每秒更新数据
 setInterval(async()=>{
-    const [data]:number[] = (await getCurrentData('gas')).data.list
-    timeArray.value.shift()
-    timeArray.value.push(new Date().getSeconds())
-    gasData.value.shift()
-    gasData.value.push(data)
+    // let a = (await getCurrentData('gas')).data.list
+    // let [data] = a
+    // console.log(a);
+    
+    // console.log(data);
+    
+    // timeArray.value.shift()
+    // timeArray.value.push(new Date().getSeconds())
+    // gasData.value.shift()    
+    // gasData.value.push(data['gas'])
 },1000)
 
 /*
