@@ -1,33 +1,32 @@
 <template>
+    <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
+      unique-opened>
 
-  <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
-    unique-opened>
+      <!-- 收起侧边栏 -->
+      <div class="switch" @click="changeCollapse">
+        <span v-if="!isCollapse">| | |</span>
+        <el-icon>
+          <MoreFilled v-if="isCollapse" />
+        </el-icon>
+      </div>
+      <!-- 功能模块 -->
+      <el-sub-menu v-for="(item,index) in menuList" :index="item.path">
 
-    <!-- 收起侧边栏 -->
-    <div class="switch" @click="changeCollapse">
-      <span v-if="!isCollapse">| | |</span>
-      <el-icon>
-        <MoreFilled v-if="isCollapse" />
-      </el-icon>
-    </div>
-    <!-- 功能模块 -->
-    <el-sub-menu v-for="(item,index) in menuList" :index="item.path">
-      
-      <template #title>
-        <el-icon><IconMenu /></el-icon>
-        <span>{{item.authName}}</span>
-      </template>
-      <el-menu-item-group>
+        <template #title>
+          <el-icon><IconMenu /></el-icon>
+          <span>{{item.authName}}</span>
+        </template>
+        <el-menu-item-group>
 
-        <!-- 具体功能 -->
-        <el-menu-item v-for="(innerItem,ineerIndex) in item.children" :index="innerItem.path">
-          {{innerItem.authName}}
-        </el-menu-item>
+          <!-- 具体功能 -->
+          <el-menu-item v-for="(innerItem,ineerIndex) in item.children" :index="innerItem.path">
+            {{innerItem.authName}}
+          </el-menu-item>
 
-      </el-menu-item-group>
+        </el-menu-item-group>
 
-    </el-sub-menu>
-  </el-menu>
+      </el-sub-menu>
+    </el-menu>
 </template>
 
 <script setup lang="ts">

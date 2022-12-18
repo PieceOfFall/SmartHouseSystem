@@ -12,7 +12,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.*;
@@ -152,10 +151,7 @@ public class SensorServiceImpl implements ISensorService {
                 new Abnormal(abnormal.getStartTime() / 1000,
                         abnormal.getEndTime() / 1000,
                         abnormal.getRiskIndex()));
-        if(affectRows == 0){
-            return false;
-        }
-        return true;
+        return !(affectRows == 0);
     }
 
     @Override
@@ -164,10 +160,7 @@ public class SensorServiceImpl implements ISensorService {
                 abnormal.getStartTime() / 1000,
                 abnormal.getEndTime() / 1000,
                 abnormal.getRiskIndex()));
-        if(affectRows == 0){
-            return false;
-        }
-        return true;
+        return !(affectRows == 0);
     }
 
     @Override

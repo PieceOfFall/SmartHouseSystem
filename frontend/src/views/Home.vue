@@ -32,6 +32,7 @@
     import {
         storeToRefs
     } from 'pinia';
+    import {getCurrentData} from '../api/sensor/index';
 
             // pinia
             const store = useAsideStore().aside
@@ -41,7 +42,7 @@
 
             // 等待侧边栏收起，主体再向左靠拢
             const hasCollapse = ref(false)
-            onMounted(()=>{
+            onMounted(async ()=>{                
                 hasCollapse.value = isStoreCollapse.value
             })
             watch(isStoreCollapse,()=>{

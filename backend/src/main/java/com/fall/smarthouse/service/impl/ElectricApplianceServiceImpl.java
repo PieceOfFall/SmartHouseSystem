@@ -5,7 +5,6 @@ import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -59,7 +58,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBedBState = checkLightIntegerLegal(lightBedB);
         electricAppliance.setLightBedB(lightBedBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -68,7 +67,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
         electricAppliance.setLightLivingRoom(lightLivingRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
         electricAppliance.setLightBathroom(lightBathRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -101,10 +100,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         updateElectric.setWarnLight(checkSwitchIntegerLegal(electricAppliance.getWarnLight()));
 
         Integer integer = electricMapper.updateElectricAppliance(updateElectric);
-        if(integer<=0) {
-            return false;
-        }
-        return true;
+        return integer > 0;
     }
 
     @Override
@@ -113,7 +109,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchAState = checkSwitchIntegerLegal(switchA);
         electricAppliance.setSwitchA(switchAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -122,7 +118,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchBState = checkSwitchIntegerLegal(switchB);
         electricAppliance.setSwitchB(switchBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -131,7 +127,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchCState = checkSwitchIntegerLegal(switchC);
         electricAppliance.setSwitchC(switchCState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -140,7 +136,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainAState = checkSwitchIntegerLegal(curtainA);
         electricAppliance.setCurtainA(curtainAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -149,7 +145,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainBState = checkSwitchIntegerLegal(curtainB);
         electricAppliance.setCurtainB(curtainBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -158,7 +154,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer warnLightState = checkSwitchIntegerLegal(warnLight);
         electricAppliance.setWarnLight(warnLightState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -174,7 +170,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         homeMode.setSwitchB(SwitchState.ON.getState());
         homeMode.setSwitchC(SwitchState.ON.getState());
         Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     @Override
@@ -190,7 +186,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
         Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
-        return !(affectRows == 0);
+        return affectRows != 0;
     }
 
     private Integer checkLightIntegerLegal(Integer light) {

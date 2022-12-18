@@ -1,14 +1,12 @@
 package com.fall.smarthouse.mapper;
 
 import com.fall.smarthouse.model.Sensor;
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 
 
 /**

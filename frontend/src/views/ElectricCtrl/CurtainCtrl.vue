@@ -44,8 +44,8 @@
 <script setup lang="ts">
 import { ref,onMounted,watch } from 'vue';
 import { Refresh,Sunny,Moon } from '@element-plus/icons-vue'
-import {getCurtains,setAppliance} from '../../api/Electric/index';
-import {CurtainState,ElectricAppliance} from '../../api/Electric/types';
+import {getCurtains,setAppliance} from '../../api/electric/index';
+import {CurtainState,ElectricAppliance} from '../../api/electric/types';
 import { at } from 'lodash';
 /*
    页面加载时请求并渲染窗帘状态

@@ -9,7 +9,9 @@ import {
     CurtainState
 } from './types';
 
-// 修改电器数据
+/*
+   修改电器数据
+*/
 export async function setAppliance(appliance: ElectricAppliance) {
     return await request({
         url: '/electric/set_appliance',
@@ -20,7 +22,9 @@ export async function setAppliance(appliance: ElectricAppliance) {
     })
 }
 
-// 获取所有灯光
+/*
+   获取所有灯光
+*/
 export async function getLights(): AxiosPromise < LightsState > {
     return await request({
         url: '/electric/get_light',
@@ -28,8 +32,10 @@ export async function getLights(): AxiosPromise < LightsState > {
     })
 }
 
-// 获取所有开关数据
-export async function getSwitches(): AxiosPromise < SwitchState > {
+/*
+   获取所有开关数据
+*/
+export async function getSwitches() {
     let response = await request({
         url: '/electric/get_switch',
         method: 'get'

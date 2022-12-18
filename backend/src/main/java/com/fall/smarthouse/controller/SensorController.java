@@ -31,15 +31,15 @@ public class SensorController {
     @PostMapping("add_sensor")
     public ResBean AddSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
-        boolean insertToSensor = sensorService.insertToSensor(sensor);
+        sensorService.insertToSensor(sensor);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("查询燃气传感器数据")
     @GetMapping("get_gas_data")
-    public ResBean GetGasData(@NotEmpty @RequestParam("minTime") String minTime,
-                               @NotEmpty @RequestParam("maxTime") String maxTime,
+    public ResBean GetGasData( @NotEmpty @RequestParam("maxTime") String maxTime,
+                               @NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
                               @NotEmpty @RequestParam("queryType") Character queryType,

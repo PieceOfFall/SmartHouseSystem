@@ -68,8 +68,8 @@
 <script setup lang="ts">
 import Breadcrumb from '../../components/Breadcrumb.vue';
 import { ArrowRight,Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
-import {getLights,setAppliance} from '../../api/Electric/index';
-import {LightsState,ElectricAppliance} from '../../api/Electric/types';
+import {getLights,setAppliance} from '../../api/electric/index';
+import {LightsState,ElectricAppliance} from '../../api/electric/types';
 import { onMounted, ref, watch } from 'vue';
 
 /*

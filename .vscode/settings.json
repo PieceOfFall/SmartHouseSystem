@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
+        "daterange",
+        "datetimerange",
+        "monthrange",
+        "navigatepage",
+        "Nums",
         "pinia"
     ]
 }

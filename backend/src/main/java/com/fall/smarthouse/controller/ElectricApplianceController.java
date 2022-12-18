@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 
 /**
  * @author xiaoQe
  * @version 1.0
- * @data 2022/12/5 14:52
+ * @date 2022/12/5 14:52
  */
 @RequestMapping("/electric")
 @RestController
@@ -72,12 +71,9 @@ public class ElectricApplianceController {
     @GetMapping("get_warn_light")
     public ResBean getWarnLight(HttpServletResponse response){
         ElectricAppliance warnLight = electricApplianceService.getWarnLight();
-        Boolean warnLightState;
-        if(warnLight.getWarnLight() == SwitchState.ON.getState()){
-            warnLightState = true;
-        }else {
-            warnLightState = false;
-        }
+        boolean warnLightState;
+
+        warnLightState = SwitchState.ON.getState().equals(warnLight.getWarnLight());
         HashMap<String, Boolean> warnLightMap = new HashMap<>();
         warnLightMap.put("isWarn",warnLightState);
         response.setStatus(200);
@@ -89,7 +85,7 @@ public class ElectricApplianceController {
     @PostMapping("set_light_bed_a")
     public ResBean setLightBedA(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        Boolean setLightBedA = electricApplianceService.setLightBedA(electricAppliance);
+        electricApplianceService.setLightBedA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -97,7 +93,7 @@ public class ElectricApplianceController {
     @PostMapping("set_light_bed_b")
     public ResBean setLightBedB(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        Boolean setLightBedB = electricApplianceService.setLightBedB(electricAppliance);
+        electricApplianceService.setLightBedB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -106,7 +102,7 @@ public class ElectricApplianceController {
     @PostMapping("set_light_living_room")
     public ResBean setLightLivingRoom(@Valid @RequestBody ElectricAppliance electricAppliance,
                                       HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setLightLivingRoom(electricAppliance);
+        electricApplianceService.setLightLivingRoom(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -115,7 +111,7 @@ public class ElectricApplianceController {
     @PostMapping("set_light_bathroom")
     public ResBean setLightBathroom(@Valid @RequestBody ElectricAppliance electricAppliance,
                                     HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setLightBathroom(electricAppliance);
+        electricApplianceService.setLightBathroom(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -124,7 +120,7 @@ public class ElectricApplianceController {
     @PostMapping("set_switch_a")
     public ResBean setSwitchA(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setSwitchA(electricAppliance);
+        electricApplianceService.setSwitchA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -132,7 +128,7 @@ public class ElectricApplianceController {
     @PostMapping("set_switch_b")
     public ResBean setSwitchB(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setSwitchB(electricAppliance);
+        electricApplianceService.setSwitchB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -141,7 +137,7 @@ public class ElectricApplianceController {
     @PostMapping("set_switch_c")
     public ResBean setSwitchC(@Valid @RequestBody ElectricAppliance electricAppliance,
                               HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setSwitchC(electricAppliance);
+        electricApplianceService.setSwitchC(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -150,7 +146,7 @@ public class ElectricApplianceController {
     @PostMapping("set_curtain_a")
     public ResBean setCurtainA(@Valid @RequestBody ElectricAppliance electricAppliance,
                                HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setCurtainA(electricAppliance);
+        electricApplianceService.setCurtainA(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -159,7 +155,7 @@ public class ElectricApplianceController {
     @PostMapping("set_curtain_b")
     public ResBean setCurtainB(@Valid @RequestBody ElectricAppliance electricAppliance,
                                HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setCurtainB(electricAppliance);
+        electricApplianceService.setCurtainB(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -168,7 +164,7 @@ public class ElectricApplianceController {
     @PostMapping("set_warn_light")
     public ResBean setWarnLight(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response){
-        Boolean setLightLivingRoom = electricApplianceService.setWarnLight(electricAppliance);
+        electricApplianceService.setWarnLight(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -177,7 +173,7 @@ public class ElectricApplianceController {
     @PostMapping("set_appliance")
     public ResBean setAppliance(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response) {
-        Boolean aBoolean = electricApplianceService.setAppliance(electricAppliance);
+        electricApplianceService.setAppliance(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -185,7 +181,7 @@ public class ElectricApplianceController {
     @ApiOperation("设置回家模式")
     @PostMapping("set_home_mode")
     public ResBean setHomeMode(HttpServletResponse response){
-        Boolean aBoolean = electricApplianceService.homeMode();
+        electricApplianceService.homeMode();
         response.setStatus(200);
         return ResBean.ok("ok");
     }
@@ -193,7 +189,7 @@ public class ElectricApplianceController {
     @ApiOperation("设置离家模式")
     @PostMapping("set_leave_home_mode")
     public ResBean setLeaveHomeMode(HttpServletResponse response){
-        Boolean aBoolean = electricApplianceService.leaveHomeMode();
+        electricApplianceService.leaveHomeMode();
         response.setStatus(200);
         return ResBean.ok("ok");
     }
