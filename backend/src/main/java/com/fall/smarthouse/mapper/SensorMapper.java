@@ -4,12 +4,16 @@ import com.fall.smarthouse.model.Sensor;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author FAll
@@ -46,50 +50,6 @@ public interface SensorMapper {
      */
     Integer insertToSensor(Sensor sensor);
 
-    /**
-     * @description: 查询燃气传感器数据
-     * @author xiaoQe
-     * @date 2022/12/5 17:42
-     * @version 1.0
-     */
-    @Select({"select  gas from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc"})
-    List<Double> selectGasSensorData(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询烟雾传感器数据
-     * @author xiaoQe
-     * @date 2022/12/5 19:13
-     * @version 1.0
-     */
-    @Select("select smog from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectSmogSensorData(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询温度传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 15:33
-     * @version 1.0
-     */
-    @Select("select temperature from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectTemperatureSensorData(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询湿度传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 16:04
-     * @version 1.0
-     */
-    @Select("select humidity from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectHumiditySensorData(Timestamp minTime,Timestamp maxTime);
-
-    /**
-     * @description: 查询震动传感器数据
-     * @author xiaoQe
-     * @date 2022/12/6 16:16
-     * @version 1.0
-     */
-    @Select("select shake from sensor where `time` between #{minTime} and #{maxTime} order by `time` asc")
-    List<Double> selectShakeSensorData(Timestamp minTime,Timestamp maxTime);
 
     /**
      * @description: 轮询查询所有传感器数据
@@ -146,4 +106,28 @@ public interface SensorMapper {
      * @version 1.0
      */
     List<Double> selectAbnormalShakeData(Timestamp startTime);
+
+    /**
+     * @description: 根据异常开始时间查询异常传感器数据接口（用单个mapper实现）
+     * @author xiaoQe
+     * @date 2022/12/17 22:25
+     * @version 1.0
+     */
+    List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);
+
+    /**
+     * @description: TODO
+     * @author xiaoQe
+     * @date 2022/12/17 18:08
+     * @version 1.0
+     */
+    List<Map<String,Object>> testMap();
+
+    /**
+     * @description: 查询传感器数据接口
+     * @author xiaoQe
+     * @date 2022/12/17 19:55
+     * @version 1.0
+     */
+    List<Map> selectSensorDataByQueryType(Timestamp minTime,Timestamp maxTime,Sensor sensor,Character queryType);
 }

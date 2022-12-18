@@ -42,8 +42,9 @@ public class SensorController {
                                @NotEmpty @RequestParam("maxTime") String maxTime,
                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                               HttpServletResponse response) throws ParseException {
-        PageInfo<Double> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize);
+                              @NotEmpty @RequestParam("queryType") Character queryType,
+                               HttpServletResponse response){
+        PageInfo<Map> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",gasSensorData);
     }
@@ -54,8 +55,9 @@ public class SensorController {
                                @NotEmpty @RequestParam("maxTime") String maxTime,
                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                               HttpServletResponse response) throws ParseException {
-        PageInfo<Double> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime, pageNum, pageSize);
+                               @NotEmpty @RequestParam("queryType") Character queryType,
+                               HttpServletResponse response){
+        PageInfo<Map> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",smogSensorData);
     }
@@ -66,8 +68,9 @@ public class SensorController {
                                       @NotEmpty @RequestParam("maxTime") String maxTime,
                                       @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                                      HttpServletResponse response) throws ParseException {
-        PageInfo<Double> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime, pageNum, pageSize);
+                                      @NotEmpty @RequestParam("queryType") Character queryType,
+                                      HttpServletResponse response) {
+        PageInfo<Map> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",temperatureSensorData);
     }
@@ -78,8 +81,9 @@ public class SensorController {
                                    @NotEmpty @RequestParam("maxTime") String maxTime,
                                    @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                    @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                                   HttpServletResponse response) throws ParseException {
-        PageInfo<Double> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime, pageNum, pageSize);
+                                   @NotEmpty @RequestParam("queryType") Character queryType,
+                                   HttpServletResponse response){
+        PageInfo<Map> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",humiditySensorData);
     }
@@ -90,8 +94,9 @@ public class SensorController {
                                 @NotEmpty @RequestParam("maxTime") String maxTime,
                                 @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                 @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                @NotEmpty @RequestParam("queryType") Character queryType,
                                 HttpServletResponse response) throws ParseException {
-        PageInfo<Double> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize);
+        PageInfo<Map> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",shakeSensorData);
     }

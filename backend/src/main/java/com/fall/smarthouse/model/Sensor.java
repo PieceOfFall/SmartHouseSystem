@@ -2,6 +2,9 @@ package com.fall.smarthouse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
@@ -12,6 +15,7 @@ import java.sql.Date;
  * @description 传感器
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Sensor {
 
@@ -20,13 +24,10 @@ public class Sensor {
     private double gas;
     // 烟雾 (单位 ppm 危险值 100)
     private double smog;
-    @NotNull
     // 温度
     private double temperature;
-    @NotNull
     // 湿度
     private double humidity;
-    @NotNull
     // 震动
     private double shake;
 
