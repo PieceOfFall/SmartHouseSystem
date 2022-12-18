@@ -69,7 +69,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor gasSensor = new Sensor();
-        gasSensor.setGas(1);
+        gasSensor.setGas(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> gasData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,gasSensor,queryType);
         PageInfo<Map> gasPageInfo = new PageInfo<>(gasData);
@@ -81,7 +81,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor smogSensor = new Sensor();
-        smogSensor.setSmog(1);
+        smogSensor.setSmog(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> smogSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,smogSensor,queryType);
         PageInfo<Map> smogPageInfo = new PageInfo<>(smogSensorData);
@@ -93,7 +93,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor temperatureSensor = new Sensor();
-        temperatureSensor.setTemperature(1);
+        temperatureSensor.setTemperature(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> temperatureSensorData = sensorMapper.selectSensorDataByQueryType(minDate,maxDate,temperatureSensor,queryType);
         PageInfo<Map> temperaturePageInfo = new PageInfo<>(temperatureSensorData);
@@ -105,7 +105,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor humiditySensor = new Sensor();
-        humiditySensor.setHumidity(1);
+        humiditySensor.setHumidity(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> humiditySensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,humiditySensor,queryType);
         PageInfo<Map> humidityPageInfo = new PageInfo<>(humiditySensorData);
@@ -118,7 +118,7 @@ public class SensorServiceImpl implements ISensorService {
         Timestamp minDate = DateConverter.StringToTimeStamp(minTime);
         Timestamp maxDate = DateConverter.StringToTimeStamp(maxTime);
         Sensor shakeSensor = new Sensor();
-        shakeSensor.setShake(1);
+        shakeSensor.setShake(1.0);
         PageHelper.startPage(pageNum,pageSize);
         List<Map> shakeSensorData = sensorMapper.selectSensorDataByQueryType(minDate, maxDate,shakeSensor,queryType);
         PageInfo<Map> shakePageInfo = new PageInfo<>(shakeSensorData);
@@ -185,38 +185,63 @@ public class SensorServiceImpl implements ISensorService {
     }
 
     @Override
-    public List<Double> getAbnormalGasData(String startTime) {
+    public PageInfo<Map> getAbnormalGasData(String startTime,Integer pageNum,Integer pageSize,Character queryType) {
         String startDate = startTime + "000";
-        List<Double> abnormalGasData = sensorMapper.selectAbnormalGasData(DateConverter.StringToTimeStamp(startDate));
-        return abnormalGasData;
+        Timestamp startTimestamp = DateConverter.StringToTimeStamp(startDate);
+        Sensor abnormalGasSensor = new Sensor();
+        abnormalGasSensor.setGas(1.0);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map> abnormalGasData = sensorMapper.selectAbnormalSensorData(abnormalGasSensor,startTimestamp,queryType);
+        PageInfo<Map> abnormalGasPageInfo = new PageInfo<>(abnormalGasData);
+        return abnormalGasPageInfo;
     }
 
     @Override
-    public List<Double> getAbnormalSmogData(String startTime) {
+    public PageInfo<Map> getAbnormalSmogData(String startTime,Integer pageNum,Integer pageSize,Character queryType) {
         String startDate = startTime + "000";
-        List<Double> abnormalSmogData = sensorMapper.selectAbnormalSmogData(DateConverter.StringToTimeStamp(startDate));
-        return abnormalSmogData;
+        Timestamp startTimestamp = DateConverter.StringToTimeStamp(startDate);
+        Sensor abnormalSmogSensor = new Sensor();
+        abnormalSmogSensor.setSmog(1.0);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map> abnormalSmogData = sensorMapper.selectAbnormalSensorData(abnormalSmogSensor,startTimestamp,queryType);
+        PageInfo<Map> abnormalSmogPageInfo = new PageInfo<>(abnormalSmogData);
+        return abnormalSmogPageInfo;
     }
 
     @Override
-    public List<Double> getAbnormalTemperatureData(String startTime) {
+    public PageInfo<Map> getAbnormalTemperatureData(String startTime,Integer pageNum,Integer pageSize,Character queryType) {
         String startDate = startTime + "000";
-        List<Double> abnormalTemperature = sensorMapper.selectAbnormalTemperatureData(DateConverter.StringToTimeStamp(startDate));
-        return abnormalTemperature;
+        Timestamp startTimestamp = DateConverter.StringToTimeStamp(startDate);
+        Sensor abnormalTemperatureSensor = new Sensor();
+        abnormalTemperatureSensor.setTemperature(1.0);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map> abnormalTemperature = sensorMapper.selectAbnormalSensorData(abnormalTemperatureSensor,startTimestamp,queryType);
+        PageInfo<Map> abnormalTemperaturePageInfo = new PageInfo<>(abnormalTemperature);
+        return abnormalTemperaturePageInfo;
     }
 
     @Override
-    public List<Double> getAbnormalHumidityData(String startTime) {
+    public PageInfo<Map> getAbnormalHumidityData(String startTime,Integer pageNum,Integer pageSize,Character queryType) {
         String startDate = startTime + "000";
-        List<Double> abnormalHumidityData = sensorMapper.selectAbnormalHumidityData(DateConverter.StringToTimeStamp(startDate));
-        return abnormalHumidityData;
+        Timestamp startTimestamp = DateConverter.StringToTimeStamp(startDate);
+        Sensor abnormalHumiditySensor = new Sensor();
+        abnormalHumiditySensor.setHumidity(1.0);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map> abnormalHumidityData = sensorMapper.selectAbnormalSensorData(abnormalHumiditySensor,startTimestamp,queryType);
+        PageInfo<Map> abnormalHumidityPageInfo = new PageInfo<>(abnormalHumidityData);
+        return abnormalHumidityPageInfo;
     }
 
     @Override
-    public List<Double> getAbnormalShakeData(String startTime) {
+    public PageInfo<Map> getAbnormalShakeData(String startTime,Integer pageNum,Integer pageSize,Character queryType) {
         String startDate = startTime + "000";
-        List<Double> abnormalShakeData = sensorMapper.selectAbnormalShakeData(DateConverter.StringToTimeStamp(startDate));
-        return abnormalShakeData;
+        Timestamp startTimestamp = DateConverter.StringToTimeStamp(startDate);
+        Sensor abnormalShakeSensor = new Sensor();
+        abnormalShakeSensor.setShake(1.0);
+        PageHelper.startPage(pageNum,pageSize);
+        List<Map> abnormalShakeData = sensorMapper.selectAbnormalSensorData(abnormalShakeSensor,startTimestamp,queryType);
+        PageInfo<Map> abnormalShakePageInfo = new PageInfo<>(abnormalShakeData);
+        return abnormalShakePageInfo;
     }
 
     /**

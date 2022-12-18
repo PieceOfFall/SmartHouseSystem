@@ -67,45 +67,6 @@ public interface SensorMapper {
      */
     List<Sensor> selectSensorDataByTime(Timestamp minTime,Timestamp maxTime);
 
-    /**
-     * @description: 根据异常开始时间查询燃气异常数据
-     * @author xiaoQe
-     * @date 2022/12/16 19:40
-     * @version 1.0
-     */
-    List<Double> selectAbnormalGasData(Timestamp startTime);
-
-    /**
-     * @description: 根据异常开始时间查询烟雾异常数据
-     * @author xiaoQe
-     * @date 2022/12/16 20:33
-     * @version 1.0
-     */
-    List<Double> selectAbnormalSmogData(Timestamp startTime);
-
-    /**
-     * @description: 根据开始时间获取温度异常数据
-     * @author xiaoQe
-     * @date 2022/12/16 20:43
-     * @version 1.0
-     */
-    List<Double> selectAbnormalTemperatureData(Timestamp startTime);
-
-    /**
-     * @description: 根据开始时间获取湿度异常数据
-     * @author xiaoQe
-     * @date 2022/12/16 20:49
-     * @version 1.0
-     */
-    List<Double> selectAbnormalHumidityData(Timestamp startTime);
-
-    /**
-     * @description: 根据开始时间获取震动异常数据
-     * @author xiaoQe
-     * @date 2022/12/16 20:54
-     * @version 1.0
-     */
-    List<Double> selectAbnormalShakeData(Timestamp startTime);
 
     /**
      * @description: 根据异常开始时间查询异常传感器数据接口（用单个mapper实现）

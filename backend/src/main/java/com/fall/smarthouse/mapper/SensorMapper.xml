@@ -63,37 +63,6 @@
         from sensor
         where `time` between #{minTime} and #{maxTime} order by `time`
     </select>
-<!--    List<Double> selectAbnormalGasData(Timestamp startTime);-->
-    <select id="selectAbnormalGasData" resultType="java.lang.Double">
-        select gas from sensor where `time` between #{startTime} and (
-            select end_time from abnormal where start_time = #{startTime}
-            )
-    </select>
-<!--    List<Double> selectAbnormalSmogData(Timestamp startTime);-->
-    <select id="selectAbnormalSmogData" resultType="java.lang.Double">
-        select smog from sensor where `time` between #{startTime} and (
-            select end_time from abnormal where start_time = #{startTime}
-        )
-    </select>
-<!--    List<Double> selectAbnormalTemperatureData(Timestamp startTime);-->
-    <select id="selectAbnormalTemperatureData" resultType="java.lang.Double">
-        select temperature from sensor where `time` between #{startTime} and (
-            select end_time from abnormal where start_time = #{startTime}
-        )
-    </select>
-<!--    List<Double> selectAbnormalHumidityData(Timestamp startTime);-->
-    <select id="selectAbnormalHumidityData" resultType="java.lang.Double">
-        select humidity from sensor where `time` between #{startTime} and (
-            select end_time from abnormal where start_time = #{startTime}
-        )
-    </select>
-<!--    List<Double> selectAbnormalShakeData(Timestamp startTime);-->
-    <select id="selectAbnormalShakeData" resultType="java.lang.Double">
-        select shake from sensor where `time` between #{startTime} and (
-            select end_time from abnormal where start_time = #{startTime}
-        )
-    </select>
-
 
 <!--    List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);-->
     <select id="selectAbnormalSensorData" resultMap="returnMap">
@@ -114,23 +83,23 @@
         </trim>
         as `date`,
         <trim suffixOverrides=",">
-            <if test="sensor.gas == 1">
+            <if test="sensor.gas != null">
                 AVG(gas) as avg_gas,
             </if>
-            <if test="sensor.smog == 1">
+            <if test="sensor.smog != null">
                 AVG(smog) as avg_smog,
             </if>
-            <if test="sensor.temperature == 1">
+            <if test="sensor.temperature != null">
                 AVG(temperature) as avg_temperature,
             </if>
-            <if test="sensor.humidity == 1">
+            <if test="sensor.humidity != null">
                 AVG(humidity) as avg_humidity,
             </if>
-            <if test="sensor.shake == 1">
+            <if test="sensor.shake != null">
                 AVG(shake) as avg_shake,
             </if>
         </trim>
-        where `time` between #{startTime} and (
+        from sensor where `time` between #{startTime} and (
         select end_time from abnormal where start_time = #{startTime})
         group by `date`
     </select>
@@ -174,19 +143,19 @@
         </trim>
         as `date`,
         <trim suffixOverrides=",">
-            <if test="sensor.gas == 1">
+            <if test="sensor.gas != null">
                 AVG(gas) as avg_gas,
             </if>
-            <if test="sensor.smog == 1">
+            <if test="sensor.smog != null">
                 AVG(smog) as avg_smog,
             </if>
-            <if test="sensor.temperature == 1">
+            <if test="sensor.temperature != null">
                 AVG(temperature) as avg_temperature,
             </if>
-            <if test="sensor.humidity == 1">
+            <if test="sensor.humidity != null">
                 AVG(humidity) as avg_humidity,
             </if>
-            <if test="sensor.shake == 1">
+            <if test="sensor.shake != null">
                 AVG(shake) as avg_shake,
             </if>
         </trim>
