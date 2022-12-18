@@ -57,7 +57,7 @@ class BackendApplicationTests {
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);
-        List<Double> doubles = sensorService.getAbnormalGasData("1671032420");
+        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
         System.out.println(doubles);
     }
 
@@ -112,14 +112,14 @@ class BackendApplicationTests {
     @Test
     void testPage() throws ParseException {
 //        PageHelper.startPage(1,3);
-//        PageInfo<Map> shakeSensorData = sensorServiceI.getGasSensorData("1670942400000", "1670942460000", 1, 10);
+        PageInfo<Map> shakeSensorData = sensorServiceI.getHumiditySensorData("1670942407000", "1671032560000", 1, 10,'m');
 //        System.out.println(data);
 //        System.out.println();
 //        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);
 //        Timestamp minDate = DateConverter.StringToTimeStamp("1670942400000");
 //        Timestamp maxDate = DateConverter.StringToTimeStamp("1670942460000");
 //        List<Double> doubles = sensorMapper.selectGasSensorData(minDate, maxDate);
-//        System.out.println(shakeSensorData);
+        System.out.println(shakeSensorData);
     }
     @Test
     void testSensorService() throws ParseException {

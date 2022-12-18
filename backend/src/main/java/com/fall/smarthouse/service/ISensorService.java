@@ -119,7 +119,7 @@ public interface ISensorService {
      * @date 2022/12/16 20:27
      * @version 1.0
      */
-    List<Double> getAbnormalGasData(String startTime);
+    PageInfo<Map> getAbnormalGasData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
 
     /**
      * @description: 根据开始时间获取烟雾异常数据
@@ -127,7 +127,7 @@ public interface ISensorService {
      * @date 2022/12/16 20:37
      * @version 1.0
      */
-    List<Double> getAbnormalSmogData(String startTime);
+    PageInfo<Map> getAbnormalSmogData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
 
     /**
      * @description: 根据开始时间获取温度异常数据
@@ -135,7 +135,7 @@ public interface ISensorService {
      * @date 2022/12/16 20:46
      * @version 1.0
      */
-    List<Double> getAbnormalTemperatureData(String startTime);
+    PageInfo<Map> getAbnormalTemperatureData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
 
     /**
      * @description: 根据开始时间获取湿度异常数据
@@ -143,7 +143,7 @@ public interface ISensorService {
      * @date 2022/12/16 20:51
      * @version 1.0
      */
-    List<Double> getAbnormalHumidityData(String startTime);
+    PageInfo<Map> getAbnormalHumidityData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
 
     /**
      * @description: 根据开始时间获取震动异常数据
@@ -151,5 +151,5 @@ public interface ISensorService {
      * @date 2022/12/16 20:56
      * @version 1.0
      */
-    List<Double> getAbnormalShakeData(String startTime);
+    PageInfo<Map> getAbnormalShakeData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
 }
