@@ -57,7 +57,7 @@ class BackendApplicationTests {
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);
-        List<Double> doubles = sensorService.getAbnormalGasData("1671032420");
+        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
         System.out.println(doubles);
     }
 

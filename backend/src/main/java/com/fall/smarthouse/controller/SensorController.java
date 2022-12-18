@@ -153,8 +153,11 @@ public class SensorController {
     @ApiOperation("根据开始时间获取异常燃气数据")
     @GetMapping("get_abnormal_gas_data")
     public ResBean getAbnormalGasData(@NotEmpty @RequestParam("startTime") String startTime,
+                                      @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                      @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                      @NotEmpty @RequestParam("queryType") Character queryType,
                                       HttpServletResponse response){
-        List<Double> abnormalGasData = sensorService.getAbnormalGasData(startTime);
+        PageInfo<Map> abnormalGasData = sensorService.getAbnormalGasData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalGasData);
     }
@@ -162,8 +165,11 @@ public class SensorController {
     @ApiOperation("根据开始时间获取异常烟雾数据")
     @GetMapping("get_abnormal_smog_data")
     public ResBean getAbnormalSmogData(@NotEmpty @RequestParam("startTime") String startTime,
+                                       @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                       @NotEmpty @RequestParam("queryType") Character queryType,
                                        HttpServletResponse response){
-        List<Double> abnormalSmogData = sensorService.getAbnormalSmogData(startTime);
+        PageInfo<Map> abnormalSmogData = sensorService.getAbnormalSmogData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalSmogData);
     }
@@ -171,8 +177,11 @@ public class SensorController {
     @ApiOperation("根据开始时间获取异常温度数据")
     @GetMapping("get_abnormal_temperature_data")
     public ResBean getAbnormalTemperatureData(@NotEmpty @RequestParam("startTime") String startTime,
+                                              @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                              @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                              @NotEmpty @RequestParam("queryType") Character queryType,
                                        HttpServletResponse response){
-        List<Double> abnormalTemperatureData = sensorService.getAbnormalTemperatureData(startTime);
+        PageInfo<Map> abnormalTemperatureData = sensorService.getAbnormalTemperatureData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalTemperatureData);
     }
@@ -180,8 +189,11 @@ public class SensorController {
     @ApiOperation("根据开始时间获取异常湿度数据")
     @GetMapping("get_abnormal_humidity_data")
     public ResBean getAbnormalHumidityData(@NotEmpty @RequestParam("startTime") String startTime,
+                                           @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                           @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                           @NotEmpty @RequestParam("queryType") Character queryType,
                                               HttpServletResponse response){
-        List<Double> abnormalHumidityData = sensorService.getAbnormalHumidityData(startTime);
+        PageInfo<Map> abnormalHumidityData = sensorService.getAbnormalHumidityData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalHumidityData);
     }
@@ -189,8 +201,11 @@ public class SensorController {
     @ApiOperation("根据开始时间获取异常震动数据")
     @GetMapping("get_abnormal_shake_data")
     public ResBean getAbnormalShakeData(@NotEmpty @RequestParam("startTime") String startTime,
+                                        @NotEmpty @RequestParam("pageNum") Integer pageNum,
+                                        @NotEmpty @RequestParam("pageSize") Integer pageSize,
+                                        @NotEmpty @RequestParam("queryType") Character queryType,
                                            HttpServletResponse response){
-        List<Double> abnormalShakeData = sensorService.getAbnormalShakeData(startTime);
+        PageInfo<Map> abnormalShakeData = sensorService.getAbnormalShakeData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalShakeData);
     }
