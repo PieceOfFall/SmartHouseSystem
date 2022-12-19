@@ -33,7 +33,7 @@
   import {
     onMounted,
     ref,
-watch,
+    watch,
   } from 'vue'
   import {
     Document,
@@ -95,7 +95,6 @@ watch,
       onMounted(() => {
         if (window.sessionStorage.getItem('selectItem')) {
           selectItem.value = window.sessionStorage.getItem('selectItem') as string
-          
         } else {
           selectItem.value = '/homepage'
         }

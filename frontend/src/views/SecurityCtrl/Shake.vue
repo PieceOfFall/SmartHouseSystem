@@ -17,16 +17,22 @@
             </el-tab-pane>
             <!-- 历史查询 -->
             <el-tab-pane label="历史状态查询" name="second">
-
+                <!-- 时间选择 -->
+                <DatePicker
+                @change = "confirmDate"
+                />
+                <!-- 查询页占位符 -->
+                <router-view/>
             </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref,onMounted } from 'vue';
+import { ref,onMounted,nextTick } from 'vue';
 import { getCurrentData } from '../../api/sensor';
 import { ShakeData } from '../../api/sensor/types';
+import {useRouter} from 'vue-router'
 
 /*
    默认选中监测卡片
@@ -67,6 +73,15 @@ setInterval(async()=>{
     shakeData.value.push(data['shake'])
 },1000)
 
+/*
+   获取查询范围,跳转查询页进行查询
+*/
+const router =useRouter()
+async function confirmDate(date:[number,number]){
+    nextTick(async()=>{
+        router.push({ path: '/shake_detect/query_certain_shake_data', query: { startTime: date[0],endTime: date[1] } })
+    })
+}
 
 
 </script>

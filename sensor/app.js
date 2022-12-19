@@ -11,14 +11,18 @@ let job = new CronJob(
             try {
                 // 每秒调用网关api获取传感器数据并上传
                 const ret = await getSensors()
-                axios.post('http://localhost:8081/sensor/add_sensor',
-                {
+                const sendData = {
                     "gas": ret[index.GAS],
                     "humidity": ret[index.HUMIDITY],
                     "shake": ret[index.SHAKE],
                     "smog": ret[index.SMOG],
                     "temperature": ret[index.TEMPERATURE],
                     "time": ret[index.TIME]
+                }
+                console.log(sendData);
+                axios.post('http://localhost:8081/sensor/add_sensor',
+                {
+                    ...sendData
                 })
             } catch (error) {
                 console.log(error);
