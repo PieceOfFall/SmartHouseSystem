@@ -1,5 +1,5 @@
 /*
-   获取所有灯光状态
+   所有灯光状态
 */
 export interface LightsState {
     lightBedA: number,
@@ -18,7 +18,7 @@ export interface SubmitSwitchState {
 }
 
 /*
-   获取所有开关状态
+   所有开关状态
 */
 export interface SwitchState {
     switchA: boolean,
@@ -35,7 +35,7 @@ export interface SubmitCurtainState {
 }
 
 /*
-   获取所有窗帘状态
+   所有窗帘状态
 */
 export interface CurtainState {
     curtainA: number,
@@ -43,10 +43,13 @@ export interface CurtainState {
 }
 
 /*
-   获取警报状态
+   警报状态
 */
 export interface WarnState {
     warnLight: number
 }
 
+/*
+   电器状态
+*/
 export interface ElectricAppliance extends WarnState,SubmitCurtainState,SubmitSwitchState,LightsState { }

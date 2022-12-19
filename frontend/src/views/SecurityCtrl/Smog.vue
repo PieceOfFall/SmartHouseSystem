@@ -81,7 +81,10 @@ setInterval(async()=>{
 const router =useRouter()
 async function confirmDate(date:[number,number]){
     nextTick(async()=>{
-        router.push({ path: '/smog_detect/query_certain_smog_data', query: { startTime: date[0],endTime: date[1] } })
+        router.push({ 
+            path: '/smog_detect/query_certain_smog_data', 
+            query: { startTime: date[0],endTime: date[1] } 
+        })
     })
 }
 

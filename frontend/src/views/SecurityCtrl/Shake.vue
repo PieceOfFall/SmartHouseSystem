@@ -79,7 +79,10 @@ setInterval(async()=>{
 const router =useRouter()
 async function confirmDate(date:[number,number]){
     nextTick(async()=>{
-        router.push({ path: '/shake_detect/query_certain_shake_data', query: { startTime: date[0],endTime: date[1] } })
+        router.push({
+             path: '/shake_detect/query_certain_shake_data', 
+             query: { startTime: date[0],endTime: date[1] } 
+            })
     })
 }
 

@@ -100,28 +100,26 @@ let submitState:SubmitSwitchState = {
 
 let timer:number; // 定时器序号
 watch(switchState,async ()=>{
-        // 防抖
-        if(timer) {
+    // 防抖
+    if(timer) {
         clearTimeout(timer)
     }
     timer = setTimeout(async()=>{
         // 调用接口提交数据
         submitState = {
-        switchA:switchState.value.switchA === false?0:1,
-        switchB:switchState.value.switchB === false?0:1,
-        switchC:switchState.value.switchC === false?0:1
-    }
-    await setAppliance({...submitState as ElectricAppliance}).then(()=>{
-        if(switchState.value.switchA||switchState.value.switchB||switchState.value.switchC) {
-            isOneSwitchOnExist.value = true
-        } else {
-            isOneSwitchOnExist.value = false
-        }
-        
-    })
+            switchA:switchState.value.switchA === false?0:1,
+            switchB:switchState.value.switchB === false?0:1,
+            switchC:switchState.value.switchC === false?0:1
+        }   
+        await setAppliance({...submitState as ElectricAppliance}).then(()=>{
+            if(switchState.value.switchA||switchState.value.switchB||switchState.value.switchC) {
+                isOneSwitchOnExist.value = true
+            } else {
+                isOneSwitchOnExist.value = false
+            }
+        })
     },700)
 
-    
 },{deep:true})
 
 </script>

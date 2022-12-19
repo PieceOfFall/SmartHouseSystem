@@ -11,6 +11,7 @@ import {
 
 /*
    修改电器数据
+   appliance 电器
 */
 export async function setAppliance(appliance: ElectricAppliance) {
     return await request({
@@ -51,6 +52,7 @@ export async function getSwitches() {
 
 /*
    总开关控制
+   isOneSwitchOnExist 是否至少有一个开关打开
 */
 export async function toggleAllSwitch(isOneSwitchOnExist:boolean) {
     if(isOneSwitchOnExist) {

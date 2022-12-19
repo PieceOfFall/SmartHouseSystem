@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { FormInstance, FormRules } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import {
     Unlock,
     User,
@@ -74,21 +74,21 @@ const rules = reactive<FormRules>({
 async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
     await formEl.validate( async function (valid, fields) {   
-    if (valid) {
-      let token:Token = await (await userLogin(form.account,form.password)).data
-      window.localStorage.setItem("authorization",token)
-      ElMessage({
-        message: `欢迎回来！${form.account}`,
-        type: 'success',
-    })
-    router.push('/homepage')
-    } else {
-        ElMessage({
-            message: '请补全信息',
-            type: 'error'
-          })
-    }
-
+        if (valid) {
+          let token:Token = await (await userLogin(form.account,form.password)).data
+          window.localStorage.setItem("authorization",token)
+          ElMessage({
+            message: `欢迎回来！${form.account}`,
+            type: 'success',
+        })
+        router.push('/homepage')
+        
+        } else {
+            ElMessage({
+                message: '请补全信息',
+                type: 'error'
+            })
+        }
   })
     
 }
