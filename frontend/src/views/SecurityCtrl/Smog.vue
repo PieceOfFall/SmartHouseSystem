@@ -17,15 +17,24 @@
             </el-tab-pane>
             <!-- 历史查询 -->
             <el-tab-pane label="历史状态查询" name="second">
+                <!-- 时间选择 -->
+                <DatePicker
+                @change = "confirmDate"
+                />
+                <!-- 查询页占位符 -->
+                <router-view/>
             </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref,onMounted } from 'vue'
+import { ref,onMounted,nextTick } from 'vue'
+import DatePicker from '../../components/DatePicker.vue';
 import { getCurrentData } from '../../api/sensor'
 import { SmogData } from '../../api/sensor/types';
+import {useRouter} from 'vue-router'
+
 
 /*
    默认选中监测卡片
@@ -65,6 +74,19 @@ setInterval(async()=>{
     smogData.value.shift()
     smogData.value.push(data['smog'])
 },1000)
+
+/*
+   获取查询范围,跳转查询页进行查询
+*/
+const router =useRouter()
+async function confirmDate(date:[number,number]){
+    nextTick(async()=>{
+        router.push({ 
+            path: '/smog_detect/query_certain_smog_data', 
+            query: { startTime: date[0],endTime: date[1] } 
+        })
+    })
+}
 
 </script>
 

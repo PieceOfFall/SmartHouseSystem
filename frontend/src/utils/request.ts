@@ -1,10 +1,10 @@
 import { router } from './../router/index';
 import { Token } from './../api/login/types';
-import axios, { AxiosRequestConfig, AxiosResponse ,AxiosHeaders } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
-  // 设置允许跨域
-  axios.defaults.withCredentials = true;
+// 设置允许跨域
+axios.defaults.withCredentials = true;
 
 // 创建 axios 实例
 const service = axios.create({

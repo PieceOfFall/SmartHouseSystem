@@ -53,17 +53,32 @@ const routes: Array < RouteRecordRaw > = [{
        {
         path: '/gas_detect',
         name: 'GasDetect',
-        component: () => import('../views/SecurityCtrl/Gas.vue')
+        component: () => import('../views/SecurityCtrl/Gas.vue'),
+        children:[{
+            path:'query_certain_gas_data',
+            name:'QueryCertainGasData',
+            component:()=>import('../components/QueryCertainData.vue'),
+        }]
        },
        {
         path: '/smog_detect',
         name: 'SmogDetect',
-        component: () => import('../views/SecurityCtrl/Smog.vue')
+        component: () => import('../views/SecurityCtrl/Smog.vue'),
+        children:[{
+            path:'query_certain_smog_data',
+            name:'QueryCertainSmogData',
+            component:()=>import('../components/QueryCertainData.vue'),
+        }]
        },
        {
         path: '/shake_detect',
         name: 'ShakeDetect',
-        component: () => import('../views/SecurityCtrl/Shake.vue')
+        component: () => import('../views/SecurityCtrl/Shake.vue'),
+        children:[{
+            path:'query_certain_shake_data',
+            name:'QueryCertainShakeData',
+            component:()=>import('../components/QueryCertainData.vue'),
+        }]
        },
        {
         path: '/warn_light',

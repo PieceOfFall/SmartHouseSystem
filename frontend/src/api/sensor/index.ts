@@ -10,6 +10,7 @@ import {
 
 /*
    获取当前数据
+   sensorType 传感器类型
 */
 export async function getCurrentData(sensorType: sensorType): AxiosPromise < SensorDataSet > {
     //获取范围: 当前以及五秒前    
@@ -82,6 +83,7 @@ export async function getDataByDifference(startTime: number, endTime: number, se
 
 /*
    根据时间差查询当前时间间隔
+   difference 始末时间戳之差
 */
 export function getGapByDifference(difference: number) {
     if (difference / (1000 * 60 * 60 * 24) >= 1) {

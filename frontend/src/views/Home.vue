@@ -32,7 +32,6 @@
     import {
         storeToRefs
     } from 'pinia';
-    import {getCurrentData} from '../api/sensor/index';
 
             // pinia
             const store = useAsideStore().aside
