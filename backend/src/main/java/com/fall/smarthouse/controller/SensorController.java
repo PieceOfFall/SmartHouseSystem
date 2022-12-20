@@ -29,20 +29,27 @@ public class SensorController {
 
     @ApiOperation("添加传感器数据")
     @PostMapping("add_sensor")
-    public ResBean AddSensor( @RequestBody Sensor sensor,
+    public ResBean addSensor( @RequestBody Sensor sensor,
                              HttpServletResponse response) throws ParseException {
         sensorService.insertToSensor(sensor);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
+    @ApiOperation("获取当前环境异常")
+    @GetMapping("get_abnormal_type")
+    public ResBean getAbnormalType(HttpServletResponse httpServletResponse){
+        httpServletResponse.setStatus(200);
+        return ResBean.ok("ok",sensorService.isAbnormalExist());
+    }
+
     @ApiOperation("查询燃气传感器数据")
     @GetMapping("get_gas_data")
-    public ResBean GetGasData( @NotEmpty @RequestParam("maxTime") String maxTime,
+    public ResBean getGasData( @NotEmpty @RequestParam("maxTime") String maxTime,
                                @NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                              @NotEmpty @RequestParam("queryType") Character queryType,
+                               @NotEmpty @RequestParam("queryType") Character queryType,
                                HttpServletResponse response){
         PageInfo<Map> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);

@@ -1,4 +1,4 @@
-package com.fall.smarthouse.filter;
+package com.fall.smarthouse.interceptor;
 
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.util.JWTUtil;
@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * @date 2022/12/12 12:10
  */
 @Slf4j
-public class SmartFilter implements HandlerInterceptor {
+public class SmartInterceptor implements HandlerInterceptor {
 
     /**
      * @author FAll

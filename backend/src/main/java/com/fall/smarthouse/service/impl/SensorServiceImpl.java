@@ -31,6 +31,12 @@ public class SensorServiceImpl implements ISensorService {
     @Autowired
     SensorMapper sensorMapper;
 
+
+    @Override
+    public Integer isAbnormalExist() {
+        return abnormalType;
+    }
+
     @Override
     public boolean insertToSensor(Sensor sensorRequest) throws ParseException {
         Map<String, Object> map = SafetyJudgment(sensorRequest);

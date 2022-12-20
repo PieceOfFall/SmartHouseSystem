@@ -1,7 +1,7 @@
 package com.fall.smarthouse.config;
 
 
-import com.fall.smarthouse.filter.SmartFilter;
+import com.fall.smarthouse.interceptor.SmartInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -69,7 +69,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 对所有访问路径，都通过MyInterceptor类型的拦截器进行拦截
-        registry.addInterceptor(new SmartFilter()).addPathPatterns("/**")
+        registry.addInterceptor(new SmartInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/smart_house/*","/*","/webjars/**","/swagger-resources/**","/sensor/add_sensor");
     }
 
