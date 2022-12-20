@@ -196,5 +196,12 @@ class BackendApplicationTests {
         System.out.println(ret);
     }
 
+    @Test
+    void testAssert(){
+        Integer a = null;
+        assert a !=null;
+        System.out.println(a.equals(1));
+    }
+
 
 }

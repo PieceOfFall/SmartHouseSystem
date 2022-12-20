@@ -65,7 +65,6 @@ public class GlobalExceptionHandler {
         log.warn("参数校验错误", e);
         FieldError fieldError = e.getBindingResult().getFieldError();
         response.setStatus(405);
-        assert fieldError != null;
         return ResBean.badRequest(String.format("参数校验错误:%s", fieldError.getDefaultMessage()));
     }
 

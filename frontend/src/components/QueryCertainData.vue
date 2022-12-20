@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 数据显示 -->
-        <div @click="queryOrBack" class="back"><el-button :icon="Search">查询 | 上一步</el-button></div>
+        <div @click="queryOrBack" class="back"><el-button :icon="Search">上一步</el-button></div>
         <el-table 
         stripe 
         :data="renderDataList">
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
-import { ref,onMounted,nextTick } from 'vue';
+import { ref,onMounted,nextTick,watch } from 'vue';
 import {useRouter} from 'vue-router'
 import {getDataByDifference,getGapByDifference} from '../api/sensor/index';
 import { SensorData,queryType,sensorType} from '../api/sensor/types';
@@ -44,15 +44,18 @@ const currentGap = ref<queryType>('s')
 let querySensorType: sensorType
 
 //获取到待查询的传感器类型和时间范围,执行查询
-onMounted( async()=>{
+onMounted( async()=>{  
     const startTime:number = parseInt(router.currentRoute.value.query.startTime as string)
-    const endTime = parseInt(router.currentRoute.value.query.endTime as string)
+    const endTime:number = parseInt(router.currentRoute.value.query.endTime as string)
     querySensorType=router.currentRoute.value.path.split('/')[1].split('_')[0] as sensorType
     await getAndRenderByDifference(startTime,endTime)
 })
 
 // 获取数据并渲染
-async function getAndRenderByDifference(startTime: number, endTime: number) {    
+async function getAndRenderByDifference(startTime: number, endTime: number) {  
+    if(!startTime){
+        return  
+    }    
     renderDataList.value = await (await getDataByDifference(startTime,endTime,`${querySensorType}`))
         .data.list?.map((currentValue:SensorData,index:number,array)=>{
             // 利用数组map方法将原始结果数组映射为渲染数组
@@ -63,31 +66,24 @@ async function getAndRenderByDifference(startTime: number, endTime: number) {
                     sensor:`${querySensorType==='gas'?currentValue[`${querySensorType}`]*100:currentValue[`${querySensorType}`]}%`
                 }
         })
+        
         currentGap.value = getGapByDifference(endTime-startTime) as queryType
+        
 }
 
-// 获取详情,并调用渲染
+// 获取详情,并跳转
 async function getInfo(index: number, row: RenderData){
     switch (currentGap.value) {
         case 'd':{
             router.push({path: `/${querySensorType}_detect/query_certain_${querySensorType}_data`, query: { startTime: row.timestamp,endTime: row.timestamp+1000*60*60*24-1000 }})
-            nextTick(async()=>{
-                await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60*60*24-1000)
-            })
             break;
         }
         case 'h':{
             router.push({path: `/${querySensorType}_detect/query_certain_${querySensorType}_data`, query: { startTime: row.timestamp,endTime: row.timestamp+1000*60*60-1000 }})
-            nextTick(async()=>{
-                await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60*60-1000)
-            })
             break;
         }
         case 'm':{
             router.push({path: `/${querySensorType}_detect/query_certain_${querySensorType}_data`, query: { startTime: row.timestamp,endTime: row.timestamp+1000*60-1000 }})
-            nextTick(async()=>{
-                await getAndRenderByDifference(row.timestamp,row.timestamp+1000*60-1000)
-            })
             break;
         }
 
@@ -95,15 +91,21 @@ async function getInfo(index: number, row: RenderData){
     
 }
 
-// 查询按钮
+// 回退按钮
 async function queryOrBack() {
     router.back()
-    const startTime:number = parseInt(router.currentRoute.value.query.startTime as string)
-    const endTime = parseInt(router.currentRoute.value.query.endTime as string)
-    nextTick(async()=>{
-        await getAndRenderByDifference(startTime,endTime)
-    })
 }
+
+// 路由变量
+const query = ref(router)
+// 通过监测路由query变化,请求所需数据
+watch(query.value,async()=>{
+    const startTime:number = parseInt(router.currentRoute.value.query.startTime as string)
+    const endTime:number = parseInt(router.currentRoute.value.query.endTime as string)
+    await getAndRenderByDifference(startTime,endTime)   
+},{deep:true})
+
+
 </script>
 
 <style lang="less" scoped>
