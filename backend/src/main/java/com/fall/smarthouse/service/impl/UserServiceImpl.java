@@ -31,6 +31,9 @@ public class UserServiceImpl implements IUserService {
      */
     @PostConstruct
     public void initMenuList() {
+        if(!this.menu.isEmpty()) {
+            return;
+        }
         // 1.电控系统
         MenuItem powerCtrl = new MenuItem(MenuID.POWER_CTRL.getId(), "/power_ctrl", "电控系统", null);
 
