@@ -8,6 +8,7 @@ import com.fall.smarthouse.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 
 /**
@@ -20,15 +21,16 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     UserMapper userMapper;
 
+    private static ArrayList<MenuItem> menu = new ArrayList<>();
+
     /**
      * @author FAll
-     * @description 网页获取侧边栏路由信息
+     * @description 初始化侧边栏路由信息
      * @return: java.util.ArrayList<com.fall.smarthouse.bean.MenuItem>
-     * @date 2022/12/3 10:17
+     * @date 2022/12/20 19:07
      */
-    @Override
-    public ArrayList<MenuItem> getMenu() {
-        ArrayList<MenuItem> list = new ArrayList<>();
+    @PostConstruct
+    public void initMenuList() {
         // 1.电控系统
         MenuItem powerCtrl = new MenuItem(MenuID.POWER_CTRL.getId(), "/power_ctrl", "电控系统", null);
 
@@ -41,7 +43,7 @@ public class UserServiceImpl implements IUserService {
 
         MenuItem[] powerChildren = {lightCtrl, switchCtrl, curtainCtrl};
         powerCtrl.setChildren(powerChildren);
-        list.add(powerCtrl);
+        this.menu.add(powerCtrl);
 
         // 2.安防系统
         MenuItem defenceCtrl = new MenuItem(MenuID.DEFENCE.getId(), "/defence_ctrl", "安防系统", null);
@@ -57,14 +59,22 @@ public class UserServiceImpl implements IUserService {
 
         MenuItem[] defenceChildren = {gasDetect, smogDetect, shakeDetect, warnLight};
         defenceCtrl.setChildren(defenceChildren);
-        list.add(defenceCtrl);
+        this.menu.add(defenceCtrl);
 
         // 3.场景选择
         MenuItem modeChange = new MenuItem(MenuID.MODE_CHANGE.getId(), "/mode_change", "场景选择", null);
-        list.add(modeChange);
+        this.menu.add(modeChange);
+    }
 
-        return list;
-
+    /**
+     * @author FAll
+     * @description 网页获取侧边栏路由信息
+     * @return: java.util.ArrayList<com.fall.smarthouse.bean.MenuItem>
+     * @date 2022/12/3 10:17
+     */
+    @Override
+    public ArrayList<MenuItem> getMenu() {
+        return this.menu;
     }
 
     @Override

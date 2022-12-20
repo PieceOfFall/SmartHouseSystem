@@ -38,7 +38,8 @@ public class SensorController {
 
     @ApiOperation("获取当前环境异常")
     @GetMapping("get_abnormal_type")
-    public ResBean getAbnormalType(){
+    public ResBean getAbnormalType(HttpServletResponse httpServletResponse){
+        httpServletResponse.setStatus(200);
         return ResBean.ok("ok",sensorService.isAbnormalExist());
     }
 
@@ -48,7 +49,7 @@ public class SensorController {
                                @NotEmpty @RequestParam("minTime") String minTime,
                                @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                              @NotEmpty @RequestParam("queryType") Character queryType,
+                               @NotEmpty @RequestParam("queryType") Character queryType,
                                HttpServletResponse response){
         PageInfo<Map> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
