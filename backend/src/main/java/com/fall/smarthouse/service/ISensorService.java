@@ -152,4 +152,12 @@ public interface ISensorService {
      * @version 1.0
      */
     PageInfo<Map> getAbnormalShakeData(String startTime,Integer pageNum,Integer pageSize,Character queryType);
+
+    /**
+     * @author FAll
+     * @description 当前是否存在环境数据异常
+     * @return: java.lang.Boolean
+     * @date 2022/12/20 18:42
+     */
+    Integer isAbnormalExist();
 }
