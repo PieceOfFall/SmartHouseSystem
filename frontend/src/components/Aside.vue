@@ -1,6 +1,11 @@
 <template>
-    <el-menu :default-active="selectItem" class="el-menu-vertical" background-color="#0e1117" :collapse="isCollapse" router
-      unique-opened>
+    <el-menu 
+    class="el-menu-vertical"
+    :default-active="selectItem"
+    background-color="#0e1117"
+    :collapse="isCollapse"
+    router
+    unique-opened>
 
       <!-- 收起侧边栏 -->
       <div class="switch" @click="changeCollapse">
@@ -49,14 +54,17 @@ import {
 import {getAsideList} from '../api/aside/index';
 import {MenuItem} from '../api/aside/types';
 
-// pinia
+/*
+   侧边栏开关
+*/
+// Pinia
 const store = useAsideStore().aside
 let {
   isStoreCollapse,
   selectItem
 } = storeToRefs(store)
 
-// 侧边栏开关
+// 获取侧边栏开关状态
 const isCollapse = ref(true)
 onMounted(() => {
   let storageCollapse = window.sessionStorage.getItem('isCollapse')
@@ -75,7 +83,9 @@ async function changeCollapse() {
   window.sessionStorage.setItem('isCollapse', `${isCollapse.value}`)
 }
 
-// 获取侧边栏信息
+/*
+   获取侧边栏信息
+*/
 let menuList = ref < MenuItem[] > ()
 onMounted(async () => {
   menuList.value = await (await getAsideList()).data
@@ -84,11 +94,18 @@ onMounted(async () => {
 // 选中菜单选项
 const router = ref(useRouter().currentRoute);
 watch(router,
-async ()=>{      
-  selectItem.value = router.value.fullPath
-  window.sessionStorage.setItem('selectItem', router.value.fullPath)
+async ()=>{   
+  let savePath:string
+  if(router.value.path.match('/query_certain')) {
+    savePath = `/${router.value.path.split('/')[1]}`
+  } else {
+    savePath = router.value.path
+  } 
+  selectItem.value = savePath
+  window.sessionStorage.setItem('selectItem', savePath)
 })
 
+// 页面刷新时从本地缓存读取并激活上一次路径
 onMounted(() => {
   if (window.sessionStorage.getItem('selectItem')) {
     selectItem.value = window.sessionStorage.getItem('selectItem') as string

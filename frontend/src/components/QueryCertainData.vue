@@ -47,7 +47,7 @@ let querySensorType: sensorType
 onMounted( async()=>{  
     const startTime:number = parseInt(router.currentRoute.value.query.startTime as string)
     const endTime:number = parseInt(router.currentRoute.value.query.endTime as string)
-    querySensorType=router.currentRoute.value.path.split('/')[1].split('_')[0] as sensorType
+    querySensorType = router.currentRoute.value.path.split('/')[1].split('_')[0] as sensorType
     await getAndRenderByDifference(startTime,endTime)
 })
 
