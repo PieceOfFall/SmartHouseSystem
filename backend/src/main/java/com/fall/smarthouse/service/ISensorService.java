@@ -82,7 +82,7 @@ public interface ISensorService {
     PageInfo<Sensor> selectSensorDataByTime(String minTime,String maxTime,Integer pageNum,Integer pageSize);
 
     /**
-     * @description: TODO
+     * @description: 插入异常
      * @author xiaoQe
      * @date 2022/12/14 20:18
      * @version 1.0

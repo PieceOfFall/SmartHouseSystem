@@ -58,7 +58,7 @@ public interface SensorMapper {
     List<Sensor> pollingSelectSensorData(Timestamp time);
 
     /**
-     * @description: TODO
+     * @description: 通过时间查询传感器数据
      * @author xiaoQe
      * @date 2022/12/14 22:32
      * @version 1.0
@@ -75,7 +75,7 @@ public interface SensorMapper {
     List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);
 
     /**
-     * @description: TODO
+     * @description: Map测试
      * @author xiaoQe
      * @date 2022/12/17 18:08
      * @version 1.0

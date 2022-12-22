@@ -16,6 +16,7 @@
                     <router-view key="1"></router-view>
                 </el-main>
             </el-container>
+
         </el-container>
     </div>
 </template>
@@ -33,7 +34,7 @@
         storeToRefs
     } from 'pinia';
 
-            // pinia
+            // Pinia
             const store = useAsideStore().aside
             const {
                 isStoreCollapse
