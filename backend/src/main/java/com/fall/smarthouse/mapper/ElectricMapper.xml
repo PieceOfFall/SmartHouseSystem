@@ -40,4 +40,20 @@
             </if>
         </set>
     </update>
+
+    <!--    Integer insertElectricHistory(Timestamp time, String account, Integer electricType,Integer operationType,Character electricId);-->
+    <insert id="insertElectricHistory">
+         insert into electric_history values (#{time},#{account},#{elelctricType},#{operationType},#{elelctricId})
+    </insert>
+
+    <!--    List<Map> selectElectricHistory(String account,Timestamp startTime,Timestamp endTime);-->
+    <resultMap id="electricHistoryMap" type="java.util.Map">
+        <result property="time" column="time" javaType="java.lang.Long"></result>
+        <result property="electricType" column="electric_type" javaType="java.lang.Integer"></result>
+        <result property="operationType" column="operation_type" javaType="java.lang.Integer"></result>
+        <result property="electricId" column="electric_id" javaType="java.lang.Character"></result>
+    </resultMap>
+    <select id="selectElectricHistory" resultMap="electricHistoryMap">
+
+    </select>
 </mapper>

@@ -143,4 +143,14 @@ public interface IElectricApplianceService {
      * @version 1.0
      */
     Boolean leaveHomeMode();
+
+    /**
+     * @description: 添加历史数据方法
+     * @author xiaoQe
+     * @date 2022/12/22 19:23
+     * @version 1.0
+     */
+    Boolean addElectricHistory(String account,ElectricAppliance electricAppliance);
+
+
 }

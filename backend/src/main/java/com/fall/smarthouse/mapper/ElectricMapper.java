@@ -5,6 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author FAll
  * @date 2022/12/2 17:58
@@ -30,4 +34,19 @@ public interface ElectricMapper {
 
     Integer updateElectricAppliance(ElectricAppliance electricAppliance);
 
+    /**
+     * @description: 添加历史记录的方法
+     * @author xiaoQe
+     * @date 2022/12/22 19:10
+     * @version 1.0
+     */
+    Integer insertElectricHistory(Timestamp time, String account, Integer electricType,Integer operationType,Character electricId);
+
+    /**
+     * @description: 查询历史记录
+     * @author xiaoQe
+     * @date 2022/12/22 19:13
+     * @version 1.0
+     */
+    List<Map> selectElectricHistory(String account, Timestamp startTime, Timestamp endTime);
 }

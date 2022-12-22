@@ -54,11 +54,16 @@ class BackendApplicationTests {
     }
     @Test
     void BitwiseOperation(){
+        int a = 1;
+        a += '@';
+        char c = (char)a;
+        Character A = Character.valueOf(c);
+        System.out.println(A);
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);
-        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
-        System.out.println(doubles);
+//        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
+//        System.out.println(doubles);
     }
 
     @Test
