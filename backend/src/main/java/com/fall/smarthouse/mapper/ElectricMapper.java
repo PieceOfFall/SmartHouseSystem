@@ -1,6 +1,7 @@
 package com.fall.smarthouse.mapper;
 
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.SqlHistory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -40,7 +41,7 @@ public interface ElectricMapper {
      * @date 2022/12/22 19:10
      * @version 1.0
      */
-    Integer insertElectricHistory(Timestamp time, String account, Integer electricType,Integer operationType,Character electricId);
+    Integer insertElectricHistory(Timestamp time, String account, ElectricAppliance electricAppliance);
 
     /**
      * @description: 查询历史记录
@@ -48,5 +49,5 @@ public interface ElectricMapper {
      * @date 2022/12/22 19:13
      * @version 1.0
      */
-    List<Map> selectElectricHistory(String account, Timestamp startTime, Timestamp endTime);
+    List<SqlHistory> selectElectricHistory(String account, Timestamp startTime, Timestamp endTime);
 }

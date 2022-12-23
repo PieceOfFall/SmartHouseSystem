@@ -48,6 +48,14 @@ class BackendApplicationTests {
 
 
     @Test
+    void testAddHistory(){
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        electricAppliance.setLightLivingRoom(3);
+        electricAppliance.setCurtainB(0);
+        electricApplianceService.addElectricHistory("xiaoQe",electricAppliance);
+    }
+
+    @Test
     void testMap(){
         List<Map<String, Object>> maps = sensorMapper.testMap();
         System.out.println(maps);

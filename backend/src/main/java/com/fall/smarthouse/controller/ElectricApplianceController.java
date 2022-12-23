@@ -4,10 +4,12 @@ import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.util.JWTUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -172,8 +174,11 @@ public class ElectricApplianceController {
     @ApiOperation("控制所有电器")
     @PostMapping("set_appliance")
     public ResBean setAppliance(@Valid @RequestBody ElectricAppliance electricAppliance,
-                                HttpServletResponse response) {
+                                HttpServletResponse response, HttpServletRequest request) throws Exception {
         electricApplianceService.setAppliance(electricAppliance);
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        electricApplianceService.addElectricHistory(account,electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }

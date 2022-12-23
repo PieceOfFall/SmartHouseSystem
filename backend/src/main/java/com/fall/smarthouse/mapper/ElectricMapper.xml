@@ -41,19 +41,44 @@
         </set>
     </update>
 
-    <!--    Integer insertElectricHistory(Timestamp time, String account, Integer electricType,Integer operationType,Character electricId);-->
+    <!--    Integer insertElectricHistory(Timestamp time, String account, ElectricAppliance electricAppliance);-->
     <insert id="insertElectricHistory">
-         insert into electric_history values (#{time},#{account},#{elelctricType},#{operationType},#{elelctricId})
+         insert into electric_history (`time`,history_id,account,electric_type,operation_type,electric_id) values
+            <trim  suffixOverrides=",">
+                <if test="electricAppliance.lightBedA != null">
+                    (#{time},null,#{account},1,#{electricAppliance.lightBedA},'A'),
+                </if>
+                <if test="electricAppliance.lightBedB != null">
+                    (#{time},null,#{account},1,#{electricAppliance.lightBedB},'B'),
+                </if>
+                <if test="electricAppliance.lightLivingRoom != null">
+                    (#{time},null,#{account},1,#{electricAppliance.lightLivingRoom},'C'),
+                </if>
+                <if test="electricAppliance.lightBathroom != null">
+                    (#{time},null,#{account},1,#{electricAppliance.lightBathroom},'D'),
+                </if>
+                <if test="electricAppliance.switchA != null">
+                    (#{time},null,#{account},2,#{electricAppliance.switchA},'A'),
+                </if>
+                <if test="electricAppliance.switchB != null">
+                    (#{time},null,#{account},2,#{electricAppliance.switchB},'B'),
+                </if>
+                <if test="electricAppliance.switchC != null">
+                    (#{time},null,#{account},2,#{electricAppliance.switchC},'C'),
+                </if>
+                <if test="electricAppliance.curtainA != null">
+                    (#{time},null,#{account},4,#{electricAppliance.curtainA},'A'),
+                </if>
+                <if test="electricAppliance.curtainB != null">
+                    (#{time},null,#{account},4,#{electricAppliance.curtainB},'B'),
+                </if>
+            </trim>
     </insert>
 
     <!--    List<Map> selectElectricHistory(String account,Timestamp startTime,Timestamp endTime);-->
-    <resultMap id="electricHistoryMap" type="java.util.Map">
-        <result property="time" column="time" javaType="java.lang.Long"></result>
-        <result property="electricType" column="electric_type" javaType="java.lang.Integer"></result>
-        <result property="operationType" column="operation_type" javaType="java.lang.Integer"></result>
-        <result property="electricId" column="electric_id" javaType="java.lang.Character"></result>
-    </resultMap>
-    <select id="selectElectricHistory" resultMap="electricHistoryMap">
-
+    <select id="selectElectricHistory" resultType="com.fall.smarthouse.model.SqlHistory">
+        select `time`,electric_type,operation_type,electric_id
+        from electric_history
+        where account = #{account} and `time` between #{startTime} and #{endTime}
     </select>
 </mapper>

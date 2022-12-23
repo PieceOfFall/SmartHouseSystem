@@ -20,7 +20,7 @@ import java.util.HashMap;
 @Service
 public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
-    private static HashMap<String,Integer> electricApplianceMap = new HashMap<>();
+    private static HashMap<String, Integer> electricApplianceMap = new HashMap<>();
 
     @Autowired
     ElectricMapper electricMapper;
@@ -89,17 +89,17 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     @Override
     public Boolean setAppliance(ElectricAppliance electricAppliance) {
         //记录电器情况的Map为空则记录初始电器情况
-        if(electricApplianceMap.isEmpty()){
+        if (electricApplianceMap.isEmpty()) {
             ElectricAppliance appliance = electricMapper.getAppliance();
-            electricApplianceMap.put("lightBedA",appliance.getLightBedA());
-            electricApplianceMap.put("lightBedB",appliance.getLightBedB());
-            electricApplianceMap.put("lightLivingRoom",appliance.getLightLivingRoom());
-            electricApplianceMap.put("lightBathroom",appliance.getLightBathroom());
-            electricApplianceMap.put("switchA",appliance.getSwitchA());
-            electricApplianceMap.put("switchB",appliance.getSwitchB());
-            electricApplianceMap.put("switchC",appliance.getSwitchC());
-            electricApplianceMap.put("curtainA",appliance.getCurtainA());
-            electricApplianceMap.put("curtainB",appliance.getCurtainB());
+            electricApplianceMap.put("lightBedA", appliance.getLightBedA());
+            electricApplianceMap.put("lightBedB", appliance.getLightBedB());
+            electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
+            electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
+            electricApplianceMap.put("switchA", appliance.getSwitchA());
+            electricApplianceMap.put("switchB", appliance.getSwitchB());
+            electricApplianceMap.put("switchC", appliance.getSwitchC());
+            electricApplianceMap.put("curtainA", appliance.getCurtainA());
+            electricApplianceMap.put("curtainB", appliance.getCurtainB());
         }
         // 将对象非法属性合法化
         ElectricAppliance updateElectric = new ElectricAppliance();
@@ -211,13 +211,83 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
     @Override
     public Boolean addElectricHistory(String account, ElectricAppliance electricAppliance) {
-        Integer electricType = judgeElectricType(electricAppliance);
-        HashMap<String, Object> typeAndId = judgeOperationTypeAndId(electricAppliance);
-        Character electricId = (Character) typeAndId.get("electricId");
-        Integer operationType = (Integer) typeAndId.get("operationType");
+        ElectricAppliance judgeAppliance = judgeAppliance(electricAppliance);
         Integer affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
-                account, electricType, operationType, electricId);
+                account, judgeAppliance);
         return affectRows != 0;
+    }
+
+    /**
+     * @description: 判断appliance是否修改
+     * @author xiaoQe
+     * @date 2022/12/23 16:18
+     * @version 1.0
+     */
+    private ElectricAppliance judgeAppliance(ElectricAppliance electricAppliance) {
+        if (electricAppliance.getLightBedA() != null) {
+            if (electricAppliance.getLightBedA() == electricApplianceMap.get("lightBedA")) {
+                electricAppliance.setLightBedA(null);
+            } else {
+                electricApplianceMap.put("lightBedA", electricAppliance.getLightBedA());
+            }
+        }
+        if (electricAppliance.getLightBedB() != null) {
+            if (electricAppliance.getLightBedB() == electricApplianceMap.get("lightBedB")) {
+                electricAppliance.setLightBedB(null);
+            } else {
+                electricApplianceMap.put("lightBedB", electricAppliance.getLightBedB());
+            }
+        }
+        if (electricAppliance.getLightLivingRoom() != null) {
+            if (electricAppliance.getLightLivingRoom() == electricApplianceMap.get("lightLivingRoom")) {
+                electricAppliance.setLightLivingRoom(null);
+            } else {
+                electricApplianceMap.put("lightLivingRoom", electricAppliance.getLightLivingRoom());
+            }
+        }
+        if (electricAppliance.getLightBathroom() != null) {
+            if (electricAppliance.getLightBathroom() == electricApplianceMap.get("lightBathroom")) {
+                electricAppliance.setLightBathroom(null);
+            } else {
+                electricApplianceMap.put("lightBathroom", electricAppliance.getLightBathroom());
+            }
+        }
+        if (electricAppliance.getSwitchA() != null) {
+            if (electricAppliance.getSwitchA() == electricApplianceMap.get("switchA")) {
+                electricAppliance.setSwitchA(null);
+            } else {
+                electricApplianceMap.put("switchA", electricAppliance.getSwitchA());
+            }
+        }
+        if (electricAppliance.getSwitchB() != null) {
+            if (electricAppliance.getSwitchB() == electricApplianceMap.get("switchB")) {
+                electricAppliance.setSwitchB(null);
+            } else {
+                electricApplianceMap.put("switchB", electricAppliance.getSwitchB());
+            }
+        }
+        if (electricAppliance.getSwitchC() != null) {
+            if (electricAppliance.getSwitchC() == electricApplianceMap.get("switchC")) {
+                electricAppliance.setSwitchC(null);
+            } else {
+                electricApplianceMap.put("switchC", electricAppliance.getSwitchC());
+            }
+        }
+        if (electricAppliance.getCurtainA() != null) {
+            if(electricAppliance.getCurtainA() == electricApplianceMap.get("curtainA")) {
+                electricAppliance.setCurtainA(null);
+            }else {
+                electricApplianceMap.put("curtainA", electricAppliance.getCurtainA());
+            }
+        }
+        if (electricAppliance.getCurtainB() != null) {
+            if (electricAppliance.getCurtainB() == electricApplianceMap.get("curtainB")) {
+                electricAppliance.setCurtainB(null);
+            }else {
+                electricApplianceMap.put("curtainB", electricAppliance.getCurtainB());
+            }
+        }
+        return electricAppliance;
     }
 
     private Integer checkLightIntegerLegal(Integer light) {
@@ -229,89 +299,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
             light = LightState.CLOSED.getState();
         }
         return light;
-    }
-
-    /**
-     * @description: 判断修改的电器类型方法
-     * @author xiaoQe
-     * @date 2022/12/22 20:28
-     * @version 1.0
-     */
-    private Integer judgeElectricType(ElectricAppliance electricAppliance){
-        Integer electricType = null;
-        if(electricAppliance.getLightBedA() != null || electricAppliance.getLightBedB() != null ||
-        electricAppliance.getLightLivingRoom() !=null || electricAppliance.getLightBathroom() != null){
-            electricType = ElectricType.LIGHT.getType();
-        }else if(electricAppliance.getSwitchA() != null || electricAppliance.getSwitchB() != null
-        || electricAppliance.getSwitchC() != null){
-            electricType = ElectricType.SWITCH.getType();
-        }else if(electricAppliance.getCurtainA() != null || electricAppliance.getCurtainB() != null){
-            electricType = ElectricType.CURTAIN.getType();
-        }
-        return electricType;
-    }
-
-    /**
-     * @description: 判断改变的操作和改变id
-     * @author xiaoQe
-     * @date 2022/12/22 21:28
-     * @version 1.0
-     */
-    private HashMap<String,Object> judgeOperationTypeAndId(ElectricAppliance electricAppliance){
-        Integer changeNum = 0;
-        Integer operationType = 0;
-        int operationIdNum = 0;
-        if(electricAppliance.getLightBedA() != null && electricAppliance.getLightBedA() != electricApplianceMap.get("lightBedA")){
-            operationIdNum += 1 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getLightBedB() != null && electricAppliance.getLightBedB() != electricApplianceMap.get("lightBedB")){
-            operationIdNum += 2 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getLightLivingRoom() != null && electricAppliance.getLightLivingRoom() != electricApplianceMap.get("lightLivingRoom")){
-            operationIdNum += 3 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getLightBathroom() != null && electricAppliance.getLightBathroom() != electricApplianceMap.get("lightBathroom")){
-            operationIdNum += 4 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getSwitchA() != null && electricAppliance.getSwitchA() != electricApplianceMap.get("switchA")){
-            operationIdNum += 1 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getSwitchB() != null && electricAppliance.getSwitchB() != electricApplianceMap.get("switchB")){
-            operationIdNum += 2 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getSwitchC() != null && electricAppliance.getSwitchC() != electricApplianceMap.get("switchC")){
-            operationIdNum += 3 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getCurtainA() != null && electricAppliance.getCurtainA() != electricApplianceMap.get("curtainA")){
-            operationIdNum += 1 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        if(electricAppliance.getCurtainB() != null && electricAppliance.getCurtainB() != electricApplianceMap.get("curtainB")){
-            operationIdNum += 2 + (changeNum * 4);
-            operationType += electricAppliance.getLightBedA() + (changeNum * 4);
-            changeNum++;
-        }
-        operationIdNum += '@';
-        Character electricId = Character.valueOf((char) operationIdNum);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("operationType",operationType);
-        map.put("electricId",electricId);
-        return map;
     }
 
     private Integer checkSwitchIntegerLegal(Integer switchState) {
