@@ -1,10 +1,12 @@
 package com.fall.smarthouse;
 
+import com.fall.smarthouse.constant.LightState;
 import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.ReturnHistory;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
@@ -62,11 +64,12 @@ class BackendApplicationTests {
     }
     @Test
     void BitwiseOperation(){
-        int a = 1;
-        a += '@';
-        char c = (char)a;
-        Character A = Character.valueOf(c);
-        System.out.println(A);
+        PageInfo<ReturnHistory> account = electricApplianceService.getHistory("account", "1671784726000", 1, 3);
+        System.out.println(account);
+//        System.out.println(LightState.CLOSED);
+//        String s = "lig ht";
+//        String a = s + 'A';
+//        System.out.println(a);
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);

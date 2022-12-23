@@ -2,7 +2,6 @@ package com.fall.smarthouse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author xiaoQe
@@ -13,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SqlHistory {
     //时间
-    Long time;
+    private Long time;
     //电器类型
-    Integer electricType;
+    private Integer electricType;
     //操作类型
-    Integer operationType;
+    private Integer operationType;
     //电器Id
-    Character electricId;
+    private Character electricId;
 }

@@ -75,9 +75,9 @@
             </trim>
     </insert>
 
-    <!--    List<Map> selectElectricHistory(String account,Timestamp startTime,Timestamp endTime);-->
+    <!--    List<SqlHistory> selectElectricHistory(String account,Timestamp startTime,Timestamp endTime);-->
     <select id="selectElectricHistory" resultType="com.fall.smarthouse.model.SqlHistory">
-        select `time`,electric_type,operation_type,electric_id
+        select UNIX_TIMESTAMP(`time`) as `time`,electric_type,operation_type,electric_id
         from electric_history
         where account = #{account} and `time` between #{startTime} and #{endTime}
     </select>

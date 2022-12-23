@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReturnHistory {
     //时间
-    Long time;
+    private Long time;
     //电器类型
-    String electricType;
+    private String electricType;
     //操作类型
-    String operationType;
+    private String operationType;
     //电器Id
-    String electricId;
+    private String electricId;
 }

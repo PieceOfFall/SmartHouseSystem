@@ -1,7 +1,11 @@
 package com.fall.smarthouse.service;
 
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.ReturnHistory;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author FAll
@@ -153,4 +157,11 @@ public interface IElectricApplianceService {
     Boolean addElectricHistory(String account,ElectricAppliance electricAppliance);
 
 
+    /**
+     * @description: 查询历史数据方法
+     * @author xiaoQe
+     * @date 2022/12/23 17:12
+     * @version 1.0
+     */
+    PageInfo<ReturnHistory> getHistory(String account, String startTime,Integer pageNum,Integer pageSize);
 }

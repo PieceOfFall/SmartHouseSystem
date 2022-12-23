@@ -3,8 +3,10 @@ package com.fall.smarthouse.controller;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.ReturnHistory;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.util.JWTUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 
 /**
@@ -197,6 +200,19 @@ public class ElectricApplianceController {
         electricApplianceService.leaveHomeMode();
         response.setStatus(200);
         return ResBean.ok("ok");
+    }
+
+    @ApiOperation("查询历史记录")
+    @GetMapping("get_history")
+    public ResBean getHistory(@NotEmpty @RequestParam("startTime") String startTime,
+                              @NotEmpty @RequestParam("pageNum")Integer pageNum,
+                              @NotEmpty @RequestParam("pageSize")Integer pageSize,
+                              HttpServletRequest request,HttpServletResponse response) throws Exception {
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        PageInfo<ReturnHistory> history = electricApplianceService.getHistory(account, startTime, pageNum, pageSize);
+        response.setStatus(200);
+        return ResBean.ok("ok",history);
     }
 }
 

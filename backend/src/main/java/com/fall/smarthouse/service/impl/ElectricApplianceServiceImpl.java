@@ -5,13 +5,20 @@ import com.fall.smarthouse.constant.LightState;
 import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.ReturnHistory;
+import com.fall.smarthouse.model.SqlHistory;
 import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.util.DateConverter;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author FAll
@@ -215,6 +222,82 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
                 account, judgeAppliance);
         return affectRows != 0;
+    }
+
+    @Override
+    public PageInfo<ReturnHistory> getHistory(String account, String startTime,Integer pageNum,Integer pageSize) {
+        Timestamp startDate = DateConverter.StringToTimeStamp(startTime);
+        Timestamp endDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
+        PageHelper.startPage(pageNum,pageSize);
+        List<SqlHistory> sqlHistories = electricMapper.selectElectricHistory(account, startDate, endDate);
+        List<ReturnHistory> returnHistories = new LinkedList<>();
+        for (SqlHistory sqlHistory : sqlHistories) {
+            ReturnHistory returnHistory = judgeTypeToReturnHistory(sqlHistory);
+            System.out.println(returnHistory);
+            returnHistories.add(returnHistory);
+        }
+        System.out.println(returnHistories);
+        PageInfo<ReturnHistory> returnHistoryPageInfo = new PageInfo<>(returnHistories);
+        return returnHistoryPageInfo;
+    }
+
+    /**
+     * @description: 判断电器类型操作类型及电器id方法并将sqlHistory转换为ReturnHistory返回
+     * @author xiaoQe
+     * @date 2022/12/23 17:17
+     * @version 1.0
+     */
+    private ReturnHistory judgeTypeToReturnHistory(SqlHistory sqlHistory){
+        ReturnHistory returnHistory = new ReturnHistory();
+        returnHistory.setTime(sqlHistory.getTime());
+        if(sqlHistory.getElectricType() == ElectricType.LIGHT.getType()){
+            returnHistory.setElectricType("light");
+            switch (sqlHistory.getOperationType()){
+                case 0:
+                    returnHistory.setOperationType("close");
+                    break;
+                case 1:
+                    returnHistory.setOperationType("small");
+                    break;
+                case 2:
+                    returnHistory.setOperationType("big");
+                    break;
+                case 3:
+                    returnHistory.setOperationType("full");
+                    break;
+            }
+            switch (sqlHistory.getElectricId()){
+                case 'A':
+                    returnHistory.setElectricId("lightBedA");
+                    break;
+                case 'B':
+                    returnHistory.setElectricId("lightBedB");
+                    break;
+                case 'C':
+                    returnHistory.setElectricId("lightLivingRoom");
+                    break;
+                case 'D':
+                    returnHistory.setElectricId("lightBathroom");
+                    break;
+            }
+        }else if(sqlHistory.getElectricType() == ElectricType.SWITCH.getType()){
+            returnHistory.setElectricType("switch");
+            if(sqlHistory.getOperationType() == SwitchState.ON.getState()){
+                returnHistory.setOperationType("on");
+            }else if(sqlHistory.getOperationType() == SwitchState.OFF.getState()){
+                returnHistory.setOperationType("off");
+            }
+            returnHistory.setElectricId(returnHistory.getElectricType() + sqlHistory.getElectricId());
+        }else if(sqlHistory.getElectricType() == ElectricType.CURTAIN.getType()){
+            returnHistory.setElectricType("curtain");
+            if(sqlHistory.getOperationType() == SwitchState.ON.getState()){
+                returnHistory.setOperationType("on");
+            }else if(sqlHistory.getOperationType() == SwitchState.OFF.getState()){
+                returnHistory.setOperationType("off");
+            }
+            returnHistory.setElectricId(returnHistory.getElectricType() + sqlHistory.getElectricId());
+        }
+        return returnHistory;
     }
 
     /**
