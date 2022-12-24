@@ -29,4 +29,13 @@ public interface UserMapper {
      */
     @Select("select e_mail from user where account = #{account}")
     String selectEmail(String account);
+
+    /**
+     * @description: 通过account获取用户注册时间
+     * @author xiaoQe
+     * @date 2022/12/24 20:27
+     * @version 1.0
+     */
+    @Select("select CONCAT(UNIX_TIMESTAMP(creat_time),'000') as creat_time from user where account = #{account}")
+    Long selectCreatTime(String account);
 }

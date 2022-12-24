@@ -56,7 +56,7 @@ class BackendApplicationTests {
 
     @Test
     void getEmail(){
-        String s = userMapper.selectEmail("123456789");
+        Long s = userMapper.selectCreatTime("123456789");
         System.out.println(s);
     }
     @Test

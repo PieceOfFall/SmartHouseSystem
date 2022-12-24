@@ -220,8 +220,8 @@ public class ElectricApplianceController {
         return ResBean.ok("ok",history);
     }
 
-    @ApiOperation("防盗警报测试接口（返回warnLight值）")
-    @GetMapping("anti_theft_test")
+    @ApiOperation("防盗警报模拟接口（返回warnLight值）")
+    @GetMapping("anti_theft_warning_simulation")
     public ResBean antiTheftTest(HttpServletResponse response,HttpServletRequest request) throws Exception {
         ElectricAppliance burglarAlarm = electricApplianceService.burglarAlarm();
         String token = request.getHeader("Authorization");
@@ -229,6 +229,16 @@ public class ElectricApplianceController {
         userService.sendEmail("警告","防盗警告触发，请查看家中具体情况",account);
         response.setStatus(200);
         return ResBean.ok("warn",burglarAlarm);
+    }
+
+    @ApiOperation("获取用户创建时间")
+    @GetMapping("get_user_creat_time")
+    public ResBean getCreatTime(HttpServletRequest request,HttpServletResponse response) throws Exception {
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        Long creatTime = userService.getCreatTime(account);
+        response.setStatus(200);
+        return ResBean.ok("ok",creatTime);
     }
 }
 

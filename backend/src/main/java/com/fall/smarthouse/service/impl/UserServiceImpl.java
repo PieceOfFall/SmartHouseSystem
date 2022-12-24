@@ -74,6 +74,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Long getCreatTime(String account) {
+        Long creatTime = userMapper.selectCreatTime(account);
+        return creatTime;
+    }
+
+    @Override
     public void sendEmail(String subject,String text,String account) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject(subject);
