@@ -164,4 +164,12 @@ public interface IElectricApplianceService {
      * @version 1.0
      */
     PageInfo<ReturnHistory> getHistory(String account, String startTime,Integer pageNum,Integer pageSize);
+
+    /**
+     * @description: 防盗警报接口方法
+     * @author xiaoQe
+     * @date 2022/12/24 18:49
+     * @version 1.0
+     */
+    ElectricAppliance burglarAlarm();
 }

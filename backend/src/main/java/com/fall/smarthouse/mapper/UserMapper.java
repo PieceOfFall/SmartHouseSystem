@@ -21,4 +21,12 @@ public interface UserMapper {
     @Select("select account from user where account = #{account} and password = MD5(#{password})")
     String userLogin(String account,String password);
 
+    /**
+     * @description: 通过account获取邮箱
+     * @author xiaoQe
+     * @date 2022/12/24 19:28
+     * @version 1.0
+     */
+    @Select("select e_mail from user where account = #{account}")
+    String selectEmail(String account);
 }
