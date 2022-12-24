@@ -3,13 +3,9 @@ package com.fall.smarthouse.mapper;
 import com.fall.smarthouse.model.Sensor;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +44,6 @@ public interface SensorMapper {
      */
     Integer insertToSensor(Sensor sensor);
 
-
     /**
      * @description: 轮询查询所有传感器数据
      * @author xiaoQe
@@ -64,7 +59,6 @@ public interface SensorMapper {
      * @version 1.0
      */
     List<Sensor> selectSensorDataByTime(Timestamp minTime,Timestamp maxTime);
-
 
     /**
      * @description: 根据异常开始时间查询异常传感器数据接口（用单个mapper实现）
