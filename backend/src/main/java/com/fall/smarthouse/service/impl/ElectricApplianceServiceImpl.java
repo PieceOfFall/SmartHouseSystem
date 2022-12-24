@@ -219,16 +219,21 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     @Override
     public Boolean addElectricHistory(String account, ElectricAppliance electricAppliance) {
         ElectricAppliance judgeAppliance = judgeAppliance(electricAppliance);
-        Integer affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
-                account, judgeAppliance);
+        Integer affectRows;
+        if (judgeAppliance == null) {
+            affectRows = 0;
+        } else {
+            affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
+                    account, judgeAppliance);
+        }
         return affectRows != 0;
     }
 
     @Override
-    public PageInfo<ReturnHistory> getHistory(String account, String startTime,Integer pageNum,Integer pageSize) {
+    public PageInfo<ReturnHistory> getHistory(String account, String startTime, Integer pageNum, Integer pageSize) {
         Timestamp startDate = DateConverter.StringToTimeStamp(startTime);
         Timestamp endDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<SqlHistory> sqlHistories = electricMapper.selectElectricHistory(account, startDate, endDate);
         List<ReturnHistory> returnHistories = new LinkedList<>();
         for (SqlHistory sqlHistory : sqlHistories) {
@@ -247,12 +252,12 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @date 2022/12/23 17:17
      * @version 1.0
      */
-    private ReturnHistory judgeTypeToReturnHistory(SqlHistory sqlHistory){
+    private ReturnHistory judgeTypeToReturnHistory(SqlHistory sqlHistory) {
         ReturnHistory returnHistory = new ReturnHistory();
         returnHistory.setTime(sqlHistory.getTime());
-        if(sqlHistory.getElectricType() == ElectricType.LIGHT.getType()){
+        if (sqlHistory.getElectricType() == ElectricType.LIGHT.getType()) {
             returnHistory.setElectricType("light");
-            switch (sqlHistory.getOperationType()){
+            switch (sqlHistory.getOperationType()) {
                 case 0:
                     returnHistory.setOperationType("close");
                     break;
@@ -266,7 +271,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
                     returnHistory.setOperationType("full");
                     break;
             }
-            switch (sqlHistory.getElectricId()){
+            switch (sqlHistory.getElectricId()) {
                 case 'A':
                     returnHistory.setElectricId("lightBedA");
                     break;
@@ -280,19 +285,19 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
                     returnHistory.setElectricId("lightBathroom");
                     break;
             }
-        }else if(sqlHistory.getElectricType() == ElectricType.SWITCH.getType()){
+        } else if (sqlHistory.getElectricType().equals(ElectricType.SWITCH.getType())) {
             returnHistory.setElectricType("switch");
-            if(sqlHistory.getOperationType() == SwitchState.ON.getState()){
+            if (sqlHistory.getOperationType().equals(SwitchState.ON.getState())) {
                 returnHistory.setOperationType("on");
-            }else if(sqlHistory.getOperationType() == SwitchState.OFF.getState()){
+            } else if (sqlHistory.getOperationType().equals(SwitchState.OFF.getState())) {
                 returnHistory.setOperationType("off");
             }
             returnHistory.setElectricId(returnHistory.getElectricType() + sqlHistory.getElectricId());
-        }else if(sqlHistory.getElectricType() == ElectricType.CURTAIN.getType()){
+        } else if (sqlHistory.getElectricType().equals(ElectricType.CURTAIN.getType())) {
             returnHistory.setElectricType("curtain");
-            if(sqlHistory.getOperationType() == SwitchState.ON.getState()){
+            if (sqlHistory.getOperationType().equals(SwitchState.ON.getState())) {
                 returnHistory.setOperationType("on");
-            }else if(sqlHistory.getOperationType() == SwitchState.OFF.getState()){
+            } else if (sqlHistory.getOperationType().equals(SwitchState.OFF.getState())) {
                 returnHistory.setOperationType("off");
             }
             returnHistory.setElectricId(returnHistory.getElectricType() + sqlHistory.getElectricId());
@@ -307,68 +312,81 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @version 1.0
      */
     private ElectricAppliance judgeAppliance(ElectricAppliance electricAppliance) {
+        Integer isChange = 0;
         if (electricAppliance.getLightBedA() != null) {
-            if (electricAppliance.getLightBedA() == electricApplianceMap.get("lightBedA")) {
+            if (electricAppliance.getLightBedA().equals(electricApplianceMap.get("lightBedA"))) {
                 electricAppliance.setLightBedA(null);
             } else {
                 electricApplianceMap.put("lightBedA", electricAppliance.getLightBedA());
+                isChange++;
             }
         }
         if (electricAppliance.getLightBedB() != null) {
-            if (electricAppliance.getLightBedB() == electricApplianceMap.get("lightBedB")) {
+            if (electricAppliance.getLightBedB().equals(electricApplianceMap.get("lightBedB"))) {
                 electricAppliance.setLightBedB(null);
             } else {
                 electricApplianceMap.put("lightBedB", electricAppliance.getLightBedB());
+                isChange++;
             }
         }
         if (electricAppliance.getLightLivingRoom() != null) {
-            if (electricAppliance.getLightLivingRoom() == electricApplianceMap.get("lightLivingRoom")) {
+            if (electricAppliance.getLightLivingRoom().equals(electricApplianceMap.get("lightLivingRoom"))) {
                 electricAppliance.setLightLivingRoom(null);
             } else {
                 electricApplianceMap.put("lightLivingRoom", electricAppliance.getLightLivingRoom());
+                isChange++;
             }
         }
         if (electricAppliance.getLightBathroom() != null) {
-            if (electricAppliance.getLightBathroom() == electricApplianceMap.get("lightBathroom")) {
+            if (electricAppliance.getLightBathroom().equals(electricApplianceMap.get("lightBathroom"))) {
                 electricAppliance.setLightBathroom(null);
             } else {
                 electricApplianceMap.put("lightBathroom", electricAppliance.getLightBathroom());
+                isChange++;
             }
         }
         if (electricAppliance.getSwitchA() != null) {
-            if (electricAppliance.getSwitchA() == electricApplianceMap.get("switchA")) {
+            if (electricAppliance.getSwitchA().equals(electricApplianceMap.get("switchA"))) {
                 electricAppliance.setSwitchA(null);
             } else {
                 electricApplianceMap.put("switchA", electricAppliance.getSwitchA());
+                isChange++;
             }
         }
         if (electricAppliance.getSwitchB() != null) {
-            if (electricAppliance.getSwitchB() == electricApplianceMap.get("switchB")) {
+            if (electricAppliance.getSwitchB().equals(electricApplianceMap.get("switchB"))) {
                 electricAppliance.setSwitchB(null);
             } else {
                 electricApplianceMap.put("switchB", electricAppliance.getSwitchB());
+                isChange++;
             }
         }
         if (electricAppliance.getSwitchC() != null) {
-            if (electricAppliance.getSwitchC() == electricApplianceMap.get("switchC")) {
+            if (electricAppliance.getSwitchC().equals(electricApplianceMap.get("switchC"))) {
                 electricAppliance.setSwitchC(null);
             } else {
                 electricApplianceMap.put("switchC", electricAppliance.getSwitchC());
+                isChange++;
             }
         }
         if (electricAppliance.getCurtainA() != null) {
-            if(electricAppliance.getCurtainA() == electricApplianceMap.get("curtainA")) {
+            if (electricAppliance.getCurtainA().equals(electricApplianceMap.get("curtainA"))) {
                 electricAppliance.setCurtainA(null);
-            }else {
+            } else {
                 electricApplianceMap.put("curtainA", electricAppliance.getCurtainA());
+                isChange++;
             }
         }
         if (electricAppliance.getCurtainB() != null) {
-            if (electricAppliance.getCurtainB() == electricApplianceMap.get("curtainB")) {
+            if (electricAppliance.getCurtainB().equals(electricApplianceMap.get("curtainB"))) {
                 electricAppliance.setCurtainB(null);
-            }else {
+            } else {
                 electricApplianceMap.put("curtainB", electricAppliance.getCurtainB());
+                isChange++;
             }
+        }
+        if (isChange.equals(0)) {
+            electricAppliance = null;
         }
         return electricAppliance;
     }
