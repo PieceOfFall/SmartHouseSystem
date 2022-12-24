@@ -22,8 +22,8 @@
 import { Search } from '@element-plus/icons-vue'
 import { ref,onMounted,watch } from 'vue';
 import {useRouter} from 'vue-router'
-import {getDataByDifference,getGapByDifference} from '../api/sensor/index';
-import { SensorData,queryType,sensorType} from '../api/sensor/types';
+import {getDataByDifference,getGapByDifference} from '../../api/sensor/index';
+import { SensorData,queryType,sensorType} from '../../api/sensor/types';
 
 const router = useRouter()
 

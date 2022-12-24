@@ -99,7 +99,12 @@ let submitState:SubmitSwitchState = {
 }
 
 let timer:number; // 定时器序号
+let isSwitchInit:boolean = false;
 watch(switchState,async ()=>{
+    if(!isSwitchInit){
+        isSwitchInit = true;
+        return
+    }
     // 防抖
     if(timer) {
         clearTimeout(timer)

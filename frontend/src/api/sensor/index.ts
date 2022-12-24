@@ -68,7 +68,9 @@ export async function getCertainData(
    endTime   结束时间戳
    sensorType传感器类型
 */
-export async function getDataByDifference(startTime: number, endTime: number, sensorType: sensorType): AxiosPromise < SensorDataSet > {
+export async function getDataByDifference(startTime: number, endTime: number,
+    sensorType: sensorType): AxiosPromise < SensorDataSet > {
+
     let ret: any = undefined
     if (!startTime || !endTime) {
         console.error('缺少时间范围');
@@ -77,8 +79,44 @@ export async function getDataByDifference(startTime: number, endTime: number, se
         const difference = endTime - startTime
         const startString = startTime.toString()
         const endString = endTime.toString()
-        return await getCertainData(startString, endString, sensorType, getGapByDifference(difference) as queryType, 1, 60)
+        return await getCertainData(startString, endString,
+            sensorType, getGapByDifference(difference) as queryType, 1, 60)
     }
+
+}
+
+/*
+    获取指定时间的异常
+   startTime: 开始时间戳
+   endTime: 结束时间戳
+   sensorType: 传感器类型
+   pageNum: 分页页码
+   pageSize: 单页数据量
+*/
+export async function getCertainAbnormal(    
+    startTime: string,
+    endTime: string,
+    sensorType: sensorType,
+    queryType: queryType,
+    pageNum: number,
+    pageSize: number) {
+    
+        
+}
+
+/*
+   根据时间和类型查询异常
+   startTime 开始时间戳
+   endTime   结束时间戳
+   sensorType传感器类型
+*/
+export async function getAbnormalByDifference(startTime: number, 
+    endTime: number, sensorType: sensorType) {
+
+    const difference = endTime - startTime
+    const startString = startTime.toString()
+    const endString = endTime.toString()
+    
 }
 
 /*

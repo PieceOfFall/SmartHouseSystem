@@ -60,3 +60,7 @@ export interface SensorDataSet {
    startRow: number,
    total: number
 }
+
+export interface AbnormalDataSet {
+   
+}

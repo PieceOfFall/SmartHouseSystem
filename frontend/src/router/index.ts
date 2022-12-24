@@ -57,7 +57,7 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_gas_data',
             name:'QueryCertainGasData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
@@ -67,7 +67,7 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_smog_data',
             name:'QueryCertainSmogData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
@@ -77,7 +77,7 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_shake_data',
             name:'QueryCertainShakeData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
