@@ -1,10 +1,12 @@
 package com.fall.smarthouse;
 
+import com.fall.smarthouse.constant.LightState;
 import com.fall.smarthouse.mapper.AbnormalMapper;
 import com.fall.smarthouse.mapper.ElectricMapper;
 import com.fall.smarthouse.mapper.SensorMapper;
 import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.model.ElectricAppliance;
+import com.fall.smarthouse.model.ReturnHistory;
 import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
@@ -48,17 +50,31 @@ class BackendApplicationTests {
 
 
     @Test
+    void testAddHistory(){
+        ElectricAppliance electricAppliance = new ElectricAppliance();
+        electricAppliance.setLightLivingRoom(3);
+        electricAppliance.setCurtainB(0);
+        electricApplianceService.addElectricHistory("xiaoQe",electricAppliance);
+    }
+
+    @Test
     void testMap(){
         List<Map<String, Object>> maps = sensorMapper.testMap();
         System.out.println(maps);
     }
     @Test
     void BitwiseOperation(){
+        PageInfo<ReturnHistory> account = electricApplianceService.getHistory("account", "1671784726000", 1, 3);
+        System.out.println(account);
+//        System.out.println(LightState.CLOSED);
+//        String s = "lig ht";
+//        String a = s + 'A';
+//        System.out.println(a);
 //        Integer i1 = 9;
 //        Integer i2 = 2;
 //        System.out.println(i1 & i2);
-        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
-        System.out.println(doubles);
+//        PageInfo<Map> doubles = sensorService.getAbnormalTemperatureData("1671032420",1,7,'s');
+//        System.out.println(doubles);
     }
 
     @Test
