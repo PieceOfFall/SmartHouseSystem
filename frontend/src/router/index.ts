@@ -83,7 +83,16 @@ const routes: Array < RouteRecordRaw > = [{
        {
         path: '/warn_light',
         name: 'Guard',
-        component: () => import('../views/SecurityCtrl/Guard.vue')
+        component: () => import('../views/SecurityCtrl/Guard.vue'),
+        children:[{
+            path:'query_abnormal_data',
+            name:'QueryAbnormalData',
+            component:()=>import('../components/sensor/QueryAbnormalData.vue')
+        },{
+            path:'abnormal_certain_data',
+            name:'AbnormalCertainData',
+            component:()=>import('../components/sensor/AbnormalCertainData.vue')
+        }]
        },
     ]
     }

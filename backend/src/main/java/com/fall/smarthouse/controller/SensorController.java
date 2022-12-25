@@ -148,8 +148,8 @@ public class SensorController {
         return ResBean.ok("ok",sensorPageInfo);
     }
 
-    @ApiOperation("根据异常类型查询开始时间")
-    @GetMapping("get_start_time")
+    @ApiOperation("根据传感器对应的危险指数查询异常开始时间")
+    @GetMapping("get_abnormal_start_time_by_sensor_risk")
     public ResBean getStartTime(@NotEmpty @RequestParam("riskIndex") Integer riskIndex,
                                 HttpServletResponse response){
         List<Long> startTimeByRiskIndex = sensorService.getStartTimeByRiskIndex(riskIndex);

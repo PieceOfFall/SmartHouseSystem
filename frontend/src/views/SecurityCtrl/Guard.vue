@@ -17,9 +17,9 @@
                 <el-row justify="center">
                     <el-col :span="2">
                         <!-- 日期选择器 -->
-                        <DatePicker
+                        <!-- <DatePicker
                         @change = "confirmDate"
-                        />
+                        /> -->
                     </el-col>
                     <el-col :span="7">
                         <!-- 传感器选择器 -->
@@ -29,7 +29,7 @@
                     </el-col>
                 </el-row>
                 <!-- 表格 -->
-                <QueryAbnormalData/>
+                <router-view/>
 
             </el-tab-pane>
 
@@ -39,9 +39,8 @@
 
 <script setup lang="ts">
 import { ref,watch } from 'vue'
-import QueryAbnormalData from '../../components/sensor/QueryAbnormalData.vue';
-import DatePicker from '../../components/DatePicker.vue';
 import Selector from '../../components/Selector.vue';
+import {useRouter} from 'vue-router'
 
 /*
    标签页
@@ -52,36 +51,25 @@ const activeName = ref('first') // 默认激活
    历史异常查询
 */
 // 查询参数
-const queryCondition = ref<{
-    abnormalTime:[number,number]|[],
-    sensorType:'gas'|'smog'|'shake'|''
-}>({
-    abnormalTime:[],
-    sensorType:''
-})
-
-// 日期参数获取
-async function confirmDate(date:[number,number]) {
-    console.log(date);
-    
-    // queryCondition.value.abnormalTime[0] = date[0]
-    // queryCondition.value.abnormalTime[1] = date[1]
-}
+const submitSensorType = ref<'gas'|'smog'|'shake'|''>('')
 
 // 传感器种类参数获取
 async function getQuerySensor(sensorType:'gas'|'smog'|'shake'|'') {
-    queryCondition.value.sensorType = sensorType
+    submitSensorType.value = sensorType
 } 
 
+const router = useRouter()
 // 提交查询
-watch(queryCondition,async()=>{
-    if(queryCondition.value.abnormalTime.length === 0 || queryCondition.value.sensorType === '') {
-        return 
+watch(submitSensorType,async()=>{
+    if(submitSensorType.value === '') {
+        return
     }
-
-    
-},{
-    deep:true
+    router.push({
+        path:'/warn_light/query_abnormal_data',
+        query:{
+            sensorType: submitSensorType.value
+        }
+    })
 })
 </script>
 

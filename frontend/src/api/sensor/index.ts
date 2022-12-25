@@ -86,6 +86,20 @@ export async function getDataByDifference(startTime: number, endTime: number,
 }
 
 /*
+   根据传感器对应的危险指数查询异常开始时间
+   sensorType 传感器类型
+*/
+export async function getAbnormalByDifference(sensorType: sensorType):AxiosPromise < number[] > {
+    return await request({
+        url:'/sensor/get_abnormal_start_time_by_sensor_risk',
+        params:{
+            riskIndex:mapRiskIndexBySensorType(sensorType)
+        }
+    })
+    
+}
+
+/*
     获取指定时间的异常
    startTime: 开始时间戳
    endTime: 结束时间戳
@@ -101,23 +115,9 @@ export async function getCertainAbnormal(
     pageNum: number,
     pageSize: number) {
     
-        
-}
-
-/*
-   根据时间和类型查询异常
-   startTime 开始时间戳
-   endTime   结束时间戳
-   sensorType传感器类型
-*/
-export async function getAbnormalByDifference(startTime: number, 
-    endTime: number, sensorType: sensorType) {
-
-    const difference = endTime - startTime
-    const startString = startTime.toString()
-    const endString = endTime.toString()
     
 }
+
 
 /*
    根据时间差查询当前时间间隔
@@ -139,5 +139,22 @@ export function getGapByDifference(difference: number) {
     } else {
         console.error('时间范围异常')
         return
+    }
+}
+
+/*
+   根据异常传感器类型获取对应危险指数
+*/
+export function mapRiskIndexBySensorType(sensorType: sensorType): number {
+    switch(sensorType) {
+        case 'gas': {
+            return 8
+        }
+        case 'shake': {
+            return 16
+        }
+        case 'smog': {
+            return 2
+        }
     }
 }

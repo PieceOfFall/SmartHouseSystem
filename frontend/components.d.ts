@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AbnormalCertainData: typeof import('./src/components/sensor/AbnormalCertainData.vue')['default']
     Aside: typeof import('./src/components/Aside.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb.vue')['default']
     Chart: typeof import('./src/components/Chart.vue')['default']

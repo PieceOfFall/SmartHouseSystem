@@ -16,7 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
+import {useRouter} from 'vue-router';
 
 // 当前选项
 const value = ref('')
@@ -54,6 +55,21 @@ function changeSelect(selectItem:string) {
     }
   });
 }
+
+const router = useRouter()
+onMounted(()=>{
+    if(router.currentRoute.value.query.sensorType) {
+      value.value = router.currentRoute.value.query.sensorType as typeof value.value
+    }
+    options.forEach(e => {
+    if(e.value === value.value) {
+      e.disabled = true
+      emit('change',e.value)
+    } else {
+      e.disabled = false
+    }
+  });
+})
 </script>
 
 <style lang="less" scoped>
