@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     Breadcrumb: typeof import('./src/components/Breadcrumb.vue')['default']
     Chart: typeof import('./src/components/Chart.vue')['default']
     DatePicker: typeof import('./src/components/DatePicker.vue')['default']
+    DoubleDatePicker: typeof import('./src/components/DoubleDatePicker.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']

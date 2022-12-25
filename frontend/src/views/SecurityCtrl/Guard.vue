@@ -15,7 +15,7 @@
             <el-tab-pane label="异 常 查 询" name="second">  
 
                 <el-row justify="center">
-                    <el-col :span="6">
+                    <el-col :span="2">
                         <!-- 日期选择器 -->
                         <DatePicker
                         @change = "confirmDate"
@@ -64,8 +64,8 @@ const queryCondition = ref<{
 async function confirmDate(date:[number,number]) {
     console.log(date);
     
-    queryCondition.value.abnormalTime[0] = date[0]
-    queryCondition.value.abnormalTime[1] = date[1]
+    // queryCondition.value.abnormalTime[0] = date[0]
+    // queryCondition.value.abnormalTime[1] = date[1]
 }
 
 // 传感器种类参数获取
