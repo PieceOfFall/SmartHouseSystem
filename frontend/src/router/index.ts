@@ -57,7 +57,7 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_gas_data',
             name:'QueryCertainGasData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
@@ -67,7 +67,7 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_smog_data',
             name:'QueryCertainSmogData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
@@ -77,13 +77,22 @@ const routes: Array < RouteRecordRaw > = [{
         children:[{
             path:'query_certain_shake_data',
             name:'QueryCertainShakeData',
-            component:()=>import('../components/QueryCertainData.vue'),
+            component:()=>import('../components/sensor/QueryCertainData.vue'),
         }]
        },
        {
         path: '/warn_light',
         name: 'Guard',
-        component: () => import('../views/SecurityCtrl/Guard.vue')
+        component: () => import('../views/SecurityCtrl/Guard.vue'),
+        children:[{
+            path:'query_abnormal_data',
+            name:'QueryAbnormalData',
+            component:()=>import('../components/sensor/QueryAbnormalData.vue')
+        },{
+            path:'abnormal_certain_data',
+            name:'AbnormalCertainData',
+            component:()=>import('../components/sensor/AbnormalCertainData.vue')
+        }]
        },
     ]
     }

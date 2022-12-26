@@ -12,7 +12,7 @@ import {
   storeToRefs
 } from 'pinia';
 
-// pinia
+// Pinia
 const store = useAsideStore().aside
 let {
     selectItem

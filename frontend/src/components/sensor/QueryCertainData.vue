@@ -20,10 +20,10 @@
 
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
-import { ref,onMounted,nextTick,watch } from 'vue';
+import { ref,onMounted,watch } from 'vue';
 import {useRouter} from 'vue-router'
-import {getDataByDifference,getGapByDifference} from '../api/sensor/index';
-import { SensorData,queryType,sensorType} from '../api/sensor/types';
+import {getDataByDifference,getGapByDifference} from '../../api/sensor/index';
+import { SensorData,queryType,sensorType} from '../../api/sensor/types';
 
 const router = useRouter()
 
@@ -47,7 +47,7 @@ let querySensorType: sensorType
 onMounted( async()=>{  
     const startTime:number = parseInt(router.currentRoute.value.query.startTime as string)
     const endTime:number = parseInt(router.currentRoute.value.query.endTime as string)
-    querySensorType=router.currentRoute.value.path.split('/')[1].split('_')[0] as sensorType
+    querySensorType = router.currentRoute.value.path.split('/')[1].split('_')[0] as sensorType
     await getAndRenderByDifference(startTime,endTime)
 })
 

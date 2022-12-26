@@ -46,6 +46,7 @@ import { ref,onMounted,watch } from 'vue';
 import { Refresh,Sunny,Moon } from '@element-plus/icons-vue'
 import {getCurtains,setAppliance} from '../../api/electric/index';
 import {CurtainState,ElectricAppliance} from '../../api/electric/types';
+import { tr } from 'element-plus/es/locale';
 
 /*
    页面加载时请求并渲染窗帘状态
@@ -75,6 +76,9 @@ const curtainBOption = [
   }
 ]
 
+/*
+   初始化获取窗帘数据
+*/
 onMounted(async()=>{
     const responseState:CurtainState = await (await getCurtains()).data
 
@@ -87,8 +91,13 @@ onMounted(async()=>{
 /*
    状态变化时提交窗帘数据改动
 */
+let isAInitial:boolean = false;
 // 窗帘A
 watch(curtainAValue,async()=>{
+    if(!isAInitial){
+        isAInitial = true;
+        return
+    }
     if(typeof curtainAValue.value ==="string") {
         return
     }
@@ -115,7 +124,12 @@ watch(curtainAValue,async()=>{
 })
 
 //窗帘B
+let isBInitial:boolean = false;
 watch(curtainBValue,async()=>{
+    if(!isBInitial){
+        isBInitial = true;
+        return
+    }
     if(typeof curtainBValue.value ==="string") {
         return
     }

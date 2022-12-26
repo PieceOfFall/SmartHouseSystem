@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref,onMounted,nextTick } from 'vue'
-import DatePicker from '../../components/DatePicker.vue';
+import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue'
+import DatePicker from '../../components/DoubleDatePicker.vue';
 import { getCurrentData } from '../../api/sensor'
 import { SmogData } from '../../api/sensor/types';
 import {useRouter} from 'vue-router'
@@ -67,13 +67,18 @@ onMounted(async()=>{
 })
 
 // 每秒更新数据
-setInterval(async()=>{
+const updateInterval = setInterval(async()=>{
     const [data]:SmogData[] = (await getCurrentData('smog')).data.list
     timeArray.value.shift()
     timeArray.value.push(new Date().getSeconds())
     smogData.value.shift()
     smogData.value.push(data['smog'])
 },1000)
+
+// 页面卸载时停止更新
+onBeforeUnmount(()=>{
+    clearInterval(updateInterval)
+})
 
 /*
    获取查询范围,跳转查询页进行查询

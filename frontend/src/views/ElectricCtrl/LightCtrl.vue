@@ -88,8 +88,13 @@ onMounted(async()=>{
 /*
    控制灯光，延迟同步
 */
+let isLightInit:boolean = false;
 let timer:number; // 定时器序号
 watch(lights,async()=>{
+    if(!isLightInit) {
+        isLightInit = true
+        return
+    }  
     // 防抖
     if(timer) {
         clearTimeout(timer)

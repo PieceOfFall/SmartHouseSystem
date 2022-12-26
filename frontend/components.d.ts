@@ -7,10 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AbnormalCertainData: typeof import('./src/components/sensor/AbnormalCertainData.vue')['default']
     Aside: typeof import('./src/components/Aside.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb.vue')['default']
     Chart: typeof import('./src/components/Chart.vue')['default']
     DatePicker: typeof import('./src/components/DatePicker.vue')['default']
+    DoubleDatePicker: typeof import('./src/components/DoubleDatePicker.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -18,6 +20,7 @@ declare module '@vue/runtime-core' {
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -34,9 +37,15 @@ declare module '@vue/runtime-core' {
     ElSlider: typeof import('element-plus/es')['ElSlider']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Header: typeof import('./src/components/Header.vue')['default']
-    QueryCertainData: typeof import('./src/components/QueryCertainData.vue')['default']
+    QueryAbnormalData: typeof import('./src/components/sensor/QueryAbnormalData.vue')['default']
+    QueryCertainData: typeof import('./src/components/sensor/QueryCertainData.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Selector: typeof import('./src/components/Selector.vue')['default']
   }
 }
