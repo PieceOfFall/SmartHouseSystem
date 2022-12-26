@@ -15,18 +15,10 @@
             <el-tab-pane label="异 常 查 询" name="second">  
 
                 <el-row justify="center">
-                    <el-col :span="2">
-                        <!-- 日期选择器 -->
-                        <!-- <DatePicker
-                        @change = "confirmDate"
-                        /> -->
-                    </el-col>
-                    <el-col :span="7">
                         <!-- 传感器选择器 -->
                         <Selector
                         @change="getQuerySensor"
                         />
-                    </el-col>
                 </el-row>
                 <!-- 表格 -->
                 <router-view/>
@@ -64,12 +56,12 @@ watch(submitSensorType,async()=>{
     if(submitSensorType.value === '') {
         return
     }
-    router.push({
+        router.push({
         path:'/warn_light/query_abnormal_data',
         query:{
             sensorType: submitSensorType.value
         }
-    })
+    }) 
 })
 </script>
 

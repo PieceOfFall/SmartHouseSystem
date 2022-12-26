@@ -70,6 +70,7 @@ async function JumpToCertain(index: number, row: RenderData) {
         path:'/warn_light/abnormal_certain_data',
         query: {
             startTime: row.timeStamp,
+            sensorType: `${router.currentRoute.value.query?.sensorType}`,
             queryType: 'd'
         }
     })

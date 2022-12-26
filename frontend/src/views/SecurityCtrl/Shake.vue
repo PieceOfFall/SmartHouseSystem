@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue';
+import DatePicker from '../../components/DoubleDatePicker.vue';
 import { getCurrentData } from '../../api/sensor';
 import { ShakeData } from '../../api/sensor/types';
 import {useRouter} from 'vue-router'

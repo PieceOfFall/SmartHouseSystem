@@ -35,6 +35,7 @@ export async function getCurrentData(sensorType: sensorType): AxiosPromise < Sen
    获取指定时间的数据
    startTime: 开始时间戳
    endTime: 结束时间戳
+   queryType: 时间分割类型
    sensorType: 传感器类型
    pageNum: 分页页码
    pageSize: 单页数据量
@@ -62,8 +63,9 @@ export async function getCertainData(
     })
 }
 
+
 /*
-   根据时间差返回指定区间的数据
+   根据时间差查询指定区间的数据
    startTime 开始时间戳
    endTime   结束时间戳
    sensorType传感器类型
@@ -86,8 +88,9 @@ export async function getDataByDifference(startTime: number, endTime: number,
 }
 
 /*
-   根据传感器对应的危险指数查询异常开始时间
-   sensorType 传感器类型
+    异常 1
+    根据传感器对应的危险指数查询异常开始时间
+    sensorType 传感器类型
 */
 export async function getAbnormalByDifference(sensorType: sensorType):AxiosPromise < number[] > {
     return await request({
@@ -96,32 +99,40 @@ export async function getAbnormalByDifference(sensorType: sensorType):AxiosPromi
             riskIndex:mapRiskIndexBySensorType(sensorType)
         }
     })
-    
 }
 
 /*
-    获取指定时间的异常
-   startTime: 开始时间戳
-   endTime: 结束时间戳
-   sensorType: 传感器类型
-   pageNum: 分页页码
-   pageSize: 单页数据量
+    异常 2
+    获取发生在指定时间的指定传感器异常发生时期数据
+    sensorType   异常传感器类型
+    startTime    异常开始时间
+    queryType    时间分割类型
+    pageSize     页数据量
+    pageNum      页码
 */
-export async function getCertainAbnormal(    
-    startTime: string,
-    endTime: string,
-    sensorType: sensorType,
-    queryType: queryType,
-    pageNum: number,
-    pageSize: number) {
+export async function getCertainAbnormal(
+    sensorType:sensorType,
+    startTime:number,
+    pageSize:number,
+    pageNum:number,
+    queryType:queryType):AxiosPromise<SensorDataSet> {
     
-    
+        return await request({
+            url:`/sensor/get_abnormal_${sensorType}_data`,
+            method:'get',
+            params: {
+                pageNum,
+                pageSize,
+                startTime,
+                queryType
+            }
+        })
 }
 
-
 /*
-   根据时间差查询当前时间间隔
-   difference 始末时间戳之差
+    传感器util
+    根据时间差查询当前时间间隔
+    difference 始末时间戳之差
 */
 export function getGapByDifference(difference: number) {
     if (difference / (1000 * 60 * 60 * 24) >= 1) {
@@ -143,7 +154,8 @@ export function getGapByDifference(difference: number) {
 }
 
 /*
-   根据异常传感器类型获取对应危险指数
+    异常util
+    根据异常传感器类型获取对应危险指数
 */
 export function mapRiskIndexBySensorType(sensorType: sensorType): number {
     switch(sensorType) {

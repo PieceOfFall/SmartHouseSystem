@@ -98,7 +98,10 @@ async ()=>{
   let savePath:string
   if(router.value.path.match('/query_certain')) {
     savePath = `/${router.value.path.split('/')[1]}`
-  } else {
+  } else if(router.value.path.match('/warn_light')){
+    savePath = `/${router.value.path.split('/')[1]}`
+  }
+  else {
     savePath = router.value.path
   } 
   selectItem.value = savePath
