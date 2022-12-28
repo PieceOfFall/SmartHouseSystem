@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Value("${mail.from}")
+    @Value("${spring.mail.username}")
     private String fromEmail;
     @Autowired
     JavaMailSenderImpl mailSender;
