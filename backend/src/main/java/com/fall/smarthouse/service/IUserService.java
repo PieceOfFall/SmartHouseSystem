@@ -12,6 +12,22 @@ import java.util.ArrayList;
 public interface IUserService {
 
     /**
+     * @description: 查询注册时间方法
+     * @author xiaoQe
+     * @date 2022/12/24 20:30
+     * @version 1.0
+     */
+    Long getCreatTime(String account);
+
+    /**
+     * @description: 发送邮箱方法
+     * @author xiaoQe
+     * @date 2022/12/24 18:54
+     * @version 1.0
+     */
+    void sendEmail(String subject,String text,String account);
+
+    /**
      * @author FAll
      * @description 网页获取侧边栏路由信息
      * @return: java.util.ArrayList<com.fall.smarthouse.bean.MenuItem>

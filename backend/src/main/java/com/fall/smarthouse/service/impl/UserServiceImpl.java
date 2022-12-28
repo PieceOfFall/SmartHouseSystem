@@ -6,6 +6,8 @@ import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
  */
 @Service
 public class UserServiceImpl implements IUserService {
+    @Autowired
+    JavaMailSenderImpl mailSender;
 
     @Autowired
     UserMapper userMapper;
@@ -67,6 +71,23 @@ public class UserServiceImpl implements IUserService {
         // 3.场景选择
         MenuItem modeChange = new MenuItem(MenuID.MODE_CHANGE.getId(), "/mode_change", "场景选择", null);
         this.menu.add(modeChange);
+    }
+
+    @Override
+    public Long getCreatTime(String account) {
+        Long creatTime = userMapper.selectCreatTime(account);
+        return creatTime;
+    }
+
+    @Override
+    public void sendEmail(String subject,String text,String account) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject(subject);
+        message.setText(text);
+        message.setFrom("2770838499@qq.com");
+        String email = userMapper.selectEmail(account);
+        message.setTo(email);
+        mailSender.send(message);
     }
 
     /**
