@@ -3,6 +3,7 @@ package com.fall.smarthouse.service;
 import com.fall.smarthouse.bean.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author FAll
@@ -53,4 +54,12 @@ public interface IUserService {
      * @date 2022/12/6 16:02
      */
     Boolean checkLogin(String token) ;
+
+    /**
+     * @description: 获取所有邮箱
+     * @author xiaoQe
+     * @date 2022/12/28 19:38
+     * @version 1.0
+     */
+    List<String> getAllEmail();
 }

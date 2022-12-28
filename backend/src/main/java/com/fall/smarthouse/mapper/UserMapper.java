@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author FAll
  * @date 2022/12/2 18:16
@@ -29,6 +31,15 @@ public interface UserMapper {
      */
     @Select("select e_mail from user where account = #{account}")
     String selectEmail(String account);
+
+    /**
+     * @description: 获取所有邮箱
+     * @author xiaoQe
+     * @date 2022/12/28 19:21
+     * @version 1.0
+     */
+    @Select("select e_mail from user")
+    List<String> selectAllEmail();
 
     /**
      * @description: 通过account获取用户注册时间
