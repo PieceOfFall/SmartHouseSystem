@@ -48,6 +48,25 @@ import {
 import {useRouter} from 'vue-router';
 import {userLogin} from '../api/login/index';
 import {Token} from '../api/login/types';
+import { storeToRefs } from 'pinia';
+import useUserAccount from '../store';
+
+
+/*
+   页面加载时逐渐显示表单
+*/
+let formOpacity = ref(0)
+onMounted(()=>{
+    const Interval:number = setInterval(()=>{
+        if(formOpacity.value !== 60){
+            formOpacity.value++
+        }
+    },30)
+    setTimeout(()=>{
+        clearInterval(Interval)
+        formOpacity.value =60
+    },3000)
+})
 
 /*
    验证表单并提交
@@ -58,6 +77,7 @@ const form = reactive({
     account:'',
     password:''
 })
+
 // 表单验证规则
 const rules = reactive<FormRules>({
     account:[
@@ -71,12 +91,19 @@ const rules = reactive<FormRules>({
 })
 
 // 验证表单，提交数据
+// Pinia
+const store = useUserAccount().user
+const { userAccount } = storeToRefs(store)
+// 提交
 async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
     await formEl.validate( async function (valid, fields) {   
         if (valid) {
           let token:Token = await (await userLogin(form.account,form.password)).data
           window.localStorage.setItem("authorization",token)
+
+          userAccount.value = form.account
+          localStorage.setItem('account',form.account)
           ElMessage({
             message: `欢迎回来！${form.account}`,
             type: 'success',
@@ -93,19 +120,6 @@ async function submitForm(formEl: FormInstance | undefined) {
     
 }
 
-// 页面加载时逐渐显示表单
-let formOpacity = ref(0)
-onMounted(()=>{
-    const Interval:number = setInterval(()=>{
-        if(formOpacity.value !== 60){
-            formOpacity.value++
-        }
-    },30)
-    setTimeout(()=>{
-        clearInterval(Interval)
-        formOpacity.value =60
-    },3000)
-})
 
 </script>
 

@@ -29,31 +29,36 @@
         ref,
         watch
     } from 'vue'
-    import useAsideStore from '../store';
-    import {
-        storeToRefs
-    } from 'pinia';
+    import useStore from '../store';
+    import { storeToRefs } from 'pinia';
 
-            // Pinia
-            const store = useAsideStore().aside
-            const {
-                isStoreCollapse
-            } = storeToRefs(store)
-
-            // 等待侧边栏收起，主体再向左靠拢
-            const hasCollapse = ref(false)
-            onMounted(async ()=>{                
-                hasCollapse.value = isStoreCollapse.value
-            })
-            watch(isStoreCollapse,()=>{
-                if(isStoreCollapse.value) {
-                    setTimeout(()=>{
-                        hasCollapse.value = true
-                    },300)
-                } else{
-                    hasCollapse.value = false
-                }
-            })
+    // Pinia
+    const storeAside = useStore().aside
+    const { isStoreCollapse } = storeToRefs(storeAside)
+    // 等待侧边栏收起，主体再向左靠拢
+    const hasCollapse = ref(false)
+    onMounted(async ()=>{                
+       hasCollapse.value = isStoreCollapse.value
+    })
+    watch(isStoreCollapse,()=>{
+        if(isStoreCollapse.value) {
+            setTimeout(()=>{
+                hasCollapse.value = true
+            },300)
+        } else{
+            hasCollapse.value = false
+        }
+    })
+    
+    /*
+       页面刷新时 从本地缓存获取用户账户
+    */
+    // pinia
+    const storeUser = useStore().user
+    const { userAccount } = storeToRefs(storeUser)
+    onMounted(()=>{
+        userAccount.value = localStorage.getItem('account') as string
+    })
 </script>
 
 <style lang="less" scoped>

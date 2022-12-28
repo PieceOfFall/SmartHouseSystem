@@ -232,7 +232,7 @@ public class ElectricApplianceController {
     }
 
     @ApiOperation("获取用户创建时间")
-    @GetMapping("get_user_creat_time")
+    @GetMapping("get_user_create_time")
     public ResBean getCreatTime(HttpServletRequest request,HttpServletResponse response) throws Exception {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
