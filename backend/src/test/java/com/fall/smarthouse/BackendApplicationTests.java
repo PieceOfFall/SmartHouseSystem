@@ -20,6 +20,9 @@ import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -28,6 +31,8 @@ import java.util.*;
 
 @SpringBootTest
 class BackendApplicationTests {
+    @Autowired
+    JavaMailSenderImpl mailSender;
 
     @Autowired
     AbnormalMapper abnormalMapper;
@@ -49,6 +54,20 @@ class BackendApplicationTests {
     SensorServiceImpl sensorServiceI;
 
 
+    @Test
+    void getEmail(){
+        Long s = userMapper.selectCreatTime("123456789");
+        System.out.println(s);
+    }
+    @Test
+    void testMail(){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("警告");
+        message.setText("家中出现破门情况，请注意");
+        message.setTo("2770838499@qq.com");
+        message.setFrom("2770838499@qq.com");
+        mailSender.send(message);
+    }
     @Test
     void testAddHistory(){
         ElectricAppliance electricAppliance = new ElectricAppliance();

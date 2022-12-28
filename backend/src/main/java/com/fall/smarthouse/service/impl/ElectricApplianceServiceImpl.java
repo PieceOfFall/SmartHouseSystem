@@ -246,6 +246,14 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return returnHistoryPageInfo;
     }
 
+    @Override
+    public ElectricAppliance burglarAlarm() {
+        ElectricAppliance alertAppliance = new ElectricAppliance();
+        alertAppliance.setWarnLight(SwitchState.ON.getState());
+        electricMapper.updateElectricAppliance(alertAppliance);
+        return alertAppliance;
+    }
+
     /**
      * @description: 判断电器类型操作类型及电器id方法并将sqlHistory转换为ReturnHistory返回
      * @author xiaoQe

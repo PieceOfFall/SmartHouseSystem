@@ -5,6 +5,7 @@ import com.fall.smarthouse.constant.SwitchState;
 import com.fall.smarthouse.model.ElectricAppliance;
 import com.fall.smarthouse.model.ReturnHistory;
 import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.util.JWTUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,9 @@ import java.util.HashMap;
 @RequestMapping("/electric")
 @RestController
 public class ElectricApplianceController {
+    @Autowired
+    IUserService userService;
+
     @Autowired
     IElectricApplianceService electricApplianceService;
 
@@ -180,6 +184,7 @@ public class ElectricApplianceController {
                                 HttpServletResponse response, HttpServletRequest request) throws Exception {
         electricApplianceService.setAppliance(electricAppliance);
         String token = request.getHeader("Authorization");
+        System.out.println(token);
         String account = JWTUtil.validateToken(token);
         electricApplianceService.addElectricHistory(account,electricAppliance);
         response.setStatus(200);
@@ -213,6 +218,27 @@ public class ElectricApplianceController {
         PageInfo<ReturnHistory> history = electricApplianceService.getHistory(account, startTime, pageNum, pageSize);
         response.setStatus(200);
         return ResBean.ok("ok",history);
+    }
+
+    @ApiOperation("防盗警报模拟接口（返回warnLight值）")
+    @GetMapping("anti_theft_warning_simulation")
+    public ResBean antiTheftTest(HttpServletResponse response,HttpServletRequest request) throws Exception {
+        ElectricAppliance burglarAlarm = electricApplianceService.burglarAlarm();
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        userService.sendEmail("警告","防盗警告触发，请查看家中具体情况",account);
+        response.setStatus(200);
+        return ResBean.ok("warn",burglarAlarm);
+    }
+
+    @ApiOperation("获取用户创建时间")
+    @GetMapping("get_user_creat_time")
+    public ResBean getCreatTime(HttpServletRequest request,HttpServletResponse response) throws Exception {
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        Long creatTime = userService.getCreatTime(account);
+        response.setStatus(200);
+        return ResBean.ok("ok",creatTime);
     }
 }
 

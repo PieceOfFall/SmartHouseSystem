@@ -43,6 +43,13 @@ spring:
     # swagger-ui启动配置
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  #邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: 2770838499@qq.com
+    password: wmasbukitysldfeg
+    properties:
+      mail.smtp.ssl.enable: true
 # MyBatis配置
 mybatis:
   configuration:
