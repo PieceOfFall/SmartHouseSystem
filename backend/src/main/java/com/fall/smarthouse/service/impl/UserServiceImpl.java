@@ -6,6 +6,7 @@ import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
  */
 @Service
 public class UserServiceImpl implements IUserService {
+
+    @Value("${mail.from}")
+    private String fromEmail;
     @Autowired
     JavaMailSenderImpl mailSender;
 
@@ -84,7 +88,7 @@ public class UserServiceImpl implements IUserService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject(subject);
         message.setText(text);
-        message.setFrom("2770838499@qq.com");
+        message.setFrom(fromEmail);
         String email = userMapper.selectEmail(account);
         message.setTo(email);
         mailSender.send(message);

@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,6 +33,9 @@ import java.util.*;
 
 @SpringBootTest
 class BackendApplicationTests {
+
+    @Value("${mail.from}")
+    String fromMail;
     @Autowired
     JavaMailSenderImpl mailSender;
 
@@ -54,10 +59,10 @@ class BackendApplicationTests {
     SensorServiceImpl sensorServiceI;
 
 
+
     @Test
     void getEmail(){
-        Long s = userMapper.selectCreatTime("123456789");
-        System.out.println(s);
+        System.out.println(fromMail);
     }
     @Test
     void testMail(){

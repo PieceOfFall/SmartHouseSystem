@@ -67,3 +67,7 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+#  自定义属性
+mail:
+  from: xxxxxxxxxx@qq.com
