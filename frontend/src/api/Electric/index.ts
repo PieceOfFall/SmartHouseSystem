@@ -36,8 +36,8 @@ export async function getLights(): AxiosPromise < LightsState > {
 /*
    获取所有开关数据
 */
-export async function getSwitches() {
-    let response = await request({
+export async function getSwitches():AxiosPromise<SwitchState> {
+    const response = await request({
         url: '/electric/get_switch',
         method: 'get'
     })

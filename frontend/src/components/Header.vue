@@ -7,16 +7,12 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import useAsideStore from '../store';
-import {
-  storeToRefs
-} from 'pinia';
+import useStore from '../store';
+import { storeToRefs } from 'pinia';
 
 // Pinia
-const store = useAsideStore().aside
-let {
-    selectItem
-} = storeToRefs(store)
+const asideStore = useStore().aside
+let { selectItem } = storeToRefs(asideStore)
 
 // 点击标题回到主页
 const router = useRouter()
@@ -50,6 +46,20 @@ async function backHome() {
                 border-radius: 50%;
             }
 
+        }
+        span:hover{
+            cursor: pointer;
+            font-family: 'STHeiti';
+            margin-left: 1rem;
+            color: gainsboro;
+
+            b {
+                font-size: large;
+                font-family: 'STXingkai';
+                box-shadow: 0 0 1.2rem var(--el-color-primary);
+                padding: 5px;
+                border-radius: 40%;
+            }
         }
 
     }

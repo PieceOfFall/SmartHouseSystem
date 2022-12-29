@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 请求参数缺失
-     * @param e
-     * @param response
+     * @param e 请求参数缺失异常
+     * @param response http响应
      * @return: ResBean
      * @date 2022/12/4 15:23
      */
@@ -40,8 +40,8 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 请求参数类型不匹配
-     * @param e
-     * @param response
+     * @param e 请求参数类型不匹配异常
+     * @param response http响应
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:23
      */
@@ -55,8 +55,8 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 参数校验错误
-     * @param e
-     * @param response
+     * @param e 参数校验错误异常
+     * @param response http响应
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:23
      */
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 请求地址不存在 (已弃用)
-     * @param e
+     * @param e 请求地址不存在异常
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:23
      */
@@ -85,8 +85,8 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 请求方式错误
-     * @param e
-     * @param response
+     * @param e 请求方式错误异常
+     * @param response http响应
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:24
      */
@@ -97,6 +97,14 @@ public class GlobalExceptionHandler {
         return ResBean.badRequest(405, String.format("请求方法不正确:%s", e.getMessage()));
     }
 
+    /**
+     * @author FAll
+     * @description 请求参数不可读
+     * @param e 请求参数不可读异常
+     * @param response http响应
+     * @return: com.fall.smarthouse.bean.ResBean
+     * @date 2022/12/4 15:24
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResBean httpMessageNotReadableException(HttpMessageNotReadableException e,HttpServletResponse response) {
         log.warn("请求参数不可读",e);
@@ -107,8 +115,8 @@ public class GlobalExceptionHandler {
     /**
      * @author FAll
      * @description 兜底捕获其它异常
-     * @param e
-     * @param response
+     * @param e 当前异常
+     * @param response http响应
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:24
      */

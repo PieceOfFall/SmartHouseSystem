@@ -42,6 +42,8 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     Header: typeof import('./src/components/Header.vue')['default']
     QueryAbnormalData: typeof import('./src/components/sensor/QueryAbnormalData.vue')['default']
     QueryCertainData: typeof import('./src/components/sensor/QueryCertainData.vue')['default']

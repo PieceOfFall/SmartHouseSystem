@@ -50,11 +50,11 @@ onMounted(async()=>{
 
 <style lang="less" scoped>
     .home-container{
-        padding: 2.5rem;
+        padding: 1.5rem;
         font-size: large;
         height: 100%;
         background-color: #010409;
-        color: #f1f6fc;
+        color: #f1f6fcae;
         font-weight: 300;
         #welcome {
             font-style: italic;

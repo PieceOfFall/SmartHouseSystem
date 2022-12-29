@@ -238,10 +238,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         List<ReturnHistory> returnHistories = new LinkedList<>();
         for (SqlHistory sqlHistory : sqlHistories) {
             ReturnHistory returnHistory = judgeTypeToReturnHistory(sqlHistory);
-            System.out.println(returnHistory);
             returnHistories.add(returnHistory);
         }
-        System.out.println(returnHistories);
         PageInfo<ReturnHistory> returnHistoryPageInfo = new PageInfo<>(returnHistories);
         return returnHistoryPageInfo;
     }
