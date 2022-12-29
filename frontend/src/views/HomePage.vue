@@ -11,11 +11,12 @@
 
         <div id="layout-container">
             <el-row :gutter="20">
+                <!-- 用户操作历史 -->
                 <el-col :span="6">
                     <ElectricHistory/>
                 </el-col>
+                <!-- TODO: 实时温湿度 -->
                 <el-col :span="18">
-                    <!-- TODO: 实时温湿度 -->
                 </el-col>
             </el-row>
         </div>
@@ -24,7 +25,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import useUserAccount from '../store';
+import useStore from '../store';
 import {getUserCreateTimestamp} from '../api/user';
 import { ref,onMounted } from 'vue';
 import ElectricHistory from '../components/ElectricHistory.vue';
@@ -33,8 +34,8 @@ import ElectricHistory from '../components/ElectricHistory.vue';
    欢迎使用
 */
 // Pinia
-const store = useUserAccount().user
-const { userAccount } = storeToRefs(store)
+const userStore = useStore().user
+const { userAccount } = storeToRefs(userStore)
 
 /*
    获取使用天数
@@ -44,8 +45,6 @@ onMounted(async()=>{
     const createdTimestamp = await (await getUserCreateTimestamp()).data
     useDays.value = Math.floor((new Date().getTime() - createdTimestamp)/(1000*60*60*24))
 })
-
-
 
 </script>
 

@@ -64,6 +64,7 @@ service.interceptors.response.use(
     }
   )
 
+  // 退出登录
   async function logOut(){
     ElMessageBox.confirm('当前页面已失效，请重新登录', '提示', {
       confirmButtonText: 'OK',

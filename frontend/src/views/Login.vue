@@ -49,7 +49,7 @@ import {useRouter} from 'vue-router';
 import {userLogin} from '../api/login/index';
 import {Token} from '../api/login/types';
 import { storeToRefs } from 'pinia';
-import useUserAccount from '../store';
+import useStore from '../store';
 
 
 /*
@@ -92,8 +92,8 @@ const rules = reactive<FormRules>({
 
 // 验证表单，提交数据
 // Pinia
-const store = useUserAccount().user
-const { userAccount } = storeToRefs(store)
+const userStore = useStore().user
+const { userAccount } = storeToRefs(userStore)
 // 提交
 async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
