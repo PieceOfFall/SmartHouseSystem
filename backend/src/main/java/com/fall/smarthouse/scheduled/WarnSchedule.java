@@ -41,10 +41,17 @@ public class WarnSchedule {
 
     @Async
     @Scheduled(fixedDelay = 5000)
-    public void sendWarnEmail(){
-        if(SensorServiceImpl.abnormalType != null){
+    public void sendWarnEmail() {
+        if (SensorServiceImpl.abnormalType != null) {
             Long nowTime = Calendar.getInstance().getTimeInMillis();
-            if(sendTimes.equals(0)){
+            if (sendTimes.equals(0)) {
+                ElectricAppliance warnLight = new ElectricAppliance();
+                warnLight.setWarnLight(SwitchState.ON.getState());
+                electricApplianceService.setWarnLight(warnLight);
+            }
+            Long timeDifference = nowTime - SensorServiceImpl.startTime;
+            Long aLong = new Long(180000 * sendTimes);
+            if (timeDifference > aLong) {
                 List<String> emails = userService.getAllEmail();
                 for (String email : emails) {
                     SimpleMailMessage message = new SimpleMailMessage();
@@ -55,27 +62,9 @@ public class WarnSchedule {
                     mailSender.send(message);
                 }
                 sendTimes++;
-                ElectricAppliance warnLight = new ElectricAppliance();
-                warnLight.setWarnLight(SwitchState.ON.getState());
-                electricApplianceService.setWarnLight(warnLight);
-            }else {
-                Long timeDifference = nowTime - SensorServiceImpl.startTime;
-                Long aLong = new Long(180000 * sendTimes);
-                if(timeDifference > aLong) {
-                    List<String> emails = userService.getAllEmail();
-                    for (String email : emails) {
-                        SimpleMailMessage message = new SimpleMailMessage();
-                        message.setSubject("传感器异常警告");
-                        message.setText("传感器数据异常，请尽快查看并检修");
-                        message.setFrom(fromEmail);
-                        message.setTo(email);
-                        mailSender.send(message);
-                    }
-                    sendTimes++;
-                }
             }
-        }else if (SensorServiceImpl.abnormalType == null){
-            if(!sendTimes.equals(0)){
+        } else if (SensorServiceImpl.abnormalType == null) {
+            if (!sendTimes.equals(0)) {
                 sendTimes = 0;
                 ElectricAppliance warnLight = new ElectricAppliance();
                 warnLight.setWarnLight(SwitchState.OFF.getState());
