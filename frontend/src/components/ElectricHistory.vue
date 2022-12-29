@@ -32,7 +32,6 @@ import { OperationHistory, OperationHistoryRender } from '../api/user/types';
 const userOperationHistory = ref<OperationHistory[]>([])
 onMounted(async()=>{
     userOperationHistory.value = await (await getUserLatestHistory()).data.list
-    
 })
 
 // 历史数据渲染

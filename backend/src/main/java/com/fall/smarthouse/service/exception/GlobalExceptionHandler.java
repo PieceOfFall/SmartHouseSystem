@@ -26,12 +26,16 @@ public class GlobalExceptionHandler {
      * @author FAll
      * @description 请求参数缺失
      * @param e 请求参数缺失异常
+     * @param request http请求
      * @param response http响应
      * @return: ResBean
      * @date 2022/12/4 15:23
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResBean missingServletRequestParameterException(MissingServletRequestParameterException e, HttpServletResponse response, HttpServletRequest request) {
+    public ResBean missingServletRequestParameterException(MissingServletRequestParameterException e,
+                                                           HttpServletResponse response,
+                                                           HttpServletRequest request) {
+        logWarn(request);
         log.warn("请求参数缺失", e);
         response.setStatus(405);
         return ResBean.badRequest(String.format("请求参数缺失:%s", e.getParameterName()));
@@ -41,12 +45,16 @@ public class GlobalExceptionHandler {
      * @author FAll
      * @description 请求参数类型不匹配
      * @param e 请求参数类型不匹配异常
+     * @param request http请求
      * @param response http响应
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:23
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResBean methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e,HttpServletResponse response) {
+    public ResBean methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e,
+                                                       HttpServletResponse response,
+                                                       HttpServletRequest request) {
+        logWarn(request);
         log.warn("参数类型不匹配", e);
         response.setStatus(405);
         return ResBean.badRequest(String.format("参数类型不匹配:%s", e.getMessage()));
@@ -57,11 +65,15 @@ public class GlobalExceptionHandler {
      * @description 参数校验错误
      * @param e 参数校验错误异常
      * @param response http响应
+     * @param request http请求
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:23
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResBean methodArgumentNotValidException(MethodArgumentNotValidException e,HttpServletResponse response) {
+    public ResBean methodArgumentNotValidException(MethodArgumentNotValidException e,
+                                                   HttpServletResponse response,
+                                                   HttpServletRequest request) {
+        logWarn(request);
         log.warn("参数校验错误", e);
         FieldError fieldError = e.getBindingResult().getFieldError();
         response.setStatus(405);
@@ -87,11 +99,16 @@ public class GlobalExceptionHandler {
      * @description 请求方式错误
      * @param e 请求方式错误异常
      * @param response http响应
+     * @param request http请求
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:24
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResBean httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e, HttpServletResponse response) {
+    public ResBean httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e,
+                                                                 HttpServletResponse response,
+                                                                 HttpServletRequest request) {
+
+        logWarn(request);
         log.warn("请求方式错误", e);
         response.setStatus(405);
         return ResBean.badRequest(405, String.format("请求方法不正确:%s", e.getMessage()));
@@ -102,11 +119,15 @@ public class GlobalExceptionHandler {
      * @description 请求参数不可读
      * @param e 请求参数不可读异常
      * @param response http响应
+     * @param request http请求
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:24
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResBean httpMessageNotReadableException(HttpMessageNotReadableException e,HttpServletResponse response) {
+    public ResBean httpMessageNotReadableException(HttpMessageNotReadableException e,
+                                                   HttpServletResponse response,
+                                                   HttpServletRequest request) {
+        logWarn(request);
         log.warn("请求参数不可读",e);
         response.setStatus(400);
         return ResBean.badRequest(400,String.format("请求参数不可读:%s", e.getMessage()));
@@ -117,14 +138,45 @@ public class GlobalExceptionHandler {
      * @description 兜底捕获其它异常
      * @param e 当前异常
      * @param response http响应
+     * @param request http请求
      * @return: com.fall.smarthouse.bean.ResBean
      * @date 2022/12/4 15:24
      */
     @ExceptionHandler(Exception.class)
-    public ResBean exceptionHandler(Exception e,HttpServletResponse response) {
+    public ResBean exceptionHandler(Exception e,
+                                    HttpServletResponse response,
+                                    HttpServletRequest request) {
+        logError(request);
         log.error(" 内部错误: {}", e.getMessage(), e);
         response.setStatus(500);
         return ResBean.internalError("内部错误");
     }
 
+    /**
+     * @author FAll
+     * @description 输出错误接口
+     * @param request http请求
+     * @date 2022/12/29 16:22
+     */
+    private void logWarn(HttpServletRequest request) {
+        log.warn("Request URL: {}", request.getRequestURL());
+        log.warn("Request Method: {}", request.getMethod());
+        log.warn("Request IP: {}", request.getRemoteAddr());
+        log.warn("Request Headers: {}", request.getHeaderNames());
+        log.warn("Request Parameters: {}", request.getParameterMap());
+    }
+
+    /**
+     * @author FAll
+     * @description 输出告警接口
+     * @param request http请求
+     * @date 2022/12/29 16:23
+     */
+    private void logError(HttpServletRequest request) {
+        log.error("Request URL: {}", request.getRequestURL());
+        log.error("Request Method: {}", request.getMethod());
+        log.error("Request IP: {}", request.getRemoteAddr());
+        log.error("Request Headers: {}", request.getHeaderNames());
+        log.error("Request Parameters: {}", request.getParameterMap());
+    }
 }
