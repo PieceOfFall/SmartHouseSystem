@@ -50,8 +50,8 @@ public class WarnSchedule {
                 electricApplianceService.setWarnLight(warnLight);
             }
             Long timeDifference = nowTime - SensorServiceImpl.startTime;
-            Long aLong = new Long(180000 * sendTimes);
-            if (timeDifference > aLong) {
+            Long hasLast = new Long(180000 * sendTimes);
+            if (timeDifference > hasLast) {
                 List<String> emails = userService.getAllEmail();
                 for (String email : emails) {
                     SimpleMailMessage message = new SimpleMailMessage();
