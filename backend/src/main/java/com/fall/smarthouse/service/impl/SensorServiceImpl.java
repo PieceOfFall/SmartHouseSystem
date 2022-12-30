@@ -10,6 +10,8 @@ import com.fall.smarthouse.util.DateConverter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -23,8 +25,8 @@ import java.util.*;
 @Service
 public class SensorServiceImpl implements ISensorService {
 
-    private static Integer abnormalType = null;
-    private static Long startTime = null;
+    public static Integer abnormalType = null;
+    public static Long startTime = null;
 
     @Autowired
     AbnormalMapper abnormalMapper;
