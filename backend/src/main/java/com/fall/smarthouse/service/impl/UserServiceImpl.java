@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author FAll
@@ -121,6 +122,11 @@ public class UserServiceImpl implements IUserService {
     public Boolean checkLogin(String token) {
         boolean isNeedUpdate = JWTUtil.isNeedUpdate(token);
         return !isNeedUpdate;
+    }
+
+    @Override
+    public List<String> getAllEmail() {
+        return userMapper.selectAllEmail();
     }
 
 }

@@ -34,7 +34,7 @@ import java.util.*;
 @SpringBootTest
 class BackendApplicationTests {
 
-    @Value("${mail.from}")
+    @Value("${spring.mail.username}")
     String fromMail;
     @Autowired
     JavaMailSenderImpl mailSender;
@@ -62,7 +62,7 @@ class BackendApplicationTests {
 
     @Test
     void getEmail(){
-        System.out.println(fromMail);
+        System.out.println(userMapper.selectAllEmail());
     }
     @Test
     void testMail(){
