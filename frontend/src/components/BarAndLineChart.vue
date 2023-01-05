@@ -105,5 +105,5 @@ const option = ref({
       height: 80vh;
       width: 60vw;
     }
-    }
+  }
 </style>

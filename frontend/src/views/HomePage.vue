@@ -6,15 +6,17 @@
         </div>
         <!-- 使用天数 -->
         <div id="days">
-            539智能家居 已为您保驾护航 <span>{{ useDays }}</span> 天
+            539智能家居 已为您保驾护航 <span>{{ tweened.number.toFixed(0) }}</span> 天
         </div>
 
         <div id="layout-container">
             <el-row :gutter="20">
+
                 <!-- 用户操作历史 -->
                 <el-col :span="6">
                     <ElectricHistory/>
                 </el-col>
+                
                 <!-- 实时温湿度 -->
                 <el-col :span="18">
                     <BarAndLineChart 
@@ -33,6 +35,7 @@
                     :x-axis="timeArray"
                     :data-source="chartData"
                     />
+
                 </el-col>
             </el-row>
         </div>
@@ -40,17 +43,22 @@
 </template>
 
 <script setup lang="ts">
+import gsap from 'gsap'
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
 import {getUserCreateTimestamp} from '../api/user';
-import { ref,onMounted,onBeforeUnmount } from 'vue';
-import ElectricHistory from '../components/ElectricHistory.vue';
-import BarAndLineChart from '../components/BarAndLineChart.vue';
+import {reactive,
+        ref,
+        onMounted,
+        onBeforeUnmount,
+        watch } from 'vue';
 import {HumidityAndTemperature,
         HumidityAndTemperaturePromise,
         TemperatureData,
         HumidityData} from '../api/sensor/types';
-import {getCurrentData} from '../api/sensor/index';
+import { getCurrentData } from '../api/sensor/index';
+import ElectricHistory from '../components/ElectricHistory.vue';
+import BarAndLineChart from '../components/BarAndLineChart.vue';
 
 /*
    欢迎使用
@@ -62,10 +70,17 @@ const { userAccount } = storeToRefs(userStore)
 /*
    获取使用天数
 */
+const tweened = reactive({
+  number: 0
+})
 const useDays = ref<number>(0)
 onMounted(async()=>{
     const createdTimestamp = await (await getUserCreateTimestamp()).data
     useDays.value = Math.floor((new Date().getTime() - createdTimestamp)/(1000*60*60*24))
+})
+// 数值渐变
+watch(useDays, (n) => {
+  gsap.to(tweened, { duration: 1, number: Number(n) || 0 })
 })
 
 /*

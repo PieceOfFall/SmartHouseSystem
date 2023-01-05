@@ -75,6 +75,12 @@ public class UserServiceImpl implements IUserService {
 
         // 3.场景选择
         MenuItem modeChange = new MenuItem(MenuID.MODE_CHANGE.getId(), "/mode_change", "场景选择", null);
+
+        // 场景切换
+        MenuItem changeMode = new MenuItem(MenuID.CHANGE_MODE.getId(), "/change_mode", "场景切换", null);
+
+        MenuItem[] modeChildren = {changeMode};
+        modeChange.setChildren(modeChildren);
         this.menu.add(modeChange);
     }
 
