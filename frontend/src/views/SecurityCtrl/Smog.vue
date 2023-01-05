@@ -4,9 +4,9 @@
         <Breadcrumb bread-route="烟雾检测"/>
         <!-- 标签页 -->
         <el-tabs
-            v-model="activeName"
-            type="border-card"
-            >
+        v-model="activeName"
+        type="border-card"
+        >
             <!-- 当前监测 -->
             <el-tab-pane label="当前状态监测" name="currentDetect">
                 <Chart 
@@ -17,12 +17,14 @@
             </el-tab-pane>
             <!-- 历史查询 -->
             <el-tab-pane label="历史状态查询" name="second">
+                
                 <!-- 时间选择 -->
                 <DatePicker
                 @change = "confirmDate"
                 />
                 <!-- 查询页占位符 -->
                 <router-view/>
+
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -30,6 +32,7 @@
 
 <script setup lang="ts">
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue'
+import Chart from '../../components/LineChart.vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
 import { getCurrentData } from '../../api/sensor'
 import { SmogData } from '../../api/sensor/types';

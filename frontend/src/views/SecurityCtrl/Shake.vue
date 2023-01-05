@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import Chart from '../../components/LineChart.vue';
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
 import { getCurrentData } from '../../api/sensor';

@@ -44,25 +44,21 @@ import {
   Menu as IconMenu,
   MoreFilled
 } from '@element-plus/icons-vue'
-import useAsideStore from '../store';
-import {
-  storeToRefs
-} from 'pinia';
-import {
-  useRouter
-} from "vue-router";
-import {getAsideList} from '../api/aside/index';
-import {MenuItem} from '../api/aside/types';
+import useStore from '../store';
+import { storeToRefs } from 'pinia';
+import { useRouter } from "vue-router";
+import { getAsideList } from '../api/aside/index';
+import { MenuItem } from '../api/aside/types';
 
 /*
    侧边栏开关
 */
 // Pinia
-const store = useAsideStore().aside
+const asideStore = useStore().aside
 let {
   isStoreCollapse,
   selectItem
-} = storeToRefs(store)
+} = storeToRefs(asideStore)
 
 // 获取侧边栏开关状态
 const isCollapse = ref(true)
@@ -124,6 +120,7 @@ onMounted(() => {
 <style lang="less">
   .switch {
     text-align: center;
+    cursor: pointer;
     color: rgba(211, 211, 211, 0.603);
 
     .el-icon {

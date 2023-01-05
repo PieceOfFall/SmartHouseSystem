@@ -1,12 +1,21 @@
 /*
    查询间隔类型
 */
-export type queryType = 's' | 'm' | 'h' | 'd'
+export type queryType = 
+| 's' // 秒
+| 'm' // 分
+| 'h' // 时
+| 'd' // 天
 
 /*
    传感器类型
 */
-export type sensorType = 'gas' | 'shake' | 'smog'
+export type sensorType = 
+| 'gas' 
+| 'shake' 
+| 'smog'
+| 'humidity'
+| 'temperature'
 
 /*
    单条燃气记录
@@ -33,9 +42,30 @@ export interface SmogData {
 }
 
 /*
+   单条温度记录
+*/
+export interface TemperatureData {
+   temperature: number
+   time: number
+}
+
+/*
+   单条湿度记录
+*/
+export interface HumidityData {
+   humidity: number,
+   time: number
+}
+
+/*
+   温湿度记录 Promise.all
+*/
+export type HumidityAndTemperaturePromise = [TemperatureData[],HumidityData[]]
+
+/*
    单条任意传感器记录
 */
-export interface SensorData extends GasData, ShakeData, SmogData {}
+export interface SensorData extends GasData, ShakeData, SmogData,TemperatureData,HumidityData {}
 
 /*
    传感器数据查询结果集
@@ -83,4 +113,12 @@ export interface AbnormalDataSet {
    size: number,
    startRow: number,
    total: number
+}
+
+/*
+   首页温湿度结果
+*/
+export type HumidityAndTemperature = {
+   bar:number[],
+   line:number[]
 }

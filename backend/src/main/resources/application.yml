@@ -46,8 +46,8 @@ spring:
   #邮箱配置
   mail:
     host: smtp.qq.com
-    username: xxxxxxxxxx@qq.com
-    password: xxxxxxxxxxxxxxxx
+    username: 2770838499@qq.com
+    password: wmasbukitysldfeg
     properties:
       mail.smtp.ssl.enable: true
 # MyBatis配置

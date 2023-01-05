@@ -5,7 +5,8 @@ import request from '../../utils/request';
 import {
     SensorDataSet,
     queryType,
-    sensorType
+    sensorType,
+    HumidityAndTemperature
 } from './types';
 
 /*
@@ -62,7 +63,6 @@ export async function getCertainData(
         }
     })
 }
-
 
 /*
    根据时间差查询指定区间的数据
@@ -168,5 +168,7 @@ export function mapRiskIndexBySensorType(sensorType: sensorType): number {
         case 'smog': {
             return 2
         }
+        default:
+            return -1
     }
 }

@@ -94,6 +94,11 @@ const routes: Array < RouteRecordRaw > = [{
             component:()=>import('../components/sensor/AbnormalCertainData.vue')
         }]
        },
+       {
+        path: '/change_mode',
+        name: 'ModeChange',
+        component:()=>import('../views/ModeChange/ModeChange.vue')
+       }
     ]
     }
 ]

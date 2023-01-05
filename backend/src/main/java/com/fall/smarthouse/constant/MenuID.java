@@ -17,7 +17,7 @@ public enum MenuID {
     // 安防
     DEFENCE(2), GAS_DETECT(21), SMOG_DETECT(22), SHAKE_DETECT(23), WARN_LIGHT(24),
     // 场景选择
-    MODE_CHANGE(3);
+    MODE_CHANGE(3),CHANGE_MODE(31);
 
     private int id;
 }

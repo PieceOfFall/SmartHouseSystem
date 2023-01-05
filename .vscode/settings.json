@@ -2,9 +2,12 @@
     "cSpell.words": [
         "daterange",
         "datetimerange",
+        "echarts",
+        "gsap",
         "monthrange",
         "navigatepage",
         "Nums",
-        "pinia"
+        "pinia",
+        "tweened"
     ]
 }
