@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue'
+import Chart from '../../components/LineChart.vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
 import { getCurrentData } from '../../api/sensor'
 import { SmogData } from '../../api/sensor/types';

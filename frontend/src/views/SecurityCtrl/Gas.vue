@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import Chart from '../../components/Chart.vue';
+import Chart from '../../components/LineChart.vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
 import {getCurrentData} from '../../api/sensor/index';
 import {GasData} from '../../api/sensor/types';
