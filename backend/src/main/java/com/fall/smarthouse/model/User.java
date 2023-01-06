@@ -1,6 +1,7 @@
 package com.fall.smarthouse.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -10,12 +11,11 @@ import javax.validation.constraints.NotEmpty;
  * @description 用户
  */
 @Data
+@NoArgsConstructor
 public class User {
     // 账号
-    @NotEmpty
     private String account;
     // 密码
-    @NotEmpty
     private String password;
     //创建时间
     private Long creatTime;

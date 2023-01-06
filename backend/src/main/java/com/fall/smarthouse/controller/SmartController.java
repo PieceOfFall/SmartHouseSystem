@@ -4,6 +4,7 @@ import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
+import com.fall.smarthouse.service.ISmartService;
 import com.fall.smarthouse.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,12 @@ import java.util.ArrayList;
 public class SmartController {
 
     @Autowired
-    IUserService userService;
-
-    @Autowired
-    IElectricApplianceService electricApplianceService;
+    ISmartService smartService;
 
     @ApiOperation("获取侧边栏")
     @GetMapping("/get_menu")
     public ResBean getMenu(HttpServletResponse response) {
-        ArrayList<MenuItem> menu = userService.getMenu();
+        ArrayList<MenuItem> menu = smartService.getMenu();
         response.setStatus(200);
         return ResBean.ok("ok", menu);
     }
@@ -40,7 +38,7 @@ public class SmartController {
     @PostMapping("/user_login")
     public ResBean userLogin(@Valid @RequestBody User user,
                              HttpServletResponse response) {
-        String token = userService.userLogin(user.getAccount(), user.getPassword());
+        String token = smartService.userLogin(user.getAccount(), user.getPassword());
         if (token == null) {
             response.setStatus(401);
             return ResBean.unauthorized("验证失败");
@@ -54,7 +52,7 @@ public class SmartController {
     public ResBean checkLogin(HttpServletRequest request,
                               HttpServletResponse response) {
         String token = request.getHeader("Authorization");
-        Boolean isLogin = userService.checkLogin(token);
+        Boolean isLogin = smartService.checkLogin(token);
 
         if (isLogin) {
             response.setStatus(200);
@@ -64,6 +62,5 @@ public class SmartController {
         return ResBean.forbidden("验证失败，请重新登录");
 
     }
-
 
 }

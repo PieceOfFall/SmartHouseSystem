@@ -243,15 +243,5 @@ public class ElectricApplianceController {
         }
         return ResBean.ok("warn", burglarAlarm);
     }
-
-    @ApiOperation("获取用户创建时间")
-    @GetMapping("get_user_create_time")
-    public ResBean getCreatTime(HttpServletRequest request,HttpServletResponse response) throws Exception {
-        String token = request.getHeader("Authorization");
-        String account = JWTUtil.validateToken(token);
-        Long creatTime = userService.getCreatTime(account);
-        response.setStatus(200);
-        return ResBean.ok("ok", creatTime);
-    }
 }
 

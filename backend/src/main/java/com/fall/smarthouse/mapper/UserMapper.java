@@ -16,15 +16,6 @@ import java.util.List;
 public interface UserMapper {
 
     /**
-     * @author FAll
-     * @description 用户登录
-     * @return: java.lang.String
-     * @date 2022/12/6 13:22
-     */
-    @Select("select account from user where account = #{account} and password = MD5(#{password})")
-    String userLogin(String account,String password);
-
-    /**
      * @description: 通过account获取邮箱
      * @author xiaoQe
      * @date 2022/12/24 19:28
