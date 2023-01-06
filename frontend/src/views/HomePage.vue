@@ -46,7 +46,7 @@
 import gsap from 'gsap'
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
-import {getUserCreateTimestamp} from '../api/user';
+import { getUserCreateTimestamp } from '../api/user';
 import {reactive,
         ref,
         onMounted,

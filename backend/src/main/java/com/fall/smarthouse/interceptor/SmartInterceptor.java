@@ -23,9 +23,9 @@ public class SmartInterceptor implements HandlerInterceptor {
     /**
      * @author FAll
      * @description 进入controller前预处理
-     * @param request
-     * @param response
-     * @param handler
+     * @param request http请求
+     * @param response http响应
+     * @param handler 处理器
      * @return: boolean
      * @date 2022/12/12 12:44
      */

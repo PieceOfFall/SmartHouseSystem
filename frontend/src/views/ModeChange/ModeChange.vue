@@ -14,7 +14,8 @@
 
                     <el-icon size="8rem">
                         <HomeFilled class="change_mode animate__animated 
-                        animate__fadeIn animate__faster"/>
+                        animate__fadeIn animate__faster"
+                        @click="homeMode"/>
                     </el-icon>
                 </el-card>
             </el-col>
@@ -30,7 +31,8 @@
 
                     <el-icon size="8rem">
                         <Promotion class="change_mode animate__animated 
-                        animate__fadeIn animate__faster"/>
+                        animate__fadeIn animate__faster"
+                        @click="leaveMode"/>
                     </el-icon>
                 </el-card>
             </el-col>
@@ -41,7 +43,15 @@
 
 <script setup lang="ts">
 import { HomeFilled,Promotion } from '@element-plus/icons-vue'
+import { toggleHomeMode,toggleLeaveMode } from '../../api/electric/index';
 
+async function homeMode() {
+    await toggleHomeMode()
+}
+
+async function leaveMode() {
+    await toggleLeaveMode()
+}
 </script>
 
 <style lang="less" scoped>
