@@ -8,6 +8,7 @@ import {
     SwitchState,
     CurtainState
 } from './types';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 /*
    修改电器数据
@@ -79,4 +80,34 @@ export async function getCurtains():AxiosPromise < CurtainState > {
         url:'/electric/get_curtain',
         method:'get'
     })
+}
+
+/*
+   回家模式
+*/
+export async function toggleHomeMode() {
+    const ret = await request({
+        url:'/electric/set_home_mode',
+        method:'post'
+    })
+    ElMessage({
+        message: ret.status===200?'回家模式设置成功':'设置失败',
+        type: ret.status===200?'success':'error'
+    })
+    return  
+}
+
+/*
+   离家模式
+*/
+export async function toggleLeaveMode() {
+    const ret = await request({
+        url:'/electric/set_leave_home_mode',
+        method:'post'
+    })
+    ElMessage({
+        message: ret.status===200?'离家模式设置成功':'设置失败',
+        type: ret.status===200?'success':'error'
+    })
+    return
 }

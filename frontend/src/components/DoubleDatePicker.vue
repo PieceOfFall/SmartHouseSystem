@@ -19,7 +19,16 @@ const emit = defineEmits(['change'])
 
 const props = defineProps<{
     // 选择器类型
-    type?: "date" | "year" | "month" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange"
+    type?:
+    |"date" 
+    | "year" 
+    | "month" 
+    | "dates" 
+    | "week" 
+    | "datetime" 
+    | "datetimerange" 
+    | "daterange" 
+    | "monthrange"
 }>()
 
 // 日期确认并格式化
