@@ -17,5 +17,11 @@ public class User {
     // 密码
     @NotEmpty
     private String password;
+    //创建时间
+    private Long creatTime;
+    //邮箱
+    private String eMail;
+    //权限
+    private Integer role;
 
 }

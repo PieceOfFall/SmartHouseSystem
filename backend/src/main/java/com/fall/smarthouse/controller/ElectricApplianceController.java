@@ -184,26 +184,30 @@ public class ElectricApplianceController {
     @PostMapping("set_appliance")
     public ResBean setAppliance(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response, HttpServletRequest request) throws Exception {
-        electricApplianceService.setAppliance(electricAppliance);
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         electricApplianceService.addElectricHistory(account, electricAppliance);
+        electricApplianceService.setAppliance(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("设置回家模式")
     @PostMapping("set_home_mode")
-    public ResBean setHomeMode(HttpServletResponse response) {
-        electricApplianceService.homeMode();
+    public ResBean setHomeMode(HttpServletResponse response,HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        electricApplianceService.homeMode(account);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
 
     @ApiOperation("设置离家模式")
     @PostMapping("set_leave_home_mode")
-    public ResBean setLeaveHomeMode(HttpServletResponse response) {
-        electricApplianceService.leaveHomeMode();
+    public ResBean setLeaveHomeMode(HttpServletResponse response,HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization");
+        String account = JWTUtil.validateToken(token);
+        electricApplianceService.leaveHomeMode(account);
         response.setStatus(200);
         return ResBean.ok("ok");
     }

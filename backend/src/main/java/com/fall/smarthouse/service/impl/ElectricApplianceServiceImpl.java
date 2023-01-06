@@ -95,19 +95,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
     @Override
     public Boolean setAppliance(ElectricAppliance electricAppliance) {
-        //记录电器情况的Map为空则记录初始电器情况
-        if (electricApplianceMap.isEmpty()) {
-            ElectricAppliance appliance = electricMapper.getAppliance();
-            electricApplianceMap.put("lightBedA", appliance.getLightBedA());
-            electricApplianceMap.put("lightBedB", appliance.getLightBedB());
-            electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
-            electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
-            electricApplianceMap.put("switchA", appliance.getSwitchA());
-            electricApplianceMap.put("switchB", appliance.getSwitchB());
-            electricApplianceMap.put("switchC", appliance.getSwitchC());
-            electricApplianceMap.put("curtainA", appliance.getCurtainA());
-            electricApplianceMap.put("curtainB", appliance.getCurtainB());
-        }
         // 将对象非法属性合法化
         ElectricAppliance updateElectric = new ElectricAppliance();
 
@@ -185,7 +172,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public Boolean homeMode() {
+    public Boolean homeMode(String account) {
         ElectricAppliance homeMode = new ElectricAppliance();
         homeMode.setLightBedA(LightState.BIG.getState());
         homeMode.setLightBedB(LightState.BIG.getState());
@@ -196,12 +183,14 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         homeMode.setSwitchA(SwitchState.ON.getState());
         homeMode.setSwitchB(SwitchState.ON.getState());
         homeMode.setSwitchC(SwitchState.ON.getState());
+        //添加历史记录
+        addElectricHistory(account,homeMode);
         Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
         return affectRows != 0;
     }
 
     @Override
-    public Boolean leaveHomeMode() {
+    public Boolean leaveHomeMode(String account) {
         ElectricAppliance leaveHomeMode = new ElectricAppliance();
         leaveHomeMode.setLightBedA(LightState.CLOSED.getState());
         leaveHomeMode.setLightBedB(LightState.CLOSED.getState());
@@ -212,6 +201,8 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         leaveHomeMode.setSwitchA(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
+        //添加历史记录
+        addElectricHistory(account,leaveHomeMode);
         Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
         return affectRows != 0;
     }
@@ -318,6 +309,20 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @version 1.0
      */
     private ElectricAppliance judgeAppliance(ElectricAppliance electricAppliance) {
+        //记录电器情况的Map为空则记录初始电器情况
+        if (electricApplianceMap.isEmpty()) {
+            ElectricAppliance appliance = electricMapper.getAppliance();
+            electricApplianceMap.put("lightBedA", appliance.getLightBedA());
+            electricApplianceMap.put("lightBedB", appliance.getLightBedB());
+            electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
+            electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
+            electricApplianceMap.put("switchA", appliance.getSwitchA());
+            electricApplianceMap.put("switchB", appliance.getSwitchB());
+            electricApplianceMap.put("switchC", appliance.getSwitchC());
+            electricApplianceMap.put("curtainA", appliance.getCurtainA());
+            electricApplianceMap.put("curtainB", appliance.getCurtainB());
+        }
+        //判断电器是否改变
         Integer isChange = 0;
         if (electricAppliance.getLightBedA() != null) {
             if (electricAppliance.getLightBedA().equals(electricApplianceMap.get("lightBedA"))) {
