@@ -63,7 +63,17 @@ class BackendApplicationTests {
     SensorServiceImpl sensorServiceI;
 
 
+    @Test
+    void testInsertUser(){
+        User user = new User("123445678", "123456", new Long("1673009586"), "123456@qq.com", 1);
+        userMapper.insertUser(user);
+    }
 
+    @Test
+    void testUser(){
+        Integer integer = userMapper.selectRoleRoot();
+        System.out.println(integer);
+    }
     @Test
     void getEmail(){
         System.out.println(userMapper.selectAllEmail());
