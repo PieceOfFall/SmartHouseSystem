@@ -1,5 +1,5 @@
 <template>
-    <div class="home-container">
+    <div id="home-container">
         <!-- 欢迎 -->
         <div id="welcome">
             <span>{{ userAccount }}</span> , 欢迎回家 !
@@ -46,7 +46,7 @@
 import gsap from 'gsap'
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
-import {getUserCreateTimestamp} from '../api/user';
+import { getUserCreateTimestamp } from '../api/user';
 import {reactive,
         ref,
         onMounted,
@@ -93,9 +93,11 @@ const chartData = ref<HumidityAndTemperature>({bar:[],line:[]})
 
 // 初始化状态数据
 onMounted(async()=>{
-    const humidityAndTemperaturePromiseData:HumidityAndTemperaturePromise = await Promise.all([
+    const humidityAndTemperaturePromiseData:HumidityAndTemperaturePromise = await Promise
+    .all([
     (await getCurrentData('temperature')).data.list,
-    (await getCurrentData('humidity')).data.list])
+    (await getCurrentData('humidity')).data.list
+    ])
 
     let nowSecond:number = new Date().getSeconds()-5
     const temperatureArray = humidityAndTemperaturePromiseData[0]
@@ -130,7 +132,7 @@ onBeforeUnmount(()=>{
 </script>
 
 <style lang="less" scoped>
-    .home-container{
+    #home-container{
         padding: 1.5rem;
         font-size: large;
         height: 100%;
