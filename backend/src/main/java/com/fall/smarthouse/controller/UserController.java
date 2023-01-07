@@ -6,7 +6,6 @@ import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.util.JWTUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +21,17 @@ import java.util.List;
 @RequestMapping("/user")
 @RestController
 public class UserController {
+
+    private final IUserService userService;
+
     @Autowired
-    IUserService userService;
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
 
     @ApiOperation("获取用户创建时间")
     @GetMapping("get_user_create_time")
-    public ResBean getCreatTime(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResBean getCreatTime(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         Long creatTime = userService.getCreatTime(account);
@@ -47,7 +51,7 @@ public class UserController {
     @PostMapping("add_user")
     public ResBean addUser(@Valid @RequestBody User user,
                            HttpServletResponse response,
-                           HttpServletRequest request) throws Exception {
+                           HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         Boolean addSuccess = userService.addUser(account, user);
@@ -64,7 +68,7 @@ public class UserController {
     @GetMapping("delete_user")
     public ResBean deleteUser(@Valid @RequestBody User user,
                               HttpServletResponse response,
-                              HttpServletRequest request) throws Exception {
+                              HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         Boolean deleteSuccess = userService.deleteUser(account, user);
@@ -81,7 +85,7 @@ public class UserController {
     @PostMapping("update_user")
     public ResBean updateUser(@Valid @RequestBody User user,
                               HttpServletResponse response,
-                              HttpServletRequest request) throws Exception {
+                              HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         Boolean updateSuccess = userService.updateUser(account, user);

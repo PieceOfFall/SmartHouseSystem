@@ -19,10 +19,6 @@ public class ResBean {
 
     private Object data;
 
-    public static ResBean build() {
-        return new ResBean();
-    }
-
     public static ResBean ok(String msg) {
         return new ResBean(200, msg, null);
     }
@@ -49,10 +45,6 @@ public class ResBean {
 
     public static ResBean internalError(String msg) {
         return new ResBean(500, msg, null);
-    }
-
-    public static ResBean internalError(String msg, Object obj) {
-        return new ResBean(500, msg, obj);
     }
 
     public static ResBean forbidden(String msg) {

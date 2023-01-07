@@ -3,9 +3,7 @@ package com.fall.smarthouse.controller;
 import com.fall.smarthouse.bean.MenuItem;
 import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.model.User;
-import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISmartService;
-import com.fall.smarthouse.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +21,12 @@ import java.util.ArrayList;
 @RestController
 public class SmartController {
 
+    private final ISmartService smartService;
+
     @Autowired
-    ISmartService smartService;
+    public SmartController(ISmartService smartService) {
+        this.smartService = smartService;
+    }
 
     @ApiOperation("获取侧边栏")
     @GetMapping("/get_menu")

@@ -18,17 +18,15 @@ import java.util.Map;
 public interface SensorMapper {
 
     /**
-     * @param time
+     * @param time 时间戳
      * @author FAll
      * @description 接口可用性测试
-     * @return: java.lang.Integer
      * @date 2022/12/2 17:16
      */
     @Insert("insert into sensor (time) values (#{time});")
-    Integer testAdd(Timestamp time);
+    void testAdd(Timestamp time);
 
     /**
-     * @param
      * @author FAll
      * @description xml可用性测试
      * @return: java.lang.Integer
@@ -40,7 +38,6 @@ public interface SensorMapper {
      * @description: 添加传感器数据方法
      * @author xiaoQe
      * @date 2022/12/5 17:36
-     * @version 1.0
      */
     Integer insertToSensor(Sensor sensor);
 
@@ -48,7 +45,6 @@ public interface SensorMapper {
      * @description: 轮询查询所有传感器数据
      * @author xiaoQe
      * @date 2022/12/7 14:52
-     * @version 1.0
      */
     List<Sensor> pollingSelectSensorData(Timestamp time);
 
@@ -56,7 +52,6 @@ public interface SensorMapper {
      * @description: 通过时间查询传感器数据
      * @author xiaoQe
      * @date 2022/12/14 22:32
-     * @version 1.0
      */
     List<Sensor> selectSensorDataByTime(Timestamp minTime,Timestamp maxTime);
 
@@ -64,15 +59,13 @@ public interface SensorMapper {
      * @description: 根据异常开始时间查询异常传感器数据接口（用单个mapper实现）
      * @author xiaoQe
      * @date 2022/12/17 22:25
-     * @version 1.0
      */
-    List<Map> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);
+    List<Map<String,Object>> selectAbnormalSensorData(Sensor sensor, Timestamp startTime,Character queryType);
 
     /**
      * @description: Map测试
      * @author xiaoQe
      * @date 2022/12/17 18:08
-     * @version 1.0
      */
     List<Map<String,Object>> testMap();
 
@@ -80,7 +73,6 @@ public interface SensorMapper {
      * @description: 查询传感器数据接口
      * @author xiaoQe
      * @date 2022/12/17 19:55
-     * @version 1.0
      */
-    List<Map> selectSensorDataByQueryType(Timestamp minTime,Timestamp maxTime,Sensor sensor,Character queryType);
+    List<Map<String,Object>> selectSensorDataByQueryType(Timestamp minTime,Timestamp maxTime,Sensor sensor,Character queryType);
 }

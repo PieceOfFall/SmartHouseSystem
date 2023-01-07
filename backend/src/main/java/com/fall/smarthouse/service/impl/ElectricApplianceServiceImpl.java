@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author FAll
@@ -27,10 +24,14 @@ import java.util.List;
 @Service
 public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
-    private static HashMap<String, Integer> electricApplianceMap = new HashMap<>();
+    private static final HashMap<String, Integer> electricApplianceMap = new HashMap<>();
+
+    private final ElectricMapper electricMapper;
 
     @Autowired
-    ElectricMapper electricMapper;
+    public ElectricApplianceServiceImpl(ElectricMapper electricMapper){
+        this.electricMapper = electricMapper;
+    }
 
     @Override
     public ElectricAppliance getAllElectricAppliance() {
@@ -58,12 +59,11 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public Boolean setLightBedA(ElectricAppliance electricAppliance) {
+    public void setLightBedA(ElectricAppliance electricAppliance) {
         Integer lightBedA = electricAppliance.getLightBedA();
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
@@ -76,25 +76,23 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     }
 
     @Override
-    public Boolean setLightLivingRoom(ElectricAppliance electricAppliance) {
+    public void setLightLivingRoom(ElectricAppliance electricAppliance) {
         Integer lightLivingRoom = electricAppliance.getLightLivingRoom();
         Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
         electricAppliance.setLightLivingRoom(lightLivingRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setLightBathroom(ElectricAppliance electricAppliance) {
+    public void setLightBathroom(ElectricAppliance electricAppliance) {
         Integer lightBathRoom = electricAppliance.getLightBathroom();
         Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
         electricAppliance.setLightBathroom(lightBathRoomState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setAppliance(ElectricAppliance electricAppliance) {
+    public void setAppliance(ElectricAppliance electricAppliance) {
         // 将对象非法属性合法化
         ElectricAppliance updateElectric = new ElectricAppliance();
 
@@ -112,67 +110,59 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         updateElectric.setSwitchC(checkSwitchIntegerLegal(electricAppliance.getSwitchC()));
         // 警报
         updateElectric.setWarnLight(checkSwitchIntegerLegal(electricAppliance.getWarnLight()));
-
         Integer integer = electricMapper.updateElectricAppliance(updateElectric);
-        return integer > 0;
     }
 
     @Override
-    public Boolean setSwitchA(ElectricAppliance electricAppliance) {
+    public void setSwitchA(ElectricAppliance electricAppliance) {
         Integer switchA = electricAppliance.getSwitchA();
         Integer switchAState = checkSwitchIntegerLegal(switchA);
         electricAppliance.setSwitchA(switchAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setSwitchB(ElectricAppliance electricAppliance) {
+    public void setSwitchB(ElectricAppliance electricAppliance) {
         Integer switchB = electricAppliance.getSwitchB();
         Integer switchBState = checkSwitchIntegerLegal(switchB);
         electricAppliance.setSwitchB(switchBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setSwitchC(ElectricAppliance electricAppliance) {
+    public void setSwitchC(ElectricAppliance electricAppliance) {
         Integer switchC = electricAppliance.getSwitchC();
         Integer switchCState = checkSwitchIntegerLegal(switchC);
         electricAppliance.setSwitchC(switchCState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setCurtainA(ElectricAppliance electricAppliance) {
+    public void setCurtainA(ElectricAppliance electricAppliance) {
         Integer curtainA = electricAppliance.getCurtainA();
         Integer curtainAState = checkSwitchIntegerLegal(curtainA);
         electricAppliance.setCurtainA(curtainAState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setCurtainB(ElectricAppliance electricAppliance) {
+    public void setCurtainB(ElectricAppliance electricAppliance) {
         Integer curtainB = electricAppliance.getCurtainB();
         Integer curtainBState = checkSwitchIntegerLegal(curtainB);
         electricAppliance.setCurtainB(curtainBState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean setWarnLight(ElectricAppliance electricAppliance) {
+    public void setWarnLight(ElectricAppliance electricAppliance) {
         Integer warnLight = electricAppliance.getWarnLight();
         Integer warnLightState = checkSwitchIntegerLegal(warnLight);
         electricAppliance.setWarnLight(warnLightState);
         Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean homeMode(String account) {
+    public void homeMode(String account) {
         ElectricAppliance homeMode = new ElectricAppliance();
         homeMode.setLightBedA(LightState.BIG.getState());
         homeMode.setLightBedB(LightState.BIG.getState());
@@ -186,11 +176,10 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         //添加历史记录
         addElectricHistory(account,homeMode);
         Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean leaveHomeMode(String account) {
+    public void leaveHomeMode(String account) {
         ElectricAppliance leaveHomeMode = new ElectricAppliance();
         leaveHomeMode.setLightBedA(LightState.CLOSED.getState());
         leaveHomeMode.setLightBedB(LightState.CLOSED.getState());
@@ -204,11 +193,10 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         //添加历史记录
         addElectricHistory(account,leaveHomeMode);
         Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
-        return affectRows != 0;
     }
 
     @Override
-    public Boolean addElectricHistory(String account, ElectricAppliance electricAppliance) {
+    public void addElectricHistory(String account, ElectricAppliance electricAppliance) {
         ElectricAppliance judgeAppliance = judgeAppliance(electricAppliance);
         Integer affectRows;
         if (judgeAppliance == null) {
@@ -217,7 +205,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
             affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
                     account, judgeAppliance);
         }
-        return affectRows != 0;
     }
 
     @Override
@@ -231,8 +218,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
             ReturnHistory returnHistory = judgeTypeToReturnHistory(sqlHistory);
             returnHistories.add(returnHistory);
         }
-        PageInfo<ReturnHistory> returnHistoryPageInfo = new PageInfo<>(returnHistories);
-        return returnHistoryPageInfo;
+        return new PageInfo<>(returnHistories);
     }
 
     @Override
@@ -247,12 +233,11 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @description: 判断电器类型操作类型及电器id方法并将sqlHistory转换为ReturnHistory返回
      * @author xiaoQe
      * @date 2022/12/23 17:17
-     * @version 1.0
      */
     private ReturnHistory judgeTypeToReturnHistory(SqlHistory sqlHistory) {
         ReturnHistory returnHistory = new ReturnHistory();
         returnHistory.setTime(sqlHistory.getTime());
-        if (sqlHistory.getElectricType() == ElectricType.LIGHT.getType()) {
+        if (Objects.equals(sqlHistory.getElectricType(), ElectricType.LIGHT.getType())) {
             returnHistory.setElectricType("light");
             switch (sqlHistory.getOperationType()) {
                 case 0:
@@ -306,7 +291,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @description: 判断appliance是否修改
      * @author xiaoQe
      * @date 2022/12/23 16:18
-     * @version 1.0
      */
     private ElectricAppliance judgeAppliance(ElectricAppliance electricAppliance) {
         //记录电器情况的Map为空则记录初始电器情况

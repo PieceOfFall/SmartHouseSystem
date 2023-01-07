@@ -23,8 +23,8 @@ public interface ISmartService {
     /**
      * @author FAll
      * @description 用户登录
-     * @param account
-     * @param password
+     * @param account 账户
+     * @param password 密码
      * @return: java.lang.Boolean
      * @date 2022/12/6 13:36
      */
@@ -33,7 +33,7 @@ public interface ISmartService {
     /**
      * @author FAll
      * @description 校验Token是否过期
-     * @param token
+     * @param token 令牌
      * @return: java.lang.Boolean
      * @date 2022/12/6 16:02
      */

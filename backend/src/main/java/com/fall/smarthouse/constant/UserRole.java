@@ -14,5 +14,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum UserRole {
     ROOT(2),MASTER(1),USER(0);
-    private Integer role;
+    private final Integer role;
 }
