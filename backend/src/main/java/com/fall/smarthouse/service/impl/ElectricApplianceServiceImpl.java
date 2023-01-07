@@ -93,6 +93,20 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
     @Override
     public void setAppliance(ElectricAppliance electricAppliance) {
+        //记录电器情况的Map为空则记录初始电器情况
+        if (electricApplianceMap.isEmpty()) {
+            ElectricAppliance appliance = electricMapper.getAppliance();
+            electricApplianceMap.put("lightBedA", appliance.getLightBedA());
+            electricApplianceMap.put("lightBedB", appliance.getLightBedB());
+            electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
+            electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
+            electricApplianceMap.put("switchA", appliance.getSwitchA());
+            electricApplianceMap.put("switchB", appliance.getSwitchB());
+            electricApplianceMap.put("switchC", appliance.getSwitchC());
+            electricApplianceMap.put("curtainA", appliance.getCurtainA());
+            electricApplianceMap.put("curtainB", appliance.getCurtainB());
+        }
+
         // 将对象非法属性合法化
         ElectricAppliance updateElectric = new ElectricAppliance();
 
