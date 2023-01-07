@@ -138,7 +138,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/13 19:22
      * @version 1.0
      */
-    Boolean homeMode();
+    Boolean homeMode(String account);
 
     /**
      * @description: 设置离家模式
@@ -146,7 +146,7 @@ public interface IElectricApplianceService {
      * @date 2022/12/13 19:32
      * @version 1.0
      */
-    Boolean leaveHomeMode();
+    Boolean leaveHomeMode(String account);
 
     /**
      * @description: 添加历史数据方法

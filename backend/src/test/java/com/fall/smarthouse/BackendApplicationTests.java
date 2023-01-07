@@ -11,6 +11,8 @@ import com.fall.smarthouse.model.Sensor;
 import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
+import com.fall.smarthouse.service.ISmartService;
+import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.service.impl.SensorServiceImpl;
 import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
@@ -33,6 +35,11 @@ import java.util.*;
 
 @SpringBootTest
 class BackendApplicationTests {
+
+    @Autowired
+    IUserService userService;
+    @Autowired
+    ISmartService smartService;
 
     @Value("${spring.mail.username}")
     String fromMail;
@@ -59,7 +66,17 @@ class BackendApplicationTests {
     SensorServiceImpl sensorServiceI;
 
 
+    @Test
+    void testInsertUser(){
+        User user = new User("123456678", "123456", new Long("1673009586"), "123456@qq.com", 1);
+        userService.addUser("123456789",user);
+    }
 
+    @Test
+    void testUser(){
+        Integer integer = userMapper.selectRoleRoot();
+        System.out.println(integer);
+    }
     @Test
     void getEmail(){
         System.out.println(userMapper.selectAllEmail());
@@ -232,7 +249,7 @@ class BackendApplicationTests {
 
     @Test
     void testLogin(){
-        String ret = userMapper.userLogin("940313262", "123456");
+        String ret = smartService.userLogin("940313262", "123456");
         System.out.println(ret);
     }
 
