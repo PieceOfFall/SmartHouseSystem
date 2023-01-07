@@ -19,10 +19,14 @@ import java.util.ArrayList;
 @Service
 public class SmartServiceImpl implements ISmartService {
 
-    @Autowired
-    SmartMapper smartMapper;
+    private final SmartMapper smartMapper;
 
-    private static ArrayList<MenuItem> menu = new ArrayList<>();
+    @Autowired
+    public SmartServiceImpl(SmartMapper smartMapper){
+        this.smartMapper = smartMapper;
+    }
+
+    private static final ArrayList<MenuItem> menu = new ArrayList<>();
 
     /**
      * @author FAll
@@ -32,7 +36,7 @@ public class SmartServiceImpl implements ISmartService {
      */
     @PostConstruct
     public void initMenuList() {
-        if(!this.menu.isEmpty()) {
+        if(!menu.isEmpty()) {
             return;
         }
         // 1.电控系统
@@ -47,7 +51,7 @@ public class SmartServiceImpl implements ISmartService {
 
         MenuItem[] powerChildren = {lightCtrl, switchCtrl, curtainCtrl};
         powerCtrl.setChildren(powerChildren);
-        this.menu.add(powerCtrl);
+        menu.add(powerCtrl);
 
         // 2.安防系统
         MenuItem defenceCtrl = new MenuItem(MenuID.DEFENCE.getId(), "/defence_ctrl", "安防系统", null);
@@ -63,7 +67,7 @@ public class SmartServiceImpl implements ISmartService {
 
         MenuItem[] defenceChildren = {gasDetect, smogDetect, shakeDetect, warnLight};
         defenceCtrl.setChildren(defenceChildren);
-        this.menu.add(defenceCtrl);
+        menu.add(defenceCtrl);
 
         // 3.场景选择
         MenuItem modeChange = new MenuItem(MenuID.MODE_CHANGE.getId(), "/mode_change", "场景选择", null);
@@ -73,7 +77,7 @@ public class SmartServiceImpl implements ISmartService {
 
         MenuItem[] modeChildren = {changeMode};
         modeChange.setChildren(modeChildren);
-        this.menu.add(modeChange);
+        menu.add(modeChange);
     }
 
 
@@ -85,7 +89,7 @@ public class SmartServiceImpl implements ISmartService {
      */
     @Override
     public ArrayList<MenuItem> getMenu() {
-        return this.menu;
+        return menu;
     }
 
     @Override

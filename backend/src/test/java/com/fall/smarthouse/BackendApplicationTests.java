@@ -169,7 +169,7 @@ class BackendApplicationTests {
     @Test
     void testPage() throws ParseException {
 //        PageHelper.startPage(1,3);
-        PageInfo<Map> shakeSensorData = sensorServiceI.getHumiditySensorData("1670942407000", "1671032560000", 1, 10,'m');
+        PageInfo<Map<String,Object>> shakeSensorData = sensorServiceI.getHumiditySensorData("1670942407000", "1671032560000", 1, 10,'m');
 //        System.out.println(data);
 //        System.out.println();
 //        PageInfo<Double> doublePageInfo = new PageInfo<>(data,3);

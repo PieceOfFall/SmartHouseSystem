@@ -21,7 +21,6 @@ public interface UserMapper {
      * @description: 通过account获取邮箱
      * @author xiaoQe
      * @date 2022/12/24 19:28
-     * @version 1.0
      */
     @Select("select e_mail from user where account = #{account}")
     String selectEmail(String account);
@@ -30,7 +29,6 @@ public interface UserMapper {
      * @description: 获取所有邮箱
      * @author xiaoQe
      * @date 2022/12/28 19:21
-     * @version 1.0
      */
     @Select("select e_mail from user")
     List<String> selectAllEmail();
@@ -39,7 +37,6 @@ public interface UserMapper {
      * @description: 通过account获取用户注册时间
      * @author xiaoQe
      * @date 2022/12/24 20:27
-     * @version 1.0
      */
     @Select("select CONCAT(UNIX_TIMESTAMP(creat_time),'000') as creat_time from user where account = #{account}")
     Long selectCreatTime(String account);
@@ -48,7 +45,6 @@ public interface UserMapper {
      * @description: 查询所有用户信息（不包含密码）
      * @author xiaoQe
      * @date 2023/1/6 20:41
-     * @version 1.0
      */
     @Select("select account,CONCAT(UNIX_TIMESTAMP(creat_time),'000') as creat_time,e_mail,role from user")
     List<User> selectAllUser();
@@ -57,7 +53,6 @@ public interface UserMapper {
      * @description: 添加用户信息
      * @author xiaoQe
      * @date 2023/1/6 20:43
-     * @version 1.0
      */
     Integer insertUser(User user);
 
@@ -65,7 +60,6 @@ public interface UserMapper {
      * @description: 修改用户信息
      * @author xiaoQe
      * @date 2023/1/6 21:05
-     * @version 1.0
      */
     Integer updateUser(User user);
 
@@ -73,7 +67,6 @@ public interface UserMapper {
      * @description: 删除用户信息
      * @author xiaoQe
      * @date 2023/1/6 21:14
-     * @version 1.0
      */
     @Delete("delete from user where account = #{account}")
     Integer deleteUser(User user);
@@ -82,7 +75,6 @@ public interface UserMapper {
      * @description: 根据用户名查询用户权限
      * @author xiaoQe
      * @date 2023/1/6 21:25
-     * @version 1.0
      */
     @Select("select role from user where account = #{account}")
     Integer selectRoleByAccount(String account);
@@ -91,7 +83,6 @@ public interface UserMapper {
      * @description: TODO
      * @author xiaoQe
      * @date 2023/1/6 22:20
-     * @version 1.0
      */
     @Select("select count(*) from user where role = 2")
     Integer selectRoleRoot();

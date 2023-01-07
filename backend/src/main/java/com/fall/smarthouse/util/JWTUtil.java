@@ -38,7 +38,7 @@ public class JWTUtil {
     public static long expireTime;
 
     /**
-     * @param header
+     * @param header token头
      * @author FAll
      * @description 设置 token 头部
      * @date 2022/12/4 15:39
@@ -48,7 +48,7 @@ public class JWTUtil {
     }
 
     /**
-     * @param tokenPrefix
+     * @param tokenPrefix token前缀
      * @author FAll
      * @description 设置 token 前缀
      * @date 2022/12/4 15:39
@@ -58,7 +58,7 @@ public class JWTUtil {
     }
 
     /**
-     * @param secret
+     * @param secret token密钥
      * @author FAll
      * @description 设置 token 密钥
      * @date 2022/12/4 15:39
@@ -68,7 +68,7 @@ public class JWTUtil {
     }
 
     /**
-     * @param expireTimeInt
+     * @param expireTimeInt 过期时间
      * @author FAll
      * @description 设置 token 有效时间
      * @date 2022/12/4 15:39
@@ -78,7 +78,7 @@ public class JWTUtil {
     }
 
     /**
-     * @param sub
+     * @param sub 内容
      * @author FAll
      * @description 创建 TOKEN
      * @return: java.lang.String
@@ -97,7 +97,7 @@ public class JWTUtil {
      * @return: java.lang.String
      * @date 2022/12/4 15:39
      */
-    public static String validateToken(String token) throws Exception {
+    public static String validateToken(String token) {
         try {
             Verification verification = JWT.require(Algorithm.HMAC512(secret));
             JWTVerifier jwtVerifier = verification.build();
@@ -118,7 +118,7 @@ public class JWTUtil {
     }
 
     /**
-     * @param token
+     * @param token 令牌
      * @author FAll
      * @description 检查 token 是否需要更新
      * @return: boolean
@@ -126,7 +126,7 @@ public class JWTUtil {
      */
     public static boolean isNeedUpdate(String token) {
         // 获取 token 过期时间
-        Date expiresAt = null;
+        Date expiresAt;
         try {
             expiresAt = JWT.require(Algorithm.HMAC512(secret))
                     .build()

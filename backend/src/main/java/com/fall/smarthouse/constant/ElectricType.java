@@ -14,5 +14,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum ElectricType {
     LIGHT(1),SWITCH(2),CURTAIN(4);
-    private Integer type;
+    private final Integer type;
 }

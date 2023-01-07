@@ -19,5 +19,5 @@ public enum MenuID {
     // 场景选择
     MODE_CHANGE(3),CHANGE_MODE(31);
 
-    private int id;
+    private final int id;
 }

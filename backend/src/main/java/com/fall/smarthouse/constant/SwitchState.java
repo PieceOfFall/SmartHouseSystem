@@ -14,5 +14,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum SwitchState {
     OFF(0),ON(1);
-    private Integer state;
+    private final Integer state;
 }

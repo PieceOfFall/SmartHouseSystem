@@ -24,8 +24,13 @@ import java.util.Map;
 @RequestMapping("/sensor")
 @RestController
 public class SensorController {
+
+    private final ISensorService sensorService;
+
     @Autowired
-    ISensorService sensorService;
+    public SensorController(ISensorService sensorService) {
+        this.sensorService = sensorService;
+    }
 
     @ApiOperation("添加传感器数据")
     @PostMapping("add_sensor")
@@ -51,7 +56,7 @@ public class SensorController {
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                @NotEmpty @RequestParam("queryType") Character queryType,
                                HttpServletResponse response){
-        PageInfo<Map> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize,queryType);
+        PageInfo<Map<String,Object>> gasSensorData = sensorService.getGasSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",gasSensorData);
     }
@@ -64,7 +69,7 @@ public class SensorController {
                                @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                @NotEmpty @RequestParam("queryType") Character queryType,
                                HttpServletResponse response){
-        PageInfo<Map> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime, pageNum, pageSize,queryType);
+        PageInfo<Map<String,Object>> smogSensorData = sensorService.getSmogSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",smogSensorData);
     }
@@ -77,7 +82,7 @@ public class SensorController {
                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                       @NotEmpty @RequestParam("queryType") Character queryType,
                                       HttpServletResponse response) {
-        PageInfo<Map> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime, pageNum, pageSize,queryType);
+        PageInfo<Map<String,Object>> temperatureSensorData = sensorService.getTemperatureSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",temperatureSensorData);
     }
@@ -90,7 +95,7 @@ public class SensorController {
                                    @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                    @NotEmpty @RequestParam("queryType") Character queryType,
                                    HttpServletResponse response){
-        PageInfo<Map> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime, pageNum, pageSize,queryType);
+        PageInfo<Map<String,Object>> humiditySensorData = sensorService.getHumiditySensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",humiditySensorData);
     }
@@ -102,8 +107,8 @@ public class SensorController {
                                 @NotEmpty @RequestParam("pageNum") Integer pageNum,
                                 @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                 @NotEmpty @RequestParam("queryType") Character queryType,
-                                HttpServletResponse response) throws ParseException {
-        PageInfo<Map> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize,queryType);
+                                HttpServletResponse response) {
+        PageInfo<Map<String,Object>> shakeSensorData = sensorService.getShakeSensorData(minTime, maxTime, pageNum, pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",shakeSensorData);
     }
@@ -164,7 +169,7 @@ public class SensorController {
                                       @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                       @NotEmpty @RequestParam("queryType") Character queryType,
                                       HttpServletResponse response){
-        PageInfo<Map> abnormalGasData = sensorService.getAbnormalGasData(startTime,pageNum,pageSize,queryType);
+        PageInfo<Map<String,Object>> abnormalGasData = sensorService.getAbnormalGasData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalGasData);
     }
@@ -176,7 +181,7 @@ public class SensorController {
                                        @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                        @NotEmpty @RequestParam("queryType") Character queryType,
                                        HttpServletResponse response){
-        PageInfo<Map> abnormalSmogData = sensorService.getAbnormalSmogData(startTime,pageNum,pageSize,queryType);
+        PageInfo<Map<String,Object>> abnormalSmogData = sensorService.getAbnormalSmogData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalSmogData);
     }
@@ -188,7 +193,7 @@ public class SensorController {
                                               @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                               @NotEmpty @RequestParam("queryType") Character queryType,
                                        HttpServletResponse response){
-        PageInfo<Map> abnormalTemperatureData = sensorService.getAbnormalTemperatureData(startTime,pageNum,pageSize,queryType);
+        PageInfo<Map<String,Object>> abnormalTemperatureData = sensorService.getAbnormalTemperatureData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalTemperatureData);
     }
@@ -200,7 +205,7 @@ public class SensorController {
                                            @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                            @NotEmpty @RequestParam("queryType") Character queryType,
                                               HttpServletResponse response){
-        PageInfo<Map> abnormalHumidityData = sensorService.getAbnormalHumidityData(startTime,pageNum,pageSize,queryType);
+        PageInfo<Map<String,Object>> abnormalHumidityData = sensorService.getAbnormalHumidityData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalHumidityData);
     }
@@ -212,7 +217,7 @@ public class SensorController {
                                         @NotEmpty @RequestParam("pageSize") Integer pageSize,
                                         @NotEmpty @RequestParam("queryType") Character queryType,
                                            HttpServletResponse response){
-        PageInfo<Map> abnormalShakeData = sensorService.getAbnormalShakeData(startTime,pageNum,pageSize,queryType);
+        PageInfo<Map<String,Object>> abnormalShakeData = sensorService.getAbnormalShakeData(startTime,pageNum,pageSize,queryType);
         response.setStatus(200);
         return ResBean.ok("ok",abnormalShakeData);
     }

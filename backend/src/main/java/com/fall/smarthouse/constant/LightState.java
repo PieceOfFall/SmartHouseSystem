@@ -14,5 +14,5 @@ import lombok.ToString;
 public enum LightState {
     CLOSED(0),SMALL(1),BIG(2),FULL(3);
 
-    private int state;
+    private final int state;
 }

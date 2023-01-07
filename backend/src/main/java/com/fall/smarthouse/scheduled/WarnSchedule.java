@@ -27,15 +27,22 @@ import java.util.List;
 @EnableScheduling
 @EnableAsync
 public class WarnSchedule {
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+
+    private final IUserService userService;
+
+    private final IElectricApplianceService electricApplianceService;
+
+    private final JavaMailSenderImpl mailSender;
 
     @Autowired
-    IUserService userService;
-    @Autowired
-    IElectricApplianceService electricApplianceService;
-    @Autowired
-    JavaMailSenderImpl mailSender;
+    public WarnSchedule(IUserService userService,IElectricApplianceService electricApplianceService,JavaMailSenderImpl mailSender) {
+        this.userService = userService;
+        this.electricApplianceService = electricApplianceService;
+        this.mailSender = mailSender;
+    }
+
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
     private Integer sendTimes = 0;
 
@@ -49,8 +56,8 @@ public class WarnSchedule {
                 warnLight.setWarnLight(SwitchState.ON.getState());
                 electricApplianceService.setWarnLight(warnLight);
             }
-            Long timeDifference = nowTime - SensorServiceImpl.startTime;
-            Long hasLasted = new Long(3*60*1000 * sendTimes);
+            long timeDifference = nowTime - SensorServiceImpl.startTime;
+            long hasLasted = 3L * 60 * 1000 * sendTimes;
             if (timeDifference > hasLasted) {
                 List<String> emails = userService.getAllEmail();
                 for (String email : emails) {
@@ -63,7 +70,7 @@ public class WarnSchedule {
                 }
                 sendTimes++;
             }
-        } else if (SensorServiceImpl.abnormalType == null) {
+        } else {
             if (!sendTimes.equals(0)) {
                 sendTimes = 0;
                 ElectricAppliance warnLight = new ElectricAppliance();

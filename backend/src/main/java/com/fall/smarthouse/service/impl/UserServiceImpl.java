@@ -1,7 +1,5 @@
 package com.fall.smarthouse.service.impl;
 
-import com.fall.smarthouse.bean.MenuItem;
-import com.fall.smarthouse.constant.MenuID;
 import com.fall.smarthouse.constant.UserRole;
 import com.fall.smarthouse.mapper.UserMapper;
 import com.fall.smarthouse.model.User;
@@ -13,8 +11,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +22,20 @@ public class UserServiceImpl implements IUserService {
 
     @Value("${spring.mail.username}")
     private String fromEmail;
-    @Autowired
-    JavaMailSenderImpl mailSender;
+
+    private final JavaMailSenderImpl mailSender;
+
+    private final UserMapper userMapper;
 
     @Autowired
-    UserMapper userMapper;
+    public UserServiceImpl(JavaMailSenderImpl mailSender,UserMapper userMapper) {
+        this.mailSender = mailSender;
+        this.userMapper = userMapper;
+    }
 
     @Override
     public Long getCreatTime(String account) {
-        Long creatTime = userMapper.selectCreatTime(account);
-        return creatTime;
+        return userMapper.selectCreatTime(account);
     }
 
     @Override
@@ -49,7 +49,6 @@ public class UserServiceImpl implements IUserService {
         mailSender.send(message);
     }
 
-
     @Override
     public List<String> getAllEmail() {
         return userMapper.selectAllEmail();
@@ -57,8 +56,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getAllUser() {
-        List<User> users = userMapper.selectAllUser();
-        return users;
+        return userMapper.selectAllUser();
     }
 
     @Override

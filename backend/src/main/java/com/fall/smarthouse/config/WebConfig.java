@@ -45,7 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * @author FAll
      * @description 允许跨域请求配置
-     * @param registry
+     * @param registry 注册器
      * @date 2022/12/3 11:48
      */
     @Override
@@ -55,7 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 //放行哪些原始域
                 .allowedOriginPatterns("*")
-                .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .exposedHeaders("*");
     }
@@ -63,7 +63,7 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * @author FAll
      * @description 添加拦截器
-     * @param registry
+     * @param registry 注册器
      * @date 2022/12/12 12:36
      */
     @Override

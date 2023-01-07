@@ -26,11 +26,16 @@ import java.util.HashMap;
 @RequestMapping("/electric")
 @RestController
 public class ElectricApplianceController {
-    @Autowired
-    IUserService userService;
+
+    private final IUserService userService;
+
+    private final IElectricApplianceService electricApplianceService;
 
     @Autowired
-    IElectricApplianceService electricApplianceService;
+    public ElectricApplianceController(IUserService userService,IElectricApplianceService electricApplianceService) {
+        this.userService = userService;
+        this.electricApplianceService = electricApplianceService;
+    }
 
     @ApiOperation("获取所有电器的数据")
     @GetMapping("/get_all_electric_appliance")
@@ -183,7 +188,7 @@ public class ElectricApplianceController {
     @ApiOperation("控制所有电器")
     @PostMapping("set_appliance")
     public ResBean setAppliance(@Valid @RequestBody ElectricAppliance electricAppliance,
-                                HttpServletResponse response, HttpServletRequest request) throws Exception {
+                                HttpServletResponse response, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         electricApplianceService.addElectricHistory(account, electricAppliance);
@@ -194,7 +199,7 @@ public class ElectricApplianceController {
 
     @ApiOperation("设置回家模式")
     @PostMapping("set_home_mode")
-    public ResBean setHomeMode(HttpServletResponse response,HttpServletRequest request) throws Exception {
+    public ResBean setHomeMode(HttpServletResponse response,HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         electricApplianceService.homeMode(account);
@@ -204,7 +209,7 @@ public class ElectricApplianceController {
 
     @ApiOperation("设置离家模式")
     @PostMapping("set_leave_home_mode")
-    public ResBean setLeaveHomeMode(HttpServletResponse response,HttpServletRequest request) throws Exception {
+    public ResBean setLeaveHomeMode(HttpServletResponse response,HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         electricApplianceService.leaveHomeMode(account);
@@ -217,7 +222,7 @@ public class ElectricApplianceController {
     public ResBean getHistory(@NotEmpty @RequestParam("startTime") String startTime,
                               @NotEmpty @RequestParam("pageNum") Integer pageNum,
                               @NotEmpty @RequestParam("pageSize") Integer pageSize,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception {
+                              HttpServletRequest request, HttpServletResponse response) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         PageInfo<ReturnHistory> history = electricApplianceService.getHistory(account, startTime, pageNum, pageSize);
@@ -227,7 +232,7 @@ public class ElectricApplianceController {
 
     @ApiOperation("防盗警报模拟接口（返回warnLight值）")
     @GetMapping("anti_theft_warning_simulation")
-    public ResBean antiTheftTest(HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public ResBean antiTheftTest(HttpServletResponse response, HttpServletRequest request)  {
         ElectricAppliance warnLight = electricApplianceService.getWarnLight();
         ElectricAppliance burglarAlarm = new ElectricAppliance();
         if (warnLight.getWarnLight().equals(SwitchState.OFF.getState())) {

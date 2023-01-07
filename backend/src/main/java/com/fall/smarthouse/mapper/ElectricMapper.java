@@ -39,7 +39,6 @@ public interface ElectricMapper {
      * @description: 添加历史记录的方法
      * @author xiaoQe
      * @date 2022/12/22 19:10
-     * @version 1.0
      */
     Integer insertElectricHistory(Timestamp time, String account, ElectricAppliance electricAppliance);
 
@@ -47,7 +46,6 @@ public interface ElectricMapper {
      * @description: 查询历史记录
      * @author xiaoQe
      * @date 2022/12/22 19:13
-     * @version 1.0
      */
     List<SqlHistory> selectElectricHistory(String account, Timestamp startTime, Timestamp endTime);
 }
