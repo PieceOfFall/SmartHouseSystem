@@ -12,6 +12,7 @@ import com.fall.smarthouse.model.User;
 import com.fall.smarthouse.service.IElectricApplianceService;
 import com.fall.smarthouse.service.ISensorService;
 import com.fall.smarthouse.service.ISmartService;
+import com.fall.smarthouse.service.IUserService;
 import com.fall.smarthouse.service.impl.SensorServiceImpl;
 import com.fall.smarthouse.util.DateConverter;
 import com.fall.smarthouse.util.JWTUtil;
@@ -35,6 +36,8 @@ import java.util.*;
 @SpringBootTest
 class BackendApplicationTests {
 
+    @Autowired
+    IUserService userService;
     @Autowired
     ISmartService smartService;
 
@@ -65,8 +68,8 @@ class BackendApplicationTests {
 
     @Test
     void testInsertUser(){
-        User user = new User("123445678", "123456", new Long("1673009586"), "123456@qq.com", 1);
-        userMapper.insertUser(user);
+        User user = new User("123456678", "123456", new Long("1673009586"), "123456@qq.com", 1);
+        userService.addUser("123456789",user);
     }
 
     @Test

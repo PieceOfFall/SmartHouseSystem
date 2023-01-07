@@ -65,6 +65,7 @@ public class UserServiceImpl implements IUserService {
     public Boolean addUser(String account, User user) {
         Integer accountRole = userMapper.selectRoleByAccount(account);
         user.setCreatTime(user.getCreatTime()/1000);
+        user.setPassword(JWTUtil.SALT_BEFORE + user.getPassword() + JWTUtil.SALT_AFTER);
         Integer affectRows;
         if(accountRole > user.getRole()){
             affectRows = userMapper.insertUser(user);
@@ -89,6 +90,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Boolean updateUser(String account, User user) {
         Integer accountRole = userMapper.selectRoleByAccount(account);
+        if(user.getPassword() != null){
+            user.setPassword(JWTUtil.SALT_BEFORE + user.getPassword() + JWTUtil.SALT_AFTER);
+        }
         Integer affectRows;
         if(accountRole >= user.getRole()){
             //若user的权限为root，则此时account权限也为root，
