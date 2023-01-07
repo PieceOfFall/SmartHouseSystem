@@ -189,10 +189,10 @@ public class ElectricApplianceController {
     @PostMapping("set_appliance")
     public ResBean setAppliance(@Valid @RequestBody ElectricAppliance electricAppliance,
                                 HttpServletResponse response, HttpServletRequest request) {
+        electricApplianceService.setAppliance(electricAppliance);
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
         electricApplianceService.addElectricHistory(account, electricAppliance);
-        electricApplianceService.setAppliance(electricAppliance);
         response.setStatus(200);
         return ResBean.ok("ok");
     }
