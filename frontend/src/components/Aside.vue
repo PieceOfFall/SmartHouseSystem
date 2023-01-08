@@ -15,14 +15,17 @@
         </el-icon>
       </div>
       <!-- 功能模块 -->
-      <el-sub-menu v-for="(item) in menuList" :index="item.path">
+      <el-sub-menu v-for="(item,index) in menuList" :index="item.path">
 
         <template #title>
-          <el-icon><IconMenu /></el-icon>
+          <el-icon>
+            <MagicStick v-if="index===0"/>
+            <Umbrella v-else-if="index===1"/>
+            <HomeFilled v-else/>
+          </el-icon>
           <span>{{item.authName}}</span>
         </template>
         <el-menu-item-group>
-
           <!-- 具体功能 -->
           <el-menu-item v-for="(innerItem) in item.children" :index="innerItem.path">
             {{innerItem.authName}}
@@ -42,7 +45,10 @@ import {
 } from 'vue'
 import {
   Menu as IconMenu,
-  MoreFilled
+  MoreFilled,
+  MagicStick,
+  Umbrella,
+  HomeFilled
 } from '@element-plus/icons-vue'
 import useStore from '../store';
 import { storeToRefs } from 'pinia';

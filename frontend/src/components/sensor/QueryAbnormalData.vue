@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import {getAbnormalByDifference} from '../../api/sensor/index';
 import {sensorType} from '../../api/sensor/types';
-import { onMounted,watch,ref,onBeforeUnmount } from 'vue';
+import { onMounted,watch,ref } from 'vue';
 import {Router, useRouter} from 'vue-router'
 const router = useRouter()
 
