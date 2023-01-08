@@ -1,7 +1,10 @@
 package com.fall.smarthouse.service.exception;
 
 import com.fall.smarthouse.bean.ResBean;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,6 +17,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author FAll
@@ -22,6 +28,14 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private final ObjectMapper mapper;
+
+    @Autowired
+    public GlobalExceptionHandler(ObjectMapper mapper){
+        this.mapper = mapper;
+    }
+
     /**
      * @author FAll
      * @description 请求参数缺失
@@ -77,7 +91,7 @@ public class GlobalExceptionHandler {
         log.warn("参数校验错误", e);
         FieldError fieldError = e.getBindingResult().getFieldError();
         response.setStatus(405);
-        return ResBean.badRequest(String.format("参数校验错误:%s", fieldError.getDefaultMessage()));
+        return ResBean.badRequest(String.format("参数校验错误:%s", Objects.requireNonNull(fieldError).getDefaultMessage()));
     }
 
     /**
@@ -159,11 +173,11 @@ public class GlobalExceptionHandler {
      * @date 2022/12/29 16:22
      */
     private void logWarn(HttpServletRequest request) {
-        log.warn("Request URL: {}", request.getRequestURL());
-        log.warn("Request Method: {}", request.getMethod());
-        log.warn("Request IP: {}", request.getRemoteAddr());
-        log.warn("Request Headers: {}", request.getHeaderNames());
-        log.warn("Request Parameters: {}", request.getParameterMap());
+        log.warn("请求 URL: {}", request.getRequestURL());
+        log.warn("请求 方式: {}", request.getMethod());
+        log.warn("请求 IP: {}", request.getRemoteAddr());
+        log.warn("请求 头: {}", request.getHeaderNames());
+        log.warn("请求 参数: {}", request.getParameterMap());
     }
 
     /**
@@ -173,10 +187,22 @@ public class GlobalExceptionHandler {
      * @date 2022/12/29 16:23
      */
     private void logError(HttpServletRequest request) {
-        log.error("Request URL: {}", request.getRequestURL());
-        log.error("Request Method: {}", request.getMethod());
-        log.error("Request IP: {}", request.getRemoteAddr());
-        log.error("Request Headers: {}", request.getHeaderNames());
-        log.error("Request Parameters: {}", request.getParameterMap());
+        try {
+        log.error(" 请求 URL: {}", request.getRequestURL());
+        log.error(" 请求 方式: {}", request.getMethod());
+        log.error(" 请求 IP: {}", request.getRemoteAddr());
+        Enumeration<String> headerNames = request.getHeaderNames();
+        HashMap<String, String> headerMap = new HashMap<>();
+        String headerName;
+        while(headerNames.hasMoreElements()) {
+            headerName = headerNames.nextElement();
+            headerMap.put(headerName,request.getHeader(headerName));
+        }
+        log.error(" 请求 头: {}", mapper.writeValueAsString(headerMap));
+        log.error(" 请求 参数: {}", mapper.writeValueAsString(request.getParameterMap()));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }

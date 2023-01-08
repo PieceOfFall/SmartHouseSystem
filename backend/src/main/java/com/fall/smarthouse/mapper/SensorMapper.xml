@@ -106,9 +106,9 @@
 
 <!--    List<HashMap<String,Object>> testMap(Timestamp minTime,Timestamp maxTime);-->
     <resultMap id="testMap" type="java.util.Map">
-        <result property="day" column="day" javaType="java.lang.Long"></result>
-        <result property="smog" column="avg_smog" javaType="java.lang.Double"></result>
-        <result property="gas" column="avg_gas" javaType="java.lang.Double"></result>
+        <result property="day" column="day" javaType="java.lang.Long"/>
+        <result property="smog" column="avg_smog" javaType="java.lang.Double"/>
+        <result property="gas" column="avg_gas" javaType="java.lang.Double"/>
     </resultMap>
     <select id="testMap" resultMap="testMap">
         SELECT REPLACE(UNIX_TIMESTAMP(DATE_FORMAT(time,'%Y-%m-%d')),'.000000','000') as `day`, AVG(smog) as avg_smog
@@ -117,12 +117,12 @@
 
 <!--        List<Map> selectSensorDataByQueryType(Timestamp minTime,Timestamp maxTime,Sensor sensor,Character queryType);-->
     <resultMap id="returnMap" type="java.util.Map">
-        <result property="time" column="date" javaType="java.lang.Long"></result>
-        <result property="smog" column="avg_smog" javaType="java.lang.Double"></result>
-        <result property="gas" column="avg_gas" javaType="java.lang.Double"></result>
-        <result property="temperature" column="avg_temperature" javaType="java.lang.Double"></result>
-        <result property="humidity" column="avg_humidity" javaType="java.lang.Double"></result>
-        <result property="shake" column="avg_shake" javaType="java.lang.Double"></result>
+        <result property="time" column="date" javaType="java.lang.Long"/>
+        <result property="smog" column="avg_smog" javaType="java.lang.Double"/>
+        <result property="gas" column="avg_gas" javaType="java.lang.Double"/>
+        <result property="temperature" column="avg_temperature" javaType="java.lang.Double"/>
+        <result property="humidity" column="avg_humidity" javaType="java.lang.Double"/>
+        <result property="shake" column="avg_shake" javaType="java.lang.Double"/>
     </resultMap>
 
     <select id="selectSensorDataByQueryType" resultMap="returnMap">

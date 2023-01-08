@@ -4,7 +4,9 @@ import com.fall.smarthouse.bean.ResBean;
 import com.fall.smarthouse.util.JWTUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +20,15 @@ import java.io.PrintWriter;
  * @date 2022/12/12 12:10
  */
 @Slf4j
+@Component
 public class SmartInterceptor implements HandlerInterceptor {
+
+    private final ObjectMapper mapper;
+
+    @Autowired
+    public SmartInterceptor(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     /**
      * @author FAll
@@ -38,7 +48,6 @@ public class SmartInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         boolean needUpdate = JWTUtil.isNeedUpdate(token);
         if (needUpdate) {
-            ObjectMapper mapper = new ObjectMapper();
             returnJSON(response, mapper.writeValueAsString(ResBean.unauthorized("登录失效，请重新登录")));
             return false;
         }

@@ -85,6 +85,7 @@ onBeforeUnmount(()=>{
 */
 const router =useRouter()
 async function confirmDate(date:[number,number]){
+    
     await nextTick()
     router.push({
          path: '/gas_detect/query_certain_gas_data', 

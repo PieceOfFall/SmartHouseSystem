@@ -3,7 +3,8 @@
         <!-- 数据显示 -->
         <el-table 
         stripe 
-        :data="renderDataList">
+        :data="renderDataList"
+        v-loading="loading">
             <el-table-column prop="startTime" :label="`异常开始时间`" />
             <el-table-column label="操作">
                 <template #default="scope">
@@ -20,7 +21,7 @@
 import {getAbnormalByDifference} from '../../api/sensor/index';
 import {sensorType} from '../../api/sensor/types';
 import { onMounted,watch,ref,onBeforeUnmount } from 'vue';
-import {useRouter} from 'vue-router'
+import {Router, useRouter} from 'vue-router'
 const router = useRouter()
 
 /*
@@ -30,14 +31,17 @@ interface RenderData {
     startTime:string,
     timeStamp:number
 }
+// 渲染数据
 const renderDataList = ref<RenderData[]>([])
+// 等待加载
+const loading = ref(true)
 // 页面初始化时从query中读取参数
 onMounted(async ()=>{
     await getAndRenderAbnormals(router.currentRoute.value.query.sensorType as string)
 })
 
 // 页面query参数变动
-const query = ref(router)
+const query = ref<Router>(router)
 const unwatch = watch(query,async()=>{
     if(router.currentRoute.value.fullPath.match('query_abnormal_data')) {
         await getAndRenderAbnormals(router.currentRoute.value.query.sensorType as string)
@@ -51,6 +55,7 @@ const unwatch = watch(query,async()=>{
 
 // 根据传感器类型查询并渲染异常开始时间表
 async function getAndRenderAbnormals(sensorType:string) {
+    loading.value = true
     renderDataList.value = await (await getAbnormalByDifference(sensorType as sensorType))
     .data.map((currentValue:number,index:number,array)=>{
         let date = new Date(currentValue*1000)
@@ -62,6 +67,7 @@ async function getAndRenderAbnormals(sensorType:string) {
             timeStamp: currentValue
         }
     })
+    loading.value = false
 }
 
 // 跳转到异常详情

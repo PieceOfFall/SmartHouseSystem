@@ -56,7 +56,7 @@ const option = ref({
       max: props.yAxisBar?.max,
       interval: props.yAxisBar?.interval,
       axisLabel: {
-        formatter: '{value} '
+        formatter: '{value}% '
       }
     },
     {

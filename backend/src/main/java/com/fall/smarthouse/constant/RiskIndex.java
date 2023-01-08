@@ -14,5 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum RiskIndex {
     HUMIDITY_DANGER(1),SMOG_DANGER(2),TEMPERATURE_DANGER(4),GAS_DANGER(8),SHAKE_DANGER(16);
+
     private final int index;
 }

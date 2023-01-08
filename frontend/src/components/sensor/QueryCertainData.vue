@@ -4,7 +4,8 @@
         <div @click="queryOrBack" class="back"><el-button :icon="Search">上一步</el-button></div>
         <el-table 
         stripe 
-        :data="renderDataList">
+        :data="renderDataList"
+        v-loading="loading">
             <el-table-column prop="time" :label="`记录时间 ${currentGap.toLocaleUpperCase()}`" />
             <el-table-column prop="sensor" label="记录值" />
             <el-table-column label="操作">
@@ -42,6 +43,8 @@ const renderDataList = ref<RenderData[]>([])
 const currentGap = ref<queryType>('s')
 // 当前查询的传感器类型
 let querySensorType: sensorType
+// 等待加载
+const loading = ref(true)
 
 //获取到待查询的传感器类型和时间范围,执行查询
 onMounted( async()=>{  
@@ -53,6 +56,7 @@ onMounted( async()=>{
 
 // 获取数据并渲染
 async function getAndRenderByDifference(startTime: number, endTime: number) {  
+    loading.value = true
     if(!startTime){
         return  
     }    
@@ -68,6 +72,7 @@ async function getAndRenderByDifference(startTime: number, endTime: number) {
         })
         
         currentGap.value = getGapByDifference(endTime-startTime) as queryType
+        loading.value = false
         
 }
 

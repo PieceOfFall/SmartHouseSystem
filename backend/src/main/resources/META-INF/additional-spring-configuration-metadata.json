@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "jwt.header",
+      "type": "java.lang.String",
+      "description": "Http请求头中JWT字段名"
+    },
+    {
+      "name": "jwt.tokenPrefix",
+      "type": "java.lang.String",
+      "description": "JWT前缀"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT密钥"
+    },
+    {
+      "name": "jwt.expireTime",
+      "type": "java.lang.String",
+      "description": "JWT过期时间"
+    }
+  ] }
