@@ -35,10 +35,6 @@ public class ResBean {
         return new ResBean(400, msg, null);
     }
 
-    public static ResBean badRequest(String msg, Object obj) {
-        return new ResBean(400, msg, obj);
-    }
-
     public static ResBean unauthorized(String msg) {
         return new ResBean(401, msg, null);
     }
