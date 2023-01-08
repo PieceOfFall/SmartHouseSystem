@@ -7,7 +7,7 @@ import { operationResponse, OperationHistory } from './types';
 */
 export async function getUserCreateTimestamp():AxiosPromise<number> {
     return await request({
-        url:'/electric/get_user_create_time',
+        url:'/user/get_user_create_time',
         method:'get'
     })
 }

@@ -29,7 +29,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     private final ElectricMapper electricMapper;
 
     @Autowired
-    public ElectricApplianceServiceImpl(ElectricMapper electricMapper){
+    public ElectricApplianceServiceImpl(ElectricMapper electricMapper) {
         this.electricMapper = electricMapper;
     }
 
@@ -63,7 +63,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBedA = electricAppliance.getLightBedA();
         Integer lightBedAState = checkLightIntegerLegal(lightBedA);
         electricAppliance.setLightBedA(lightBedAState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightLivingRoom = electricAppliance.getLightLivingRoom();
         Integer lightLivingRoomState = checkLightIntegerLegal(lightLivingRoom);
         electricAppliance.setLightLivingRoom(lightLivingRoomState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -88,12 +88,12 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer lightBathRoom = electricAppliance.getLightBathroom();
         Integer lightBathRoomState = checkLightIntegerLegal(lightBathRoom);
         electricAppliance.setLightBathroom(lightBathRoomState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
     public void setAppliance(ElectricAppliance electricAppliance) {
-        //记录电器情况的Map为空则记录初始电器情况
+        // 记录电器情况的Map为空则记录初始电器情况
         if (electricApplianceMap.isEmpty()) {
             ElectricAppliance appliance = electricMapper.getAppliance();
             electricApplianceMap.put("lightBedA", appliance.getLightBedA());
@@ -124,7 +124,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         updateElectric.setSwitchC(checkSwitchIntegerLegal(electricAppliance.getSwitchC()));
         // 警报
         updateElectric.setWarnLight(checkSwitchIntegerLegal(electricAppliance.getWarnLight()));
-        Integer integer = electricMapper.updateElectricAppliance(updateElectric);
+        electricMapper.updateElectricAppliance(updateElectric);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchA = electricAppliance.getSwitchA();
         Integer switchAState = checkSwitchIntegerLegal(switchA);
         electricAppliance.setSwitchA(switchAState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchB = electricAppliance.getSwitchB();
         Integer switchBState = checkSwitchIntegerLegal(switchB);
         electricAppliance.setSwitchB(switchBState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer switchC = electricAppliance.getSwitchC();
         Integer switchCState = checkSwitchIntegerLegal(switchC);
         electricAppliance.setSwitchC(switchCState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainA = electricAppliance.getCurtainA();
         Integer curtainAState = checkSwitchIntegerLegal(curtainA);
         electricAppliance.setCurtainA(curtainAState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer curtainB = electricAppliance.getCurtainB();
         Integer curtainBState = checkSwitchIntegerLegal(curtainB);
         electricAppliance.setCurtainB(curtainBState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         Integer warnLight = electricAppliance.getWarnLight();
         Integer warnLightState = checkSwitchIntegerLegal(warnLight);
         electricAppliance.setWarnLight(warnLightState);
-        Integer affectRows = electricMapper.updateElectricAppliance(electricAppliance);
+        electricMapper.updateElectricAppliance(electricAppliance);
     }
 
     @Override
@@ -187,9 +187,9 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         homeMode.setSwitchA(SwitchState.ON.getState());
         homeMode.setSwitchB(SwitchState.ON.getState());
         homeMode.setSwitchC(SwitchState.ON.getState());
-        //添加历史记录
-        addElectricHistory(account,homeMode);
-        Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
+        // 添加历史记录
+        addElectricHistory(account, homeMode);
+        electricMapper.updateElectricAppliance(homeMode);
     }
 
     @Override
@@ -204,19 +204,16 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         leaveHomeMode.setSwitchA(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
-        //添加历史记录
-        addElectricHistory(account,leaveHomeMode);
-        Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
+        // 添加历史记录
+        addElectricHistory(account, leaveHomeMode);
+        electricMapper.updateElectricAppliance(leaveHomeMode);
     }
 
     @Override
     public void addElectricHistory(String account, ElectricAppliance electricAppliance) {
         ElectricAppliance judgeAppliance = judgeAppliance(electricAppliance);
-        Integer affectRows;
-        if (judgeAppliance == null) {
-            affectRows = 0;
-        } else {
-            affectRows = electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
+        if (judgeAppliance != null) {
+            electricMapper.insertElectricHistory(new Timestamp(Calendar.getInstance().getTimeInMillis()),
                     account, judgeAppliance);
         }
     }
@@ -307,7 +304,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @date 2022/12/23 16:18
      */
     private ElectricAppliance judgeAppliance(ElectricAppliance electricAppliance) {
-        //记录电器情况的Map为空则记录初始电器情况
+        // 记录电器情况的Map为空则记录初始电器情况
         if (electricApplianceMap.isEmpty()) {
             ElectricAppliance appliance = electricMapper.getAppliance();
             electricApplianceMap.put("lightBedA", appliance.getLightBedA());
@@ -320,7 +317,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
             electricApplianceMap.put("curtainA", appliance.getCurtainA());
             electricApplianceMap.put("curtainB", appliance.getCurtainB());
         }
-        //判断电器是否改变
+        // 判断电器是否改变
         Integer isChange = 0;
         if (electricAppliance.getLightBedA() != null) {
             if (electricAppliance.getLightBedA().equals(electricApplianceMap.get("lightBedA"))) {
