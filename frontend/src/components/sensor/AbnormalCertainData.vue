@@ -41,6 +41,7 @@ const router = useRouter()
 // 等待加载
 const loading = ref(true)
 
+// 根据开始时间和时间间隔获取并渲染异常数据
 async function getAndRenderByGapAndStartTime() {
     loading.value = true
     const query:LocationQuery = router.currentRoute.value.query
