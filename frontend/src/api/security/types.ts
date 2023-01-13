@@ -120,8 +120,8 @@ export interface AbnormalDataSet {
 */
 export interface UserData {
    account: string,
-   password?:null,
-   creatTime:number,
+   password?:string,
+   creatTime?:number,
    role:number,
    email:string
 }

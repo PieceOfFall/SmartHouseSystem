@@ -9,10 +9,12 @@
         label-width="60px"
         label-position = "left"
         :hide-required-asterisk = "true">
-            <el-form-item label="账号"
+            <el-form-item 
+            label="账号"
             id="account-item"
             prop="account">
-                <el-input v-model="form.account"
+                <el-input 
+                v-model="form.account"
                 placeholder="输入账号" 
                 :suffix-icon="User"
                 @keydown.native.enter="submitForm(ruleFormRef)"/>
@@ -85,7 +87,7 @@ const rules = reactive<FormRules>({
         { min: 9, max: 9, message: '长度应该为9', trigger: 'blur' }
     ],
     password:[
-        {required:true, message:'请输入账号',trigger:'blur'},
+        {required:true, message:'请输入密码',trigger:'blur'},
         {required:true, min: 6, message: '密码长度至少为6', trigger: 'blur' }
     ]
 })
