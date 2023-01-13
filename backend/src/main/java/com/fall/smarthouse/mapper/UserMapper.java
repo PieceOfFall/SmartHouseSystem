@@ -86,4 +86,13 @@ public interface UserMapper {
      */
     @Select("select count(*) from user where role = 2")
     Integer selectRoleRoot();
+
+    /**
+     * @description: 判断用户是否存在
+     * @author xiaoQe
+     * @date 2023/1/13 22:42
+     * @version 1.0
+     */
+    @Select("select count(*) from user where account = #{account}")
+    Integer isExist(String account);
 }
