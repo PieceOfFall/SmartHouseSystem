@@ -9,10 +9,12 @@
         label-width="60px"
         label-position = "left"
         :hide-required-asterisk = "true">
-            <el-form-item label="账号"
+            <el-form-item 
+            label="账号"
             id="account-item"
             prop="account">
-                <el-input v-model="form.account"
+                <el-input 
+                v-model="form.account"
                 placeholder="输入账号" 
                 :suffix-icon="User"
                 @keydown.native.enter="submitForm(ruleFormRef)"/>

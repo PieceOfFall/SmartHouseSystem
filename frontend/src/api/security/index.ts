@@ -139,7 +139,7 @@ export async function getAllUsers():AxiosPromise<UserRenderData[]> {
     })
 
     users.data =  users.data.map((currentValue:UserData,index:number)=>{
-        const date = new Date(currentValue.creatTime)
+        const date = new Date(currentValue.creatTime as number)
         return {
             account:currentValue.account,
             createdTime:`${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`,
@@ -149,8 +149,22 @@ export async function getAllUsers():AxiosPromise<UserRenderData[]> {
     })
 
     return users
-   
 }
+
+/*
+   修改用户
+*/
+export async function editUser(userInfo:UserData):AxiosPromise<boolean> {
+    return await request({
+        url:'/user/update_user',
+        method:'post',
+        data:{
+            ...userInfo
+        }
+    })
+    
+}
+
 
 /*
     传感器util
