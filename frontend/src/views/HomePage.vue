@@ -24,8 +24,8 @@
                     line-name="温度"
                     :y-axis-bar="{
                         min:0,
-                        max:1,
-                        interval:0.1
+                        max:100,
+                        interval:10
                     }"
                     :y-axis-line="{
                         min:0,
@@ -104,7 +104,7 @@ onMounted(async()=>{
     const humidityArray = humidityAndTemperaturePromiseData[1]
     for(let i = 0;i<humidityAndTemperaturePromiseData[0].length;i++) {
         timeArray.value.push(nowSecond++)
-        chartData.value.bar.push(humidityArray[i].humidity)
+        chartData.value.bar.push(humidityArray[i].humidity*100)
         chartData.value.line.push(temperatureArray[i].temperature)
     }
 
@@ -117,7 +117,7 @@ const updateInterval = setInterval(async()=>{
 
     const [humidityData]:HumidityData[] = (await getCurrentData('humidity')).data.list
     chartData.value.bar.shift()
-    chartData.value.bar.push(humidityData.humidity)
+    chartData.value.bar.push(humidityData.humidity*100)
 
     const [temperatureData]:TemperatureData[] = (await getCurrentData('temperature')).data.list
     chartData.value.line.shift()

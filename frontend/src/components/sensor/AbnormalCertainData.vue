@@ -4,7 +4,8 @@
         <div @click="queryOrBack" class="back"><el-button :icon="Search">上一步</el-button></div>
         <el-table 
         stripe 
-        :data="renderDataList">
+        :data="renderDataList"
+        v-loading="loading">
             <el-table-column prop="time" :label="`记录时间 ${currentGap.toLocaleUpperCase()}`" />
             <el-table-column prop="sensor" label="记录值" />
             <el-table-column label="操作">
@@ -35,10 +36,14 @@ const renderDataList = ref<RenderData[]>([])
 const currentGap = ref<queryType>('d')
 // 当前查询的传感器类型
 let querySensorType: sensorType
-
+// 路由变量
 const router = useRouter()
+// 等待加载
+const loading = ref(true)
 
+// 根据开始时间和时间间隔获取并渲染异常数据
 async function getAndRenderByGapAndStartTime() {
+    loading.value = true
     const query:LocationQuery = router.currentRoute.value.query
     renderDataList.value = await (await getCertainAbnormal(
         query.sensorType as sensorType,
@@ -53,6 +58,7 @@ async function getAndRenderByGapAndStartTime() {
                 time: `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日  ${date.getHours()}:${date.getMinutes()<=9?'0'+date.getMinutes():date.getMinutes()}:${date.getSeconds()<=9?'0'+date.getSeconds():date.getSeconds()}`,
             }
         })
+        loading.value = false
 }
 
 //获取到待查询的传感器类型和时间范围,执行查询

@@ -95,12 +95,19 @@
     </dependencies>
 
     <build>
-        <!-- 配置xml文件访问路径，放入mapper接口同一目录 -->
         <resources>
+            <!-- 配置xml文件访问路径，放入mapper接口同一目录 -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- 配置json等静态文件识别打包 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
                 </includes>
             </resource>
         </resources>

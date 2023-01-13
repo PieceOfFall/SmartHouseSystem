@@ -48,8 +48,7 @@ export async function getCertainData(
     queryType: queryType,
     pageNum: number,
     pageSize: number
-): AxiosPromise < SensorDataSet > {
-    //获取范围: 当前以及五秒前    
+): AxiosPromise < SensorDataSet > {    
 
     return await request({
         url: `/sensor/get_${sensorType}_data`,

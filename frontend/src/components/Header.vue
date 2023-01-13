@@ -58,7 +58,22 @@ async function backHome() {
                 font-family: 'STXingkai';
                 box-shadow: 0 0 1.2rem var(--el-color-primary);
                 padding: 5px;
-                border-radius: 40%;
+                border-radius: 50%;
+            }
+        }
+
+        span:active{
+            cursor: pointer;
+            font-family: 'STHeiti';
+            margin-left: 1rem;
+            color: gainsboro;
+
+            b {
+                font-size: large;
+                font-family: 'STXingkai';
+                box-shadow: 0 0 1.2rem cyan;
+                padding: 5px;
+                border-radius: 50%;
             }
         }
 
