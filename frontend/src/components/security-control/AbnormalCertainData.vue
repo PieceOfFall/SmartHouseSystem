@@ -23,8 +23,8 @@
 import { Search } from '@element-plus/icons-vue'
 import { onMounted, ref,watch } from 'vue';
 import {LocationQuery, useRouter} from 'vue-router';
-import { SensorData,queryType,sensorType} from '../../api/sensor/types';
-import {getCertainAbnormal} from '../../api/sensor/index';
+import { SensorData,queryType,sensorType} from '../../api/security/types';
+import {getCertainAbnormal} from '../../api/security/index';
 
 // 渲染对象类型
 interface RenderData {

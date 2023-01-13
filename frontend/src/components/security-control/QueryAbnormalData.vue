@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import {getAbnormalByDifference} from '../../api/sensor/index';
-import {sensorType} from '../../api/sensor/types';
+import {getAbnormalByDifference} from '../../api/security/index';
+import {sensorType} from '../../api/security/types';
 import { onMounted,watch,ref } from 'vue';
 import {Router, useRouter} from 'vue-router'
 const router = useRouter()

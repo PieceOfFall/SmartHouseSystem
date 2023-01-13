@@ -116,6 +116,30 @@ export interface AbnormalDataSet {
 }
 
 /*
+   用户数据
+*/
+export interface UserData {
+   account: string,
+   password?:null,
+   creatTime:number,
+   role:number,
+   email:string
+}
+
+/*
+   用户渲染数据
+*/
+export interface UserRenderData {
+   account: string,
+   createdTime:string,
+   role:
+   |'root'
+   |'master'
+   |'user',
+   email:string
+}
+
+/*
    首页温湿度结果
 */
 export type HumidityAndTemperature = {

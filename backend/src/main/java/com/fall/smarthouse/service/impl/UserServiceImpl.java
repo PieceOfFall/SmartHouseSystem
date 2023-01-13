@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
         if(accountRole >= user.getRole()){
             //若user的权限为root，则此时account权限也为root，
             //不能设置两个root权限，权限不够将affectRows设为0返回false
-            if(user.getRole().equals(UserRole.ROOT.getRole())){
+            if(!account.equals(user.getAccount()) && user.getRole().equals(UserRole.ROOT.getRole())){
                 affectRows = 0;
             }else {
                 affectRows = userMapper.updateUser(user);

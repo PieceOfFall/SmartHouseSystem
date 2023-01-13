@@ -32,8 +32,8 @@
 import Chart from '../../components/LineChart.vue';
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
-import { getCurrentData } from '../../api/sensor';
-import { ShakeData } from '../../api/sensor/types';
+import { getCurrentData } from '../../api/security';
+import { ShakeData } from '../../api/security/types';
 import {useRouter} from 'vue-router'
 
 /*

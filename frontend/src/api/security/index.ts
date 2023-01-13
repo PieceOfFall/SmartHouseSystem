@@ -6,7 +6,8 @@ import {
     SensorDataSet,
     queryType,
     sensorType,
-    HumidityAndTemperature
+    UserData,
+    UserRenderData
 } from './types';
 
 /*
@@ -126,6 +127,29 @@ export async function getCertainAbnormal(
                 queryType
             }
         })
+}
+
+/*
+   获取所有用户
+*/
+export async function getAllUsers():AxiosPromise<UserRenderData[]> {
+    const users = await request({
+        url:'/user/get_all_user',
+        method:'get'
+    })
+
+    users.data =  users.data.map((currentValue:UserData,index:number)=>{
+        const date = new Date(currentValue.creatTime)
+        return {
+            account:currentValue.account,
+            createdTime:`${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`,
+            role:currentValue.role===2?'root':currentValue.role===1?'master':'user',
+            email:currentValue.email
+        }
+    })
+
+    return users
+   
 }
 
 /*
