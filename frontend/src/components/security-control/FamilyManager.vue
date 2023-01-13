@@ -87,10 +87,21 @@
                     </el-form-item>
                 </el-form>
 
+                <!-- 确认添加 -->
                 <el-link 
-                    type="primary"
-                    @click="confirmSubmit(ruleInsertFormRef,'add')">
-                        确 认
+                id="confirm-insert"
+                type="primary"
+                @click="confirmSubmit(ruleInsertFormRef,'add')">
+                    确 认
+                </el-link>
+
+                <!-- 取消添加 -->
+                <el-link
+                id="cancel-insert"
+                type="primary"
+                @click="cancelInsert"
+                >
+                    取 消
                 </el-link>
 
             </el-card>
@@ -252,7 +263,7 @@ async function confirmSubmit(formEl: FormInstance | undefined,operationType:'add
    删除用户
 */
 async function deleteUser(index: number, row:UserRenderData) {
-    
+
 }
 
 /*
@@ -282,6 +293,15 @@ const userInsertRules = reactive<FormRules>({
         {min: 6, message: '密码长度至少为6', trigger: 'blur' }
     ]
 })
+
+// 取消添加
+function cancelInsert() {
+    isOnInsert.value = false
+    userInsertForm.account = ''
+    userInsertForm.password = ''
+    userInsertForm.email = ''
+    userInsertForm.role = 0 
+}
 
 /*
    修改用户
@@ -373,13 +393,21 @@ const userEditRules = reactive<FormRules>({
                     margin-bottom: 2.5rem;
                 }
             }
-            .el-link {
+            #confirm-insert {
                 position: absolute;
                 padding: 0.2rem;
                 font-size: 15px;
                 bottom: 0;
-                left:50%;
+                left:30%;
                 transform: translate(-50%,0);
+            }
+            #cancel-insert {
+                position: absolute;
+                padding: 0.2rem;
+                font-size: 15px;
+                bottom: 0;
+                right:30%;
+                transform: translate(50%,0);
             }
         }
     }
