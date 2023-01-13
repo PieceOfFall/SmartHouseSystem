@@ -87,7 +87,7 @@ const rules = reactive<FormRules>({
         { min: 9, max: 9, message: '长度应该为9', trigger: 'blur' }
     ],
     password:[
-        {required:true, message:'请输入账号',trigger:'blur'},
+        {required:true, message:'请输入密码',trigger:'blur'},
         {required:true, min: 6, message: '密码长度至少为6', trigger: 'blur' }
     ]
 })

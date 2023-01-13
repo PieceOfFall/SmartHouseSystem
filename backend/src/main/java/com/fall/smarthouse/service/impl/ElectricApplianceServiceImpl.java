@@ -423,5 +423,4 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         return switchState;
     }
 
-
 }
