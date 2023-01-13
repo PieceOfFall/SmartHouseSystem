@@ -7,7 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AbnormalCertainData: typeof import('./src/components/sensor/AbnormalCertainData.vue')['default']
+    AbnormalCertainData: typeof import('./src/components/security-control/AbnormalCertainData.vue')['default']
     Aside: typeof import('./src/components/Aside.vue')['default']
     BarAndLineChart: typeof import('./src/components/BarAndLineChart.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb.vue')['default']
@@ -36,10 +36,11 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    FamilyManager: typeof import('./src/components/security-control/FamilyManager.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     LineChart: typeof import('./src/components/LineChart.vue')['default']
-    QueryAbnormalData: typeof import('./src/components/sensor/QueryAbnormalData.vue')['default']
-    QueryCertainData: typeof import('./src/components/sensor/QueryCertainData.vue')['default']
+    QueryAbnormalData: typeof import('./src/components/security-control/QueryAbnormalData.vue')['default']
+    QueryCertainData: typeof import('./src/components/security-control/QueryCertainData.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Selector: typeof import('./src/components/Selector.vue')['default']
