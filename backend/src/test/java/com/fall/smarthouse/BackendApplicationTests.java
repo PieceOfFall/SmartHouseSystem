@@ -74,8 +74,10 @@ class BackendApplicationTests {
 
     @Test
     void testUser(){
-        Integer integer = userMapper.selectRoleRoot();
-        System.out.println(integer);
+//        Integer integer = userMapper.selectRoleRoot();
+//        System.out.println(integer);
+        Integer exist = userMapper.isExist("122345678");
+        System.out.println(exist);
     }
     @Test
     void getEmail(){
