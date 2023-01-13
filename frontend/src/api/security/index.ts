@@ -6,7 +6,8 @@ import {
     SensorDataSet,
     queryType,
     sensorType,
-    HumidityAndTemperature
+    UserData,
+    UserRenderData
 } from './types';
 
 /*
@@ -126,6 +127,61 @@ export async function getCertainAbnormal(
                 queryType
             }
         })
+}
+
+/*
+   获取所有用户
+*/
+export async function getAllUsers():AxiosPromise<UserRenderData[]> {
+    const users = await request({
+        url:'/user/get_all_user',
+        method:'get'
+    })
+
+    users.data =  users.data.map((currentValue:UserData,index:number)=>{
+        const date = new Date(currentValue.creatTime as number)
+        return {
+            account:currentValue.account,
+            createdTime:`${date.getFullYear()} 年 ${date.getMonth()+1} 月 ${date.getDate()} 日`,
+            role:currentValue.role===2?'root':currentValue.role===1?'master':'user',
+            email:currentValue.email
+        }
+    })
+
+    return users
+}
+
+/*
+   添加用户
+   userInfo 新用户信息
+*/
+export async function addUser(userInfo:UserData):AxiosPromise {
+    return await request({
+        url:'/user/add_user',
+        method:'post',
+        data:{
+            ...userInfo,
+            creatTime:new Date().getTime()
+        }
+    })
+}
+
+/*
+   修改用户
+   userInfo 修改后的用户信息
+*/
+export async function editUser(userInfo:UserData):AxiosPromise {
+    if(userInfo.password?.trim()==='') {
+        delete userInfo.password
+    }
+    
+    return await request({
+        url:'/user/update_user',
+        method:'post',
+        data:{
+            ...userInfo
+        }
+    })
 }
 
 /*

@@ -70,7 +70,6 @@ export async function toggleAllSwitch(isOneSwitchOnExist:boolean) {
         } as ElectricAppliance)
     }
     
-    
 }
 
 /*
