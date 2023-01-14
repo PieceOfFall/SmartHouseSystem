@@ -1,7 +1,7 @@
 <template>
-            <div class="header-container" @click="backHome">
+            <div class="header-container">
                 <!-- 标题 -->
-                <span>539 <b>智</b> 能家居</span>
+                <span @click="backHome">539 <b>智</b> 能家居</span>
             </div>
 </template>
 

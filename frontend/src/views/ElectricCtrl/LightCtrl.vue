@@ -3,7 +3,6 @@
         <!-- 面包屑 -->
         <Breadcrumb bread-route="灯光控制"/>
 
-
         <!-- 卡片 -->
         <el-card>
             <!-- 控制容器 -->
@@ -58,16 +57,14 @@
                 </el-col>
             </el-row>
             
-
         </el-card>
-
 
     </div>
 </template>
 
 <script setup lang="ts">
 import Breadcrumb from '../../components/Breadcrumb.vue';
-import { Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue'
+import { Moon,Cloudy,Sunrise,Sunny } from '@element-plus/icons-vue';
 import { getLights,setAppliance } from '../../api/electric/index';
 import { LightsState,ElectricAppliance } from '../../api/electric/types';
 import { onMounted, ref, watch } from 'vue';
@@ -81,6 +78,7 @@ let lights = ref<LightsState>({
     lightLivingRoom:0,
     lightBathroom:0
 })
+
 onMounted(async()=>{
     lights.value = await (await getLights()).data
 })

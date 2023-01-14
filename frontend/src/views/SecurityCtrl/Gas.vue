@@ -32,8 +32,8 @@
 <script setup lang="ts">
 import Chart from '../../components/LineChart.vue';
 import DatePicker from '../../components/DoubleDatePicker.vue';
-import {getCurrentData} from '../../api/sensor/index';
-import {GasData} from '../../api/sensor/types';
+import {getCurrentData} from '../../api/security/index';
+import {GasData} from '../../api/security/types';
 import { ref,onMounted,nextTick,onBeforeUnmount } from 'vue';
 import {useRouter} from 'vue-router'
 

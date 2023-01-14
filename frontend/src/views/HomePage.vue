@@ -55,8 +55,8 @@ import {reactive,
 import {HumidityAndTemperature,
         HumidityAndTemperaturePromise,
         TemperatureData,
-        HumidityData} from '../api/sensor/types';
-import { getCurrentData } from '../api/sensor/index';
+        HumidityData} from '../api/security/types';
+import { getCurrentData } from '../api/security/index';
 import ElectricHistory from '../components/ElectricHistory.vue';
 import BarAndLineChart from '../components/BarAndLineChart.vue';
 

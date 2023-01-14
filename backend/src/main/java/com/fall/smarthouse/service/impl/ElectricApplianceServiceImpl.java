@@ -182,7 +182,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         homeMode.setSwitchA(SwitchState.ON.getState());
         homeMode.setSwitchB(SwitchState.ON.getState());
         homeMode.setSwitchC(SwitchState.ON.getState());
-        Integer affectRows = electricMapper.updateElectricAppliance(homeMode);
+        electricMapper.updateElectricAppliance(homeMode);
         //添加历史记录
         addElectricHistory(account,homeMode);
     }
@@ -203,7 +203,7 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         leaveHomeMode.setSwitchA(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchB(SwitchState.OFF.getState());
         leaveHomeMode.setSwitchC(SwitchState.OFF.getState());
-        Integer affectRows = electricMapper.updateElectricAppliance(leaveHomeMode);
+        electricMapper.updateElectricAppliance(leaveHomeMode);
         //添加历史记录
         addElectricHistory(account,leaveHomeMode);
     }
@@ -243,7 +243,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
      * @description: 初始化electricApplianceMap
      * @author xiaoQe
      * @date 2023/1/8 18:59
-     * @version 1.0
      */
     private void initializeElectricApplianceMap(){
         ElectricAppliance appliance = electricMapper.getAppliance();
@@ -423,6 +422,5 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         }
         return switchState;
     }
-
 
 }
