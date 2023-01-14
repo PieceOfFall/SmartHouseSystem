@@ -51,7 +51,7 @@ public interface IUserService {
      * @author xiaoQe
      * @date 2023/1/6 22:04
      */
-    Boolean deleteUser(String account,User user);
+    Boolean deleteUser(String account,String userAccount);
 
     /**
      * @description: 修改用户信息
