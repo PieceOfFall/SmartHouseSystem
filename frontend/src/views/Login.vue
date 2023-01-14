@@ -101,7 +101,14 @@ async function submitForm(formEl: FormInstance | undefined) {
     if (!formEl) return
     await formEl.validate( async function (valid, fields) {   
         if (valid) {
-          let token:Token = await (await userLogin(form.account,form.password)).data
+          const ret = await (await userLogin(form.account,form.password))      
+          if(ret.status !== 200) {
+            ElMessage({
+                message: '服务错误',
+                type: 'error'
+            })
+          }
+          let token:Token = ret.data
           window.localStorage.setItem("authorization",token)
 
           userAccount.value = form.account

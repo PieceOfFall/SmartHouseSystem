@@ -59,6 +59,7 @@ import {HumidityAndTemperature,
 import { getCurrentData } from '../api/security/index';
 import ElectricHistory from '../components/ElectricHistory.vue';
 import BarAndLineChart from '../components/BarAndLineChart.vue';
+import { ElMessage } from 'element-plus';
 
 /*
    欢迎使用
@@ -116,6 +117,12 @@ const updateInterval = setInterval(async()=>{
     timeArray.value.push(new Date().getSeconds())
 
     const [humidityData]:HumidityData[] = (await getCurrentData('humidity')).data.list
+    if(!humidityData) {
+        ElMessage({
+            message:'请开启传感器,并刷新页面',
+            type:'error'
+        })
+    }
     chartData.value.bar.shift()
     chartData.value.bar.push(humidityData.humidity*100)
 
