@@ -18,17 +18,14 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class User {
     // 账号
-    @NotEmpty
     private String account;
     // 密码
     private String password;
     //创建时间
     private Long creatTime;
     //邮箱
-    @NotEmpty
     private String eMail;
     //权限
-    @NotNull
     private Integer role;
 
 }
