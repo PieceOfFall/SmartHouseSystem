@@ -29,9 +29,23 @@
                             修改
                         </el-button>
                         
-                        <el-button link type="primary" size="small" @click="deleteUser(scope.$index, scope.row)">
-                            删除
-                        </el-button>
+                        <el-popconfirm
+                        width="220"
+                        confirm-button-text="确认"
+                        cancel-button-text="取消"
+                        :icon="InfoFilled"
+                        icon-color="#626AEF"
+                        title="确认要删除该用户吗"
+                        @confirm="deleteUser(scope.$index, scope.row)"
+                        >
+                            <template #reference>
+                                <el-button link type="primary" size="small">
+                                    删除
+                                </el-button>
+                            </template>
+                        </el-popconfirm>
+    
+                        
                     </template>
                 </el-table-column>
             </el-table>
@@ -170,9 +184,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue';
-import { getAllUsers, editUser, addUser } from '../../api/security/index';
+import { getAllUsers, editUser, addUser, deleteUserByAccount } from '../../api/security/index';
 import { UserRenderData } from '../../api/security/types';
 import { FormInstance, FormRules,ElMessage } from 'element-plus';
+import { InfoFilled } from '@element-plus/icons-vue';
 
 /*
    用户列表
@@ -269,7 +284,18 @@ async function confirmSubmit(formEl: FormInstance | undefined,operationType:'add
    删除用户
 */
 async function deleteUser(index: number, row:UserRenderData) {
-    console.log(row);
+    if(await (await deleteUserByAccount(row.account)).status === 200) {
+        ElMessage({
+                message: '删除成功',
+                type: 'success'
+        })
+        await getAndRenderAllUsers()
+    } else {
+        ElMessage({
+            message:'操作失败',
+            type:'error'
+        })
+    }
     
 }
 

@@ -23,7 +23,6 @@ public class User {
     // 密码
     private String password;
     //创建时间
-    @NotNull
     private Long creatTime;
     //邮箱
     @NotEmpty

@@ -185,6 +185,19 @@ export async function editUser(userInfo:UserData):AxiosPromise {
 }
 
 /*
+   删除用户
+*/
+export async function deleteUserByAccount(account:string) {
+    return await request({
+        url:'/user/delete_user',
+        method:'delete',
+        params:{
+            userAccount:account
+        }
+    })
+}
+
+/*
     传感器util
     根据时间差查询当前时间间隔
     difference 始末时间戳之差
