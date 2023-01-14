@@ -12,6 +12,7 @@
             </template>
 
             <el-table
+            v-loading="loading"
             :data="users"
             :border="true">
                 <el-table-column prop="account" label="账户"/>
@@ -28,9 +29,23 @@
                             修改
                         </el-button>
                         
-                        <el-button link type="primary" size="small">
-                            删除
-                        </el-button>
+                        <el-popconfirm
+                        width="220"
+                        confirm-button-text="确认"
+                        cancel-button-text="取消"
+                        :icon="InfoFilled"
+                        icon-color="#626AEF"
+                        title="确认要删除该用户吗"
+                        @confirm="deleteUser(scope.$index, scope.row)"
+                        >
+                            <template #reference>
+                                <el-button link type="primary" size="small">
+                                    删除
+                                </el-button>
+                            </template>
+                        </el-popconfirm>
+    
+                        
                     </template>
                 </el-table-column>
             </el-table>
@@ -154,10 +169,21 @@
                         </el-radio-group>
                     </el-form-item>
 
+                    <!-- 确认修改 -->
                     <el-link 
+                    id="confirm-edit"
                     type="primary"
                     @click="confirmSubmit(ruleEditFormRef,'edit')">
                         确 认
+                    </el-link>
+
+                    <!-- 取消修改 -->
+                    <el-link
+                    id="cancel-edit"
+                    type="primary"
+                    @click="cancelEdit"
+                    >
+                        取 消
                     </el-link>
 
                 </el-form>
@@ -168,20 +194,25 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue';
-import { getAllUsers, editUser, addUser } from '../../api/security/index';
+import { getAllUsers, editUser, addUser, deleteUserByAccount } from '../../api/security/index';
 import { UserRenderData } from '../../api/security/types';
 import { FormInstance, FormRules,ElMessage } from 'element-plus';
+import { InfoFilled } from '@element-plus/icons-vue';
 
 /*
    用户列表
 */
 // 用户信息
 const users = ref<UserRenderData[]>()
+// 等待加载
+const loading = ref(true)
 
 // 请求所有用户信息
 async function getAndRenderAllUsers() {
+    loading.value = true
     const ret:UserRenderData[] = await (await getAllUsers()).data
     users.value = ret?ret:users.value
+    loading.value = false
 }
 
 // 页面初始化请求所有用户信息
@@ -263,7 +294,19 @@ async function confirmSubmit(formEl: FormInstance | undefined,operationType:'add
    删除用户
 */
 async function deleteUser(index: number, row:UserRenderData) {
-
+    if(await (await deleteUserByAccount(row.account)).status === 200) {
+        ElMessage({
+                message: '删除成功',
+                type: 'success'
+        })
+        await getAndRenderAllUsers()
+    } else {
+        ElMessage({
+            message:'操作失败',
+            type:'error'
+        })
+    }
+    
 }
 
 /*
@@ -314,6 +357,15 @@ const userEditForm = reactive({
     email:'',
     role:0
 })
+
+// 取消修改
+function cancelEdit() {
+    isOnEdit.value = false
+    userEditForm.account = ''
+    userEditForm.password = ''
+    userEditForm.email = '',
+    userEditForm.role = 0
+}
 
 // 修改用户数据验证规则
 const userEditRules = reactive<FormRules>({
@@ -433,13 +485,21 @@ const userEditRules = reactive<FormRules>({
                     margin-bottom: 2.5rem;
                 }
             }
-            .el-link {
+            #confirm-edit {
                 position: absolute;
                 padding: 0.2rem;
                 font-size: 15px;
                 bottom: 0;
-                left:50%;
+                left:30%;
                 transform: translate(-50%,0);
+            }
+            #cancel-edit {
+                position: absolute;
+                padding: 0.2rem;
+                font-size: 15px;
+                bottom: 0;
+                right:30%;
+                transform: translate(50%,0);
             }
 
         }

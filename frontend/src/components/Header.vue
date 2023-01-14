@@ -1,7 +1,15 @@
 <template>
-            <div class="header-container">
+            <div id="header-container">
                 <!-- 标题 -->
                 <span @click="backHome">539 <b>智</b> 能家居</span>
+
+                <div id="logout-container">
+                    <el-button 
+                    plain
+                    @click="logout">
+                        退 出 登 录
+                    </el-button>
+                </div>
             </div>
 </template>
 
@@ -9,6 +17,7 @@
 import { useRouter } from 'vue-router';
 import useStore from '../store';
 import { storeToRefs } from 'pinia';
+import { ElMessageBox } from 'element-plus';
 
 // Pinia
 const asideStore = useStore().aside
@@ -22,10 +31,23 @@ async function backHome() {
     window.sessionStorage.setItem('selectItem','/homepage')
 }
 
+function logout(){
+    ElMessageBox.confirm('是否退出当前账户', '提示', {
+    confirmButtonText: 'OK',
+    type: 'info'
+  }).then(() => {
+    router.replace('/login')
+    sessionStorage.clear()
+    localStorage.clear()
+  })
+
+}
+
 </script>
 
 <style lang="less" scoped>
-    .header-container {
+    #header-container {
+        position: relative;
         box-sizing: border-box;
         letter-spacing: 0.2rem;
         height: 100%;
@@ -76,6 +98,10 @@ async function backHome() {
                 border-radius: 50%;
             }
         }
-
+        #logout-container {
+            position: absolute;
+            right: 1rem;
+            top: 1.4rem;
+        }
     }
 </style>

@@ -74,11 +74,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Boolean deleteUser(String account, User user) {
+    public Boolean deleteUser(String account, String userAccount) {
         Integer accountRole = userMapper.selectRoleByAccount(account);
+        Integer userRole = userMapper.selectRoleByAccount(userAccount);
         Integer affectRows;
-        if(accountRole > user.getRole()){
-            affectRows = userMapper.deleteUser(user);
+        if(accountRole > userRole){
+            affectRows = userMapper.deleteUser(userAccount);
         }else {
             affectRows = 0;
         }
@@ -101,7 +102,7 @@ public class UserServiceImpl implements IUserService {
             //不能设置两个root权限，权限不够将affectRows设为0返回false
             if(!account.equals(user.getAccount()) && user.getRole().equals(UserRole.ROOT.getRole())){
                 affectRows = 0;
-            }else if(user.getRole().equals(UserRole.ROOT.getRole())) {
+            }else if(accountRole.equals(UserRole.ROOT.getRole()) && account.equals(user.getAccount())) {
                 //进入该判断表明为root用户修改自己的权限
                 //此时将role置空，root用户不可修改自己的权限
                 user.setRole(null);

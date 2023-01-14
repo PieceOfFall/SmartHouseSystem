@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -65,13 +66,13 @@ public class UserController {
     }
 
     @ApiOperation("删除用户")
-    @GetMapping("delete_user")
-    public ResBean deleteUser(@Valid @RequestBody User user,
+    @DeleteMapping("delete_user")
+    public ResBean deleteUser(@NotEmpty @RequestParam("userAccount") String userAccount,
                               HttpServletResponse response,
                               HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String account = JWTUtil.validateToken(token);
-        Boolean deleteSuccess = userService.deleteUser(account, user);
+        Boolean deleteSuccess = userService.deleteUser(account, userAccount);
         if(deleteSuccess){
             response.setStatus(200);
             return ResBean.ok("ok");
