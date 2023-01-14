@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @author FAll
@@ -15,14 +18,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
     // 账号
+    @NotEmpty
     private String account;
     // 密码
     private String password;
     //创建时间
+    @NotNull
     private Long creatTime;
     //邮箱
+    @NotEmpty
     private String eMail;
     //权限
+    @NotNull
     private Integer role;
 
 }

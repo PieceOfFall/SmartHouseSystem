@@ -69,7 +69,7 @@ public interface UserMapper {
      * @date 2023/1/6 21:14
      */
     @Delete("delete from user where account = #{account}")
-    Integer deleteUser(User user);
+    Integer deleteUser(String account);
 
     /**
      * @description: 根据用户名查询用户权限
