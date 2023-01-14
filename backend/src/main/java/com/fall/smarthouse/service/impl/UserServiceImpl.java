@@ -88,23 +88,25 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Boolean updateUser(String account, User user) {
-        //判断user用户是否存在
+        // 判断user用户是否存在
         if (userMapper.isExist(user.getAccount()).equals(0)){
             return false;
         }
         Integer accountRole = userMapper.selectRoleByAccount(account);
+        // userRole 被修改用户真实权限
+        Integer userRole = userMapper.selectRoleByAccount(user.getAccount());
         if(user.getPassword() != null){
             user.setPassword(JWTUtil.SALT_BEFORE + user.getPassword() + JWTUtil.SALT_AFTER);
         }
         Integer affectRows;
-        if(accountRole >= user.getRole()){
-            //若user的权限为root，则此时account权限也为root，
-            //不能设置两个root权限，权限不够将affectRows设为0返回false
+        if(accountRole >= userRole){
+            // 若user的权限为root，则此时account权限也为root，
+            // 不能设置两个root权限，权限不够将affectRows设为0返回false
             if(!account.equals(user.getAccount()) && user.getRole().equals(UserRole.ROOT.getRole())){
                 affectRows = 0;
             }else if(accountRole.equals(UserRole.ROOT.getRole()) && account.equals(user.getAccount())) {
-                //进入该判断表明为root用户修改自己的权限
-                //此时将role置空，root用户不可修改自己的权限
+                // 进入该判断表明为root用户修改自己的权限
+                // 此时将role置空，root用户不可修改自己的权限
                 user.setRole(null);
                 affectRows = userMapper.updateUser(user);
             }else {

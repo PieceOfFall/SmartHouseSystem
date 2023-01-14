@@ -79,6 +79,6 @@
     <select id="selectElectricHistory" resultType="com.fall.smarthouse.model.SqlHistory">
         select UNIX_TIMESTAMP(`time`) as `time`,electric_type,operation_type,electric_id
         from electric_history
-        where account = #{account} and `time` between #{startTime} and #{endTime} order by `time` desc
+        where `time` between #{startTime} and #{endTime} order by `time` desc
     </select>
 </mapper>
