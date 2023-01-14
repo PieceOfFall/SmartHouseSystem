@@ -25,6 +25,9 @@ const service = axios.create({
   },
 });
 
+// 是否已经显示过期提醒
+let isShowTip = false
+
 // 请求拦截器
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
@@ -59,6 +62,14 @@ service.interceptors.response.use(
   },
   (error: any) => {
     console.log(error);
+      if(error && error.code === "ERR_NETWORK") {
+        ElMessage({
+          message: '系统错误',
+          type: 'error'
+        })
+        return
+      }
+
     if (!error.response) {
       logOut()
       return Promise.reject(error.message)
@@ -73,7 +84,7 @@ service.interceptors.response.use(
         logOut()
       } else {
         ElMessage({
-          message: msg || '系统出错',
+          message: msg || '系统错误',
           type: 'error'
         })
       }
@@ -84,12 +95,17 @@ service.interceptors.response.use(
 
 // 退出登录
 async function logOut() {
+  if(isShowTip || router.currentRoute.value.fullPath === '/login') {
+    return
+  }
+ isShowTip = true
+  window.localStorage.clear();
+  sessionStorage.clear()
   ElMessageBox.confirm('当前页面已失效，请重新登录', '提示', {
     confirmButtonText: 'OK',
     type: 'warning'
   }).then(() => {
-    window.localStorage.clear();
-    sessionStorage.clear()
+    isShowTip = false
     router.push('/login')
   })
 }

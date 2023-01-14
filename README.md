@@ -16,6 +16,10 @@
 	vue-router
 	Pinia
 	Axios
+	element-plus
+	vue-echarts
+	animate.css
+	gsap
 
 后端:
 	Java8
@@ -27,6 +31,9 @@
 	Mybatis
 	Druid
 	Swagger
+	java-jwt
+	pageHelper
+	mail
 	
 虚拟传感器端:
 	Node.js

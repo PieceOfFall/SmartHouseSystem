@@ -14,7 +14,7 @@
             <el-table
             v-loading="loading"
             :data="users"
-            :border="true">
+            :border="true"> 
                 <el-table-column prop="account" label="账户"/>
                 
                 <el-table-column prop="createdTime" label="创建时间"/>
