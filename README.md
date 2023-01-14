@@ -1,4 +1,4 @@
-#		 智能家居   ( Vue3  +  SpringBoot  +  Node )
+#		 智能家居   ( Vue3  +  SpringBoot  +  Node.js )
 
 
 
