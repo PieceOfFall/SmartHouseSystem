@@ -171,9 +171,19 @@
 
                     <!-- 确认修改 -->
                     <el-link 
+                    id="confirm-edit"
                     type="primary"
                     @click="confirmSubmit(ruleEditFormRef,'edit')">
                         确 认
+                    </el-link>
+
+                    <!-- 取消修改 -->
+                    <el-link
+                    id="cancel-edit"
+                    type="primary"
+                    @click="cancelEdit"
+                    >
+                        取 消
                     </el-link>
 
                 </el-form>
@@ -348,6 +358,15 @@ const userEditForm = reactive({
     role:0
 })
 
+// 取消修改
+function cancelEdit() {
+    isOnEdit.value = false
+    userEditForm.account = ''
+    userEditForm.password = ''
+    userEditForm.email = '',
+    userEditForm.role = 0
+}
+
 // 修改用户数据验证规则
 const userEditRules = reactive<FormRules>({
     account:[
@@ -466,13 +485,21 @@ const userEditRules = reactive<FormRules>({
                     margin-bottom: 2.5rem;
                 }
             }
-            .el-link {
+            #confirm-edit {
                 position: absolute;
                 padding: 0.2rem;
                 font-size: 15px;
                 bottom: 0;
-                left:50%;
+                left:30%;
                 transform: translate(-50%,0);
+            }
+            #cancel-edit {
+                position: absolute;
+                padding: 0.2rem;
+                font-size: 15px;
+                bottom: 0;
+                right:30%;
+                transform: translate(50%,0);
             }
 
         }
