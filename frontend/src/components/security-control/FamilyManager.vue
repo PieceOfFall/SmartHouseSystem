@@ -12,6 +12,7 @@
             </template>
 
             <el-table
+            v-loading="loading"
             :data="users"
             :border="true">
                 <el-table-column prop="account" label="账户"/>
@@ -28,7 +29,7 @@
                             修改
                         </el-button>
                         
-                        <el-button link type="primary" size="small">
+                        <el-button link type="primary" size="small" @click="deleteUser(scope.$index, scope.row)">
                             删除
                         </el-button>
                     </template>
@@ -154,6 +155,7 @@
                         </el-radio-group>
                     </el-form-item>
 
+                    <!-- 确认修改 -->
                     <el-link 
                     type="primary"
                     @click="confirmSubmit(ruleEditFormRef,'edit')">
@@ -177,11 +179,15 @@ import { FormInstance, FormRules,ElMessage } from 'element-plus';
 */
 // 用户信息
 const users = ref<UserRenderData[]>()
+// 等待加载
+const loading = ref(true)
 
 // 请求所有用户信息
 async function getAndRenderAllUsers() {
+    loading.value = true
     const ret:UserRenderData[] = await (await getAllUsers()).data
     users.value = ret?ret:users.value
+    loading.value = false
 }
 
 // 页面初始化请求所有用户信息
@@ -263,7 +269,8 @@ async function confirmSubmit(formEl: FormInstance | undefined,operationType:'add
    删除用户
 */
 async function deleteUser(index: number, row:UserRenderData) {
-
+    console.log(row);
+    
 }
 
 /*
