@@ -4,8 +4,8 @@ spring:
   # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: root
+    username: xxxxxxx
+    password: xxxxxxx
     url: jdbc:mysql://localhost:3306/smart_house?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
 
     # Druid配置
@@ -43,8 +43,8 @@ spring:
   # 邮箱配置
   mail:
     host: smtp.qq.com
-    username: 2770838499@qq.com
-    password: wmasbukitysldfeg
+    username: xxxxxxxxxxxxxxxxx
+    password: xxxxxxxxxxxxxxxxx
     properties:
       mail.smtp.ssl.enable: true
 
@@ -59,7 +59,7 @@ jwt:
   # token 前缀
   tokenPrefix: "Bearer "
   # 私钥
-  secret: "1f101b867a904c2ba01f5ce75df24185"
+  secret: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   # token 的有效时间，单位是分钟
   expireTime: 1
 
