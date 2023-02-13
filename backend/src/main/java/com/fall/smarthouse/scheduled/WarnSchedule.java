@@ -28,10 +28,13 @@ import java.util.List;
 @EnableAsync
 public class WarnSchedule {
 
+    // 用户service
     private final IUserService userService;
 
+    // 电器service
     private final IElectricApplianceService electricApplianceService;
 
+    // email
     private final JavaMailSenderImpl mailSender;
 
     @Autowired
@@ -41,11 +44,18 @@ public class WarnSchedule {
         this.mailSender = mailSender;
     }
 
+    // 读取邮箱账号
     @Value("${spring.mail.username}")
     private String fromEmail;
 
+    // 记录已发送次数
     private Integer sendTimes = 0;
 
+    /**
+     * @author FAll
+     * @description  轮询异常位，检测到异常则向所有家庭成员发送告警
+     * @date 2022/12/28 19:16
+     */
     @Async
     @Scheduled(fixedDelay = 5000)
     public void sendWarnEmail() {

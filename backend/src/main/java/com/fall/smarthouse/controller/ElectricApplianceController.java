@@ -27,8 +27,10 @@ import java.util.HashMap;
 @RestController
 public class ElectricApplianceController {
 
+    // 用户service
     private final IUserService userService;
 
+    // 电器service
     private final IElectricApplianceService electricApplianceService;
 
     @Autowired

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 @RestController
 public class SmartController {
 
+    // 家居service
     private final ISmartService smartService;
 
     @Autowired

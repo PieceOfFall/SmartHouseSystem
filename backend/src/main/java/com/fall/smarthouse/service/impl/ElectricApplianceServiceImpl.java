@@ -24,8 +24,10 @@ import java.util.*;
 @Service
 public class ElectricApplianceServiceImpl implements IElectricApplianceService {
 
+    // 当前所有电器状态
     private static final HashMap<String, Integer> electricApplianceMap = new HashMap<>();
 
+    // 电器mapper
     private final ElectricMapper electricMapper;
 
     @Autowired
@@ -56,6 +58,24 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
     @Override
     public ElectricAppliance getWarnLight() {
         return electricMapper.getWarnLight();
+    }
+
+    /**
+     * @description: 初始化electricApplianceMap
+     * @author xiaoQe
+     * @date 2023/1/8 18:59
+     */
+    private void initializeElectricApplianceMap(){
+        ElectricAppliance appliance = electricMapper.getAppliance();
+        electricApplianceMap.put("lightBedA", appliance.getLightBedA());
+        electricApplianceMap.put("lightBedB", appliance.getLightBedB());
+        electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
+        electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
+        electricApplianceMap.put("switchA", appliance.getSwitchA());
+        electricApplianceMap.put("switchB", appliance.getSwitchB());
+        electricApplianceMap.put("switchC", appliance.getSwitchC());
+        electricApplianceMap.put("curtainA", appliance.getCurtainA());
+        electricApplianceMap.put("curtainB", appliance.getCurtainB());
     }
 
     @Override
@@ -237,24 +257,6 @@ public class ElectricApplianceServiceImpl implements IElectricApplianceService {
         alertAppliance.setWarnLight(SwitchState.ON.getState());
         electricMapper.updateElectricAppliance(alertAppliance);
         return alertAppliance;
-    }
-
-    /**
-     * @description: 初始化electricApplianceMap
-     * @author xiaoQe
-     * @date 2023/1/8 18:59
-     */
-    private void initializeElectricApplianceMap(){
-        ElectricAppliance appliance = electricMapper.getAppliance();
-        electricApplianceMap.put("lightBedA", appliance.getLightBedA());
-        electricApplianceMap.put("lightBedB", appliance.getLightBedB());
-        electricApplianceMap.put("lightLivingRoom", appliance.getLightLivingRoom());
-        electricApplianceMap.put("lightBathroom", appliance.getLightBathroom());
-        electricApplianceMap.put("switchA", appliance.getSwitchA());
-        electricApplianceMap.put("switchB", appliance.getSwitchB());
-        electricApplianceMap.put("switchC", appliance.getSwitchC());
-        electricApplianceMap.put("curtainA", appliance.getCurtainA());
-        electricApplianceMap.put("curtainB", appliance.getCurtainB());
     }
 
     /**
