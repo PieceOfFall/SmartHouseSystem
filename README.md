@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #		智 能 家 居
+=======
+#		 智能家居   ( Vue3  +  SpringBoot  +  Node.js )
+>>>>>>> bbb848c4e2fc2e02a7022debd05b3c3067e57dc7
 
 ---
 
@@ -49,6 +53,7 @@
 	Axios
 	Cron
 ```
+<<<<<<< HEAD
 
 
 ###	描述
@@ -92,3 +97,5 @@
 - Maven            [Maven安装教程](https://blog.csdn.net/qq_40625778/article/details/125229241)
 - Mysql8以上    [Mysql安装教程](https://zhuanlan.zhihu.com/p/46905335?ivk_sa=1024320u)
 - Node.js          [Node.js安装教程](https://blog.csdn.net/qq_57210034/article/details/124823972)
+=======
+>>>>>>> bbb848c4e2fc2e02a7022debd05b3c3067e57dc7
