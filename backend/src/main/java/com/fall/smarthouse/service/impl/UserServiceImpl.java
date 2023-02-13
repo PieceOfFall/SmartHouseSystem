@@ -20,11 +20,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
 
+    // 读取邮箱账户
     @Value("${spring.mail.username}")
     private String fromEmail;
 
+    // mail
     private final JavaMailSenderImpl mailSender;
 
+    // 用户mapper
     private final UserMapper userMapper;
 
     @Autowired

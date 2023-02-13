@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Sensor {
 
+    // 13(10)位时间戳
     private Long time;
     // 燃气 (百分制 危险值 5)
     private Double gas;

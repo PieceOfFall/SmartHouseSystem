@@ -22,8 +22,10 @@ import java.util.*;
 @Service
 public class SensorServiceImpl implements ISensorService {
 
+    // 异常mapper
     private final AbnormalMapper abnormalMapper;
 
+    // 传感器mapper
     private final SensorMapper sensorMapper;
 
     @Autowired
@@ -32,7 +34,9 @@ public class SensorServiceImpl implements ISensorService {
         this.sensorMapper = sensorMapper;
     }
 
+    // 当前异常系数
     public static Integer abnormalType = null;
+    // 当前异常开始时间戳
     public static Long startTime = null;
 
     @Override

@@ -13,9 +13,13 @@ import org.springframework.lang.Nullable;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class MenuItem {
+    // id
     private int id;
+    // 路径
     private String path;
+    // 选项名
     private String authName;
+    // 子选项
     @Nullable
     private MenuItem[] children;
 }

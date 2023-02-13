@@ -19,6 +19,7 @@ import java.util.ArrayList;
 @Service
 public class SmartServiceImpl implements ISmartService {
 
+    // 家居mapper
     private final SmartMapper smartMapper;
 
     @Autowired
@@ -26,6 +27,7 @@ public class SmartServiceImpl implements ISmartService {
         this.smartMapper = smartMapper;
     }
 
+    // 首页菜单数据
     private static final ArrayList<MenuItem> menu = new ArrayList<>();
 
     /**

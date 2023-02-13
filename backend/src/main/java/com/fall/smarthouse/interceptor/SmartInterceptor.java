@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 @Slf4j
 @Component
 public class SmartInterceptor implements HandlerInterceptor {
-
+    // jackson
     private final ObjectMapper mapper;
 
     @Autowired

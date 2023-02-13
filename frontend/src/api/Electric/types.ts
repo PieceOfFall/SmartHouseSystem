@@ -50,6 +50,7 @@ export interface WarnState {
 }
 
 /*
-   电器状态
+   电器总状态
 */
-export interface ElectricAppliance extends WarnState,SubmitCurtainState,SubmitSwitchState,LightsState { }
+export interface ElectricAppliance extends WarnState,SubmitCurtainState,
+   SubmitSwitchState,LightsState { }

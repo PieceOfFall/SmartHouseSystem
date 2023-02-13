@@ -25,6 +25,7 @@ import java.util.Map;
 @RestController
 public class SensorController {
 
+    // 传感器service
     private final ISensorService sensorService;
 
     @Autowired

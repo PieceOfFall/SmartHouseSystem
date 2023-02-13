@@ -28,7 +28,7 @@ import java.util.Objects;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    // jackson
     private final ObjectMapper mapper;
 
     @Autowired
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
                                                            HttpServletRequest request) {
         logWarn(request);
         log.warn("请求参数缺失", e);
-        response.setStatus(405);
+        response.setStatus(403);
         return ResBean.badRequest(String.format("请求参数缺失:%s", e.getParameterName()));
     }
 
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
                                                        HttpServletRequest request) {
         logWarn(request);
         log.warn("参数类型不匹配", e);
-        response.setStatus(405);
+        response.setStatus(403);
         return ResBean.badRequest(String.format("参数类型不匹配:%s", e.getMessage()));
     }
 
@@ -90,7 +90,7 @@ public class GlobalExceptionHandler {
         logWarn(request);
         log.warn("参数校验错误", e);
         FieldError fieldError = e.getBindingResult().getFieldError();
-        response.setStatus(405);
+        response.setStatus(403);
         return ResBean.badRequest(String.format("参数校验错误:%s", Objects.requireNonNull(fieldError).getDefaultMessage()));
     }
 

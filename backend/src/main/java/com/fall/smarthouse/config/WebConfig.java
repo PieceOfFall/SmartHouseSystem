@@ -27,6 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class WebConfig implements WebMvcConfigurer {
 
+    // 拦截器实例
     private final SmartInterceptor interceptor;
 
     @Autowired
@@ -71,7 +72,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * @author FAll
-     * @description 添加拦截器
+     * @description 注册拦截器
      * @param registry 注册器
      * @date 2022/12/12 12:36
      */
